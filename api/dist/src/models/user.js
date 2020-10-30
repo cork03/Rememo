@@ -54,4 +54,5 @@ User.init({
     sequelize: _1.sequelize,
     modelName: "user",
 });
+exports.default = User;
 //# sourceMappingURL=user.js.map

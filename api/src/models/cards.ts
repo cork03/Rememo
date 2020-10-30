@@ -46,3 +46,5 @@ Card.init(
     modelName: "card",
   }
 );
+
+export default Card;

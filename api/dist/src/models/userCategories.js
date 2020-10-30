@@ -50,4 +50,5 @@ UserCategory.init({
     sequelize: _1.sequelize,
     modelName: "userCategory",
 });
+exports.default = UserCategory;
 //# sourceMappingURL=userCategories.js.map

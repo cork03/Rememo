@@ -29,3 +29,5 @@ CardLinks.init(
     modelName: "cardLinks",
   }
 );
+
+export default CardLinks;

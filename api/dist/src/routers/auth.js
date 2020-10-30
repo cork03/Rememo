@@ -15,8 +15,10 @@ router.post("/signup", async (req, res) => {
         const registeredUser = await user_1.default.findOne({
             where: { loginId: user.loginId },
         });
-        if (!user.password) {
-            return res.status(400).json({ error: "パスワードが入力されていません" });
+        if (!user.password || user.password.length < 6) {
+            return res
+                .status(400)
+                .json({ error: "パスワードは６文字以上入力してください。" });
         }
         if (registeredUser) {
             return res.status(422).json({ error: "すでに登録済みのユーザーです" });

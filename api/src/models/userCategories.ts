@@ -33,3 +33,5 @@ UserCategory.init(
     modelName: "userCategory",
   }
 );
+
+export default UserCategory;

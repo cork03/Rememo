@@ -1,7 +1,9 @@
 import Sequelize, { Model } from "sequelize";
 import { sequelize } from ".";
 
-class User extends Model {}
+class User extends Model {
+  public authorizeToken?: string;
+}
 
 User.init(
   {
@@ -37,3 +39,5 @@ User.init(
     modelName: "user",
   }
 );
+
+export default User;

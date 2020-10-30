@@ -50,4 +50,5 @@ CardCategory.init({
     sequelize: _1.sequelize,
     modelName: "cardCategory",
 });
+exports.default = CardCategory;
 //# sourceMappingURL=cardCategories.js.map

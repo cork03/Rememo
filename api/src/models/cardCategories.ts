@@ -33,3 +33,5 @@ CardCategory.init(
     modelName: "cardCategory",
   }
 );
+
+export default CardCategory;

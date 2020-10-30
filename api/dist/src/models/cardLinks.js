@@ -46,4 +46,5 @@ CardLinks.init({
     sequelize: _1.sequelize,
     modelName: "cardLinks",
 });
+exports.default = CardLinks;
 //# sourceMappingURL=cardLinks.js.map
