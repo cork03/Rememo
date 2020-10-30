@@ -18,9 +18,16 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.UserCategories = exports.Cards = exports.cardCategory = exports.CardCategories = void 0;
 const sequelize_1 = __importStar(require("sequelize"));
 const _1 = require(".");
+const cardCategories_1 = __importDefault(require("./cardCategories"));
+const cardLinks_1 = __importDefault(require("./cardLinks"));
+const userCategories_1 = __importDefault(require("./userCategories"));
 class Card extends sequelize_1.Model {
 }
 Card.init({
@@ -62,6 +69,18 @@ Card.init({
 }, {
     sequelize: _1.sequelize,
     modelName: "card",
+});
+Card.hasMany(cardLinks_1.default);
+cardLinks_1.default.belongsTo(Card);
+exports.CardCategories = Card.hasMany(cardCategories_1.default);
+exports.cardCategory = cardCategories_1.default.belongsTo(Card);
+exports.Cards = Card.belongsToMany(userCategories_1.default, {
+    as: "cards",
+    through: "CardCategories",
+});
+exports.UserCategories = userCategories_1.default.belongsToMany(Card, {
+    as: "userCategories",
+    through: "CardCategories",
 });
 exports.default = Card;
 //# sourceMappingURL=cards.js.map

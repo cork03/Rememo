@@ -1,5 +1,8 @@
 import Sequelize, { Model } from "sequelize";
 import { sequelize } from ".";
+import CardCategory from "./cardCategories";
+import CardLinks from "./cardLinks";
+import UserCategory from "./userCategories";
 
 class Card extends Model {}
 
@@ -46,5 +49,18 @@ Card.init(
     modelName: "card",
   }
 );
+
+Card.hasMany(CardLinks);
+CardLinks.belongsTo(Card);
+export const CardCategories = Card.hasMany(CardCategory);
+export const cardCategory = CardCategory.belongsTo(Card);
+export const Cards = Card.belongsToMany(UserCategory, {
+  as: "cards",
+  through: "CardCategories",
+});
+export const UserCategories = UserCategory.belongsToMany(Card, {
+  as: "userCategories",
+  through: "CardCategories",
+});
 
 export default Card;

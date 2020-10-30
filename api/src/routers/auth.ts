@@ -35,6 +35,7 @@ router.post("/login", function (req: any, res: Response, next: NextFunction) {
     "local",
     { session: false },
     (err: Error, user: any, info: any) => {
+      console.log(2);
       if (err || !user) {
         return res.status(401).json({ error: "認証に失敗しました" });
       }

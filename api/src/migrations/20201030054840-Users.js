@@ -17,7 +17,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      authorize_token: {
+      authorizeToken: {
         type: Sequelize.STRING,
         allowNull: false,
       },

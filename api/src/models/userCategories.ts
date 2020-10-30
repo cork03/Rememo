@@ -1,5 +1,6 @@
 import Sequelize, { Model } from "sequelize";
 import { sequelize } from ".";
+import CardCategory from "./cardCategories";
 
 class UserCategory extends Model {}
 
@@ -11,12 +12,12 @@ UserCategory.init(
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    postId: {
+    userId: {
       type: Sequelize.INTEGER,
       allowNull: false,
     },
-    categoryId: {
-      type: Sequelize.INTEGER,
+    name: {
+      type: Sequelize.STRING,
       allowNull: false,
     },
     createdAt: {
@@ -33,5 +34,8 @@ UserCategory.init(
     modelName: "userCategory",
   }
 );
+
+UserCategory.hasMany(CardCategory);
+CardCategory.belongsTo(UserCategory);
 
 export default UserCategory;

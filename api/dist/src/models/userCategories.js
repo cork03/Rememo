@@ -18,9 +18,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = __importStar(require("sequelize"));
 const _1 = require(".");
+const cardCategories_1 = __importDefault(require("./cardCategories"));
 class UserCategory extends sequelize_1.Model {
 }
 UserCategory.init({
@@ -30,12 +34,12 @@ UserCategory.init({
         primaryKey: true,
         type: sequelize_1.default.INTEGER,
     },
-    postId: {
+    userId: {
         type: sequelize_1.default.INTEGER,
         allowNull: false,
     },
-    categoryId: {
-        type: sequelize_1.default.INTEGER,
+    name: {
+        type: sequelize_1.default.STRING,
         allowNull: false,
     },
     createdAt: {
@@ -50,5 +54,7 @@ UserCategory.init({
     sequelize: _1.sequelize,
     modelName: "userCategory",
 });
+UserCategory.hasMany(cardCategories_1.default);
+cardCategories_1.default.belongsTo(UserCategory);
 exports.default = UserCategory;
 //# sourceMappingURL=userCategories.js.map

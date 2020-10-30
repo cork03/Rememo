@@ -1,5 +1,7 @@
 import Sequelize, { Model } from "sequelize";
 import { sequelize } from ".";
+import CardCategory from "./cardCategories";
+import Card from "./cards";
 
 class User extends Model {
   public authorizeToken?: string;
@@ -21,7 +23,7 @@ User.init(
       type: Sequelize.STRING,
       allowNull: false,
     },
-    authorize_token: {
+    authorizeToken: {
       type: Sequelize.STRING,
       allowNull: false,
     },
@@ -39,5 +41,10 @@ User.init(
     modelName: "user",
   }
 );
+
+User.hasMany(Card);
+Card.belongsTo(User);
+User.hasMany(CardCategory);
+CardCategory.belongsTo(User);
 
 export default User;

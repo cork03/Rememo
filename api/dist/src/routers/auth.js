@@ -35,6 +35,7 @@ router.post("/signup", async (req, res) => {
 });
 router.post("/login", function (req, res, next) {
     passport_1.default.authenticate("local", { session: false }, (err, user, info) => {
+        console.log(2);
         if (err || !user) {
             return res.status(401).json({ error: "認証に失敗しました" });
         }
