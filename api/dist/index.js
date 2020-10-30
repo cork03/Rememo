@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const models_1 = require("./src/models");
 const app = express_1.default();
 const port = 8080;
 app.get("/", (req, res) => {
@@ -13,5 +12,4 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
 });
-models_1.connect();
 //# sourceMappingURL=index.js.map
