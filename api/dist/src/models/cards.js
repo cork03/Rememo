@@ -22,13 +22,35 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserCategories = exports.Cards = exports.cardCategory = exports.CardCategories = void 0;
 const sequelize_1 = __importStar(require("sequelize"));
 const _1 = require(".");
 const cardCategories_1 = __importDefault(require("./cardCategories"));
 const cardLinks_1 = __importDefault(require("./cardLinks"));
 const userCategories_1 = __importDefault(require("./userCategories"));
 class Card extends sequelize_1.Model {
+    static async add(cardElements, linkElement, categoryIds) {
+        await _1.sequelize.transaction(async (t) => {
+            if (linkElement) {
+                const link = await cardLinks_1.default.create({ string: linkElement }, { transaction: t });
+                const linkId = link.id;
+                cardElements.linkId = linkId;
+            }
+            cardElements.lastCheckedAt = new Date();
+            const card = await Card.create(cardElements, { transaction: t });
+            const userCategories = await userCategories_1.default.findAll({
+                where: { id: categoryIds },
+            });
+            console.log(userCategories);
+            if (card) {
+                await card.setUserCategories(userCategories, {
+                    through: {
+                        cardId: card.id,
+                    },
+                    transaction: t,
+                });
+            }
+        });
+    }
 }
 Card.init({
     id: {
@@ -58,6 +80,14 @@ Card.init({
         allowNull: false,
         defaultValue: 0,
     },
+    totalCount: {
+        type: sequelize_1.default.INTEGER,
+        allowNull: false,
+    },
+    lastCheckedAt: {
+        type: sequelize_1.default.DATE,
+        allowNull: false,
+    },
     createdAt: {
         type: sequelize_1.default.DATE,
         allowNull: false,
@@ -72,15 +102,13 @@ Card.init({
 });
 Card.hasMany(cardLinks_1.default);
 cardLinks_1.default.belongsTo(Card);
-exports.CardCategories = Card.hasMany(cardCategories_1.default);
-exports.cardCategory = cardCategories_1.default.belongsTo(Card);
-exports.Cards = Card.belongsToMany(userCategories_1.default, {
-    as: "cards",
-    through: "CardCategories",
+Card.hasMany(cardCategories_1.default);
+cardCategories_1.default.belongsTo(Card);
+Card.belongsToMany(userCategories_1.default, {
+    through: "cardCategory",
 });
-exports.UserCategories = userCategories_1.default.belongsToMany(Card, {
-    as: "userCategories",
-    through: "CardCategories",
+userCategories_1.default.belongsToMany(Card, {
+    through: "cardCategory",
 });
 exports.default = Card;
 //# sourceMappingURL=cards.js.map

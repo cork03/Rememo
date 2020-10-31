@@ -1,7 +1,9 @@
 import Sequelize, { Model } from "sequelize";
 import { sequelize } from ".";
 
-class CardLinks extends Model {}
+class CardLinks extends Model {
+  public id?: number;
+}
 
 CardLinks.init(
   {

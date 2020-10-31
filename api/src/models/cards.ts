@@ -4,7 +4,36 @@ import CardCategory from "./cardCategories";
 import CardLinks from "./cardLinks";
 import UserCategory from "./userCategories";
 
-class Card extends Model {}
+class Card extends Model {
+  public id?: number;
+
+  static async add(cardElements: any, linkElement: any, categoryIds: number[]) {
+    await sequelize.transaction(async (t) => {
+      if (linkElement) {
+        const link = await CardLinks.create(
+          { string: linkElement },
+          { transaction: t }
+        );
+        const linkId = link.id;
+        cardElements.linkId = linkId;
+      }
+      cardElements.lastCheckedAt = new Date();
+      const card = await Card.create(cardElements, { transaction: t });
+      const userCategories = await UserCategory.findAll({
+        where: { id: categoryIds },
+      });
+      console.log(userCategories);
+      if (card) {
+        await (card as any).setUserCategories(userCategories, {
+          through: {
+            cardId: card.id,
+          },
+          transaction: t,
+        });
+      }
+    });
+  }
+}
 
 Card.init(
   {
@@ -35,6 +64,14 @@ Card.init(
       allowNull: false,
       defaultValue: 0,
     },
+    totalCount: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
+    lastCheckedAt: {
+      type: Sequelize.DATE,
+      allowNull: false,
+    },
     createdAt: {
       type: Sequelize.DATE,
       allowNull: false,
@@ -52,15 +89,13 @@ Card.init(
 
 Card.hasMany(CardLinks);
 CardLinks.belongsTo(Card);
-export const CardCategories = Card.hasMany(CardCategory);
-export const cardCategory = CardCategory.belongsTo(Card);
-export const Cards = Card.belongsToMany(UserCategory, {
-  as: "cards",
-  through: "CardCategories",
+Card.hasMany(CardCategory);
+CardCategory.belongsTo(Card);
+Card.belongsToMany(UserCategory, {
+  through: "cardCategory",
 });
-export const UserCategories = UserCategory.belongsToMany(Card, {
-  as: "userCategories",
-  through: "CardCategories",
+UserCategory.belongsToMany(Card, {
+  through: "cardCategory",
 });
 
 export default Card;

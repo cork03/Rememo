@@ -30,11 +30,11 @@ CardCategory.init({
         primaryKey: true,
         type: sequelize_1.default.INTEGER,
     },
-    postId: {
+    cardId: {
         type: sequelize_1.default.INTEGER,
         allowNull: false,
     },
-    categoryId: {
+    userCategoryId: {
         type: sequelize_1.default.INTEGER,
         allowNull: false,
     },

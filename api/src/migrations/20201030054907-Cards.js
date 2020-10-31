@@ -30,6 +30,14 @@ module.exports = {
         allowNull: false,
         defaultValue: 0,
       },
+      totalCount: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      lastCheckedAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,

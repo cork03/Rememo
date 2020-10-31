@@ -2,7 +2,9 @@ import Sequelize, { Model } from "sequelize";
 import { sequelize } from ".";
 import CardCategory from "./cardCategories";
 
-class UserCategory extends Model {}
+class UserCategory extends Model {
+  public userId?: number;
+}
 
 UserCategory.init(
   {

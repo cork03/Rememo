@@ -5,7 +5,8 @@
     "watch": "tsc --watch",
     "migrate": "sequelize-cli db:migrate",
     "seed": "sequelize-cli db:seed:all",
-    "debuger": "node --inspect-brk dist/app.js"
+    "debuger": "node --inspect-brk dist/app.js",
+    "drop": "npx sequelize-cli db:migrate:undo:all"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
