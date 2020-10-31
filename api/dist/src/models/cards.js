@@ -22,6 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Cards = exports.UserCategories = exports.cardCategory = exports.CardCategories = void 0;
 const sequelize_1 = __importStar(require("sequelize"));
 const _1 = require(".");
 const cardCategories_1 = __importDefault(require("./cardCategories"));
@@ -102,12 +103,14 @@ Card.init({
 });
 Card.hasMany(cardLinks_1.default);
 cardLinks_1.default.belongsTo(Card);
-Card.hasMany(cardCategories_1.default);
-cardCategories_1.default.belongsTo(Card);
-Card.belongsToMany(userCategories_1.default, {
+exports.CardCategories = Card.hasMany(cardCategories_1.default);
+exports.cardCategory = cardCategories_1.default.belongsTo(Card);
+exports.UserCategories = Card.belongsToMany(userCategories_1.default, {
+    as: "userCategories",
     through: "cardCategory",
 });
-userCategories_1.default.belongsToMany(Card, {
+exports.Cards = userCategories_1.default.belongsToMany(Card, {
+    as: "cards",
     through: "cardCategory",
 });
 exports.default = Card;

@@ -89,12 +89,14 @@ Card.init(
 
 Card.hasMany(CardLinks);
 CardLinks.belongsTo(Card);
-Card.hasMany(CardCategory);
-CardCategory.belongsTo(Card);
-Card.belongsToMany(UserCategory, {
+export const CardCategories = Card.hasMany(CardCategory);
+export const cardCategory = CardCategory.belongsTo(Card);
+export const UserCategories = Card.belongsToMany(UserCategory, {
+  as: "userCategories",
   through: "cardCategory",
 });
-UserCategory.belongsToMany(Card, {
+export const Cards = UserCategory.belongsToMany(Card, {
+  as: "cards",
   through: "cardCategory",
 });
 
