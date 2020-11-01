@@ -3,7 +3,8 @@ import Modal from '../components/organisms/Modal'
 
 const mapStateToProps = ({ modal }: any) => {
   return {
-    show: modal.show
+    show: modal.show,
+    component: modal.component
   }
 }
 

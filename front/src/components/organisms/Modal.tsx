@@ -3,7 +3,7 @@ import Modal from 'react-modal'
 
 Modal.setAppElement('#root')
 
-const ModalContainer = ({ show, type, component }:any) => {
+const ModalContainer = ({ show, component }:any) => {
   if (!show) {
     return <></>
   }

@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import {colors} from '../../styles/Variables'
 
 const Container = styled.div`
-  color: ${colors.colorBlack};
+  height: 100vh;
 `
 const Width = styled.div`
   width: 65%;

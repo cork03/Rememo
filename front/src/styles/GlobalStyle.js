@@ -6,8 +6,10 @@ export const GlobalStyle = createGlobalStyle`
     font-family: Lato, "Lucida Grande", "Lucida Sans Unicode", Tahoma, sans-serif;
     line-height: 1.5;
     font-size: 14px;
-    color: ${colors.baseColor} }
-  body{
+    color: ${colors.colorBlack};
+    background: ${colors.baseBackground};
+  }
+body{
       margin: 0;
       padding: 0;
   }
@@ -28,17 +30,17 @@ export const GlobalStyle = createGlobalStyle`
   }
   a{
     text-decoration: none;
-    color: ${colors.baseColor}
   }
   .ReactModal__Content {
-    background: white;
-    border: 1px solid lightgray;
-    margin: 16px auto;
+    background: ${colors.baseBackground};
+    border-radius: 10px;
+    margin: 100px auto;
     padding: 16px;
-    width: 60%;
+    border: 1px solid lightgray;
+    width: 40%;
     outline: none;
     bottom: auto !important;
-    top: 15% !important;
+    top: 200px !important;
     @media (max-width: 576px) {
       width: 100%;
       right: 0 !important;

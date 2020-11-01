@@ -7,9 +7,10 @@ export const HIDE_MODAL = 'HIDE_MODAL'
 
 // action creaters
 
-const showModal = () => {
+const showModal = ({component}: any) => {
     return {
         type: SHOW_MODAL,
+        payload: component
     }
 }
 
