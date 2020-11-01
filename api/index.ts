@@ -5,10 +5,12 @@ import cards from "./src/routers/cards";
 import auth from "./src/routers/auth";
 import bodyParser from "body-parser";
 import passport from "passport";
+import cors from "cors";
 
 const app = express();
 const port = 8080;
 
+app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 

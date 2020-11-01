@@ -37,6 +37,7 @@ class Card extends sequelize_1.Model {
                 cardElements.linkId = linkId;
             }
             cardElements.lastCheckedAt = new Date();
+            console.log(cardElements);
             const card = await Card.create(cardElements, { transaction: t });
             const userCategories = await userCategories_1.default.findAll({
                 where: { id: categoryIds },

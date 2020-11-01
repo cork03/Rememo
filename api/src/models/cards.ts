@@ -18,6 +18,7 @@ class Card extends Model {
         cardElements.linkId = linkId;
       }
       cardElements.lastCheckedAt = new Date();
+      console.log(cardElements);
       const card = await Card.create(cardElements, { transaction: t });
       const userCategories = await UserCategory.findAll({
         where: { id: categoryIds },

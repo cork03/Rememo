@@ -10,8 +10,10 @@ const cards_1 = __importDefault(require("./src/routers/cards"));
 const auth_1 = __importDefault(require("./src/routers/auth"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const passport_1 = __importDefault(require("passport"));
+const cors_1 = __importDefault(require("cors"));
 const app = express_1.default();
 const port = 8080;
+app.use(cors_1.default());
 app.use(express_1.default.json());
 app.use(body_parser_1.default.json());
 app.get("/", (req, res) => {
