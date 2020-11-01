@@ -11,7 +11,8 @@ const mapStateToProps = () => {
 const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators({
       showModal: actionCreators.showModal,
-      hideModal: actionCreators.hideModal
+      hideModal: actionCreators.hideModal,
+      createUser: actionCreators.createUser
   },dispatch)
 }
 
