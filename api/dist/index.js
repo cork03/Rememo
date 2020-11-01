@@ -13,7 +13,13 @@ const passport_1 = __importDefault(require("passport"));
 const cors_1 = __importDefault(require("cors"));
 const app = express_1.default();
 const port = 8080;
-app.use(cors_1.default());
+const options = {
+    origin: "http://localhost:3000",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+    optionsSuccessStatus: 200,
+};
+app.use(cors_1.default(options));
 app.use(express_1.default.json());
 app.use(body_parser_1.default.json());
 app.get("/", (req, res) => {
