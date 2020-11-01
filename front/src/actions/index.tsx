@@ -28,5 +28,6 @@ export const createUser = ({payload}: any) => {
 
 export const actionCreators = {
     showModal,
-    hideModal
+    hideModal,
+    createUser
 }

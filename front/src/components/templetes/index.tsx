@@ -7,11 +7,14 @@ const Container = styled.div``
 
 
 
-export const HomePage = ({showModal,hideModal}: any) => {
-
+export const HomePage = ({showModal,hideModal,createUser}: any) => {
   return (
     <Container>
-      <Header show={showModal} hide={hideModal}/>
+      <Header
+        showModal={showModal}
+        hideModal={hideModal}
+        createUser={createUser}
+      />
       <MainBody/>
     </Container>
   )

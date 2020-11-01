@@ -1,6 +1,7 @@
-import React  from "react";
+import React,{useCallback, useState}  from "react";
 import styled from "styled-components";
 import {colors} from '../../styles/Variables'
+import {TextInput} from '../atoms/Input'
 
 
 const Container =styled.div`
@@ -21,13 +22,7 @@ const InputArea = styled.div`
 const Text = styled.p`
   width: 160px;
 `
-const Input =styled.input`
-  border-radius: 6px;
-  border: 1px solid ${colors.border};
-  display: block;
-  width: 100%;
-  padding: 8px;
-`;
+
 
 const LodinArea = styled.div`
   width: 100%;
@@ -49,25 +44,36 @@ const LoginButton = styled.a`
 
 
 
-export const SignUpModal = () => {
-    return (
-        <Container>
-            <Title>アカウント作成</Title>
-            <InputArea>
-              <Text>ユーザー名：</Text>
-              <Input placeholder='例：田中　太郎'></Input>
-            </InputArea>
-            <InputArea>
-              <Text>メールアドレス：</Text>
-              <Input placeholder='例： taro@example.com'></Input>
-            </InputArea>
-            <InputArea>
-              <Text>パスワード：</Text>
-              <Input placeholder='6文字以上入力してください'></Input>
-            </InputArea>
-            <LodinArea>
-              <LoginButton>アカウント作成</LoginButton>
-            </LodinArea>
-        </Container>
+export const SignUpModal = ({createUser}: any) => {
+  const [userName,setUserName] = useState("")
+  const [mail,setMail] = useState("")
+  const [password,setPassword] = useState("")
+  const onSubmit = useCallback(() => {
+    createUser({payload: {
+      loginId: mail,
+      name: userName,
+      password: password
+     }
+    })
+  },[createUser,userName,mail,password])
+  return (
+    <Container>
+      <Title>アカウント作成</Title>
+      <InputArea>
+        <Text>ユーザー名：</Text>
+        <TextInput value={userName} onChangeText={setUserName} placeholder='例：田中　太郎'></TextInput>
+      </InputArea>
+      <InputArea>
+        <Text>メールアドレス：</Text>
+        <TextInput value={mail} onChangeText={setMail} placeholder='例： taro@example.com'></TextInput>
+      </InputArea>
+      <InputArea>
+        <Text>パスワード：</Text>
+        <TextInput value={password} onChangeText={setPassword} placeholder='6文字以上入力してください'></TextInput>
+      </InputArea>
+      <LodinArea>
+        <LoginButton onClick={onSubmit}>アカウント作成</LoginButton>
+      </LodinArea>
+    </Container>
     )
 }

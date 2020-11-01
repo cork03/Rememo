@@ -4,9 +4,10 @@ import { createUser } from '../axios/user'
 
 function* createUsers(action: any) {
     try{
-        yield call(createUser, action.payload)
+        console.log(action)
+        yield call(createUser, {data: action.payload}  )
         yield put({type: actions.CREATE_USER_SUCCEEDED})
-    } catch(e) {
+     } catch(e) {
         yield put({type: actions.CREATE_USER_FAILED, messagae: e.message})
     }
 }

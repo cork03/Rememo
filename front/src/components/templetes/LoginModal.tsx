@@ -1,6 +1,7 @@
-import React  from "react";
+import React,{useState}  from "react";
 import styled from "styled-components";
 import {colors} from '../../styles/Variables'
+import { TextInput } from "../atoms/Input";
 
 
 const Container =styled.div`
@@ -21,13 +22,6 @@ const InputArea = styled.div`
 const Text = styled.p`
   width: 120px;
 `
-const Input =styled.input`
-  border-radius: 6px;
-  border: 1px solid ${colors.border};
-  display: block;
-  width: 100%;
-  padding: 8px;
-`;
 
 const LodinArea = styled.div`
   width: 100%;
@@ -56,16 +50,18 @@ const SignUp = styled.a`
 
 
 export const LoginModal = () => {
+  const [mail,setMail] = useState("")
+  const [password,setPassword] = useState("")
     return (
         <Container>
             <Title>ログイン</Title>
             <InputArea>
-              <Text>ユーザー名：</Text>
-              <Input placeholder='例：田中　太郎'></Input>
+              <Text>メールアドレス：</Text>
+              <TextInput　value={mail} onChangeText={setMail} placeholder='例：田中　太郎'></TextInput>
             </InputArea>
             <InputArea>
               <Text>パスワード：</Text>
-              <Input placeholder='6文字以上入力してください'></Input>
+              <TextInput value={password} onChangeText={setPassword} placeholder='6文字以上入力してください'></TextInput>
             </InputArea>
             <LodinArea>
               <LoginButton>ログイン</LoginButton>

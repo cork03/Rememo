@@ -35,13 +35,13 @@ const Menus = styled.div`
 `;
 
 
-export const Header = ({show,hide}: any) => {
+export const Header = ({showModal,hideModal,createUser}: any) => {
   const showLogin = useCallback(() => {
-    show({component: <LoginModal />});
-  },[show])
+    showModal({component: <LoginModal />});
+  },[showModal])
   const showSignUp = useCallback(() => {
-    show({component: <SignUpModal />});
-  },[show])
+    showModal({component: <SignUpModal createUser={createUser}/>});
+  },[showModal,createUser])
   return (
     <Container>
       <Width>
