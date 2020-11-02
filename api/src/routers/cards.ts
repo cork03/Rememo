@@ -11,14 +11,13 @@ route.get("/", async (req: Request, res: Response) => {});
 
 route.post("/", async (req: any, res: Response) => {
   const {
-    card: { link, ...cardElements },
+    card: { links, ...reqBody },
   } = req.body;
   const userId = req.user.id;
+  const { categoryIds, ...cardElements } = reqBody;
   cardElements.userId = userId;
-  const { categoryIds } = cardElements;
-  console.log(categoryIds);
   try {
-    await Card.add(cardElements, link, categoryIds);
+    await Card.add(cardElements, links, categoryIds);
     res.status(201).json({});
   } catch (e) {
     res.status(400).json({ e });

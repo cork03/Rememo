@@ -13,6 +13,10 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false,
       },
+      cardId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,

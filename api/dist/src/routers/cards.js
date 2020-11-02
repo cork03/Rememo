@@ -8,13 +8,12 @@ const cards_1 = __importDefault(require("../models/cards"));
 const route = express_1.default.Router();
 route.get("/", async (req, res) => { });
 route.post("/", async (req, res) => {
-    const { card: { link, ...cardElements }, } = req.body;
+    const { card: { links, ...reqBody }, } = req.body;
     const userId = req.user.id;
+    const { categoryIds, ...cardElements } = reqBody;
     cardElements.userId = userId;
-    const { categoryIds } = cardElements;
-    console.log(categoryIds);
     try {
-        await cards_1.default.add(cardElements, link, categoryIds);
+        await cards_1.default.add(cardElements, links, categoryIds);
         res.status(201).json({});
     }
     catch (e) {

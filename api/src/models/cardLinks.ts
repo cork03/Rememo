@@ -17,12 +17,8 @@ CardLinks.init(
       type: Sequelize.TEXT,
       allowNull: false,
     },
-    createdAt: {
-      type: Sequelize.DATE,
-      allowNull: false,
-    },
-    updatedAt: {
-      type: Sequelize.DATE,
+    cardId: {
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
   },

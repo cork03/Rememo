@@ -1,6 +1,5 @@
 import Sequelize, { Model } from "sequelize";
 import { sequelize } from ".";
-import CardCategory from "./cardCategories";
 import Card from "./cards";
 
 class User extends Model {
@@ -27,14 +26,6 @@ User.init(
       type: Sequelize.STRING,
       allowNull: false,
     },
-    createdAt: {
-      type: Sequelize.DATE,
-      allowNull: false,
-    },
-    updatedAt: {
-      type: Sequelize.DATE,
-      allowNull: false,
-    },
   },
   {
     sequelize,
@@ -44,7 +35,5 @@ User.init(
 
 User.hasMany(Card);
 Card.belongsTo(User);
-User.hasMany(CardCategory);
-CardCategory.belongsTo(User);
 
 export default User;

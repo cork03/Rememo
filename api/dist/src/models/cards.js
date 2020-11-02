@@ -29,20 +29,23 @@ const cardCategories_1 = __importDefault(require("./cardCategories"));
 const cardLinks_1 = __importDefault(require("./cardLinks"));
 const userCategories_1 = __importDefault(require("./userCategories"));
 class Card extends sequelize_1.Model {
-    static async add(cardElements, linkElement, categoryIds) {
+    static async add(cardElements, linkElements, categoryIds) {
         await _1.sequelize.transaction(async (t) => {
-            if (linkElement) {
-                const link = await cardLinks_1.default.create({ string: linkElement }, { transaction: t });
-                const linkId = link.id;
-                cardElements.linkId = linkId;
-            }
             cardElements.lastCheckedAt = new Date();
-            console.log(cardElements);
             const card = await Card.create(cardElements, { transaction: t });
+            console.log(card);
+            if (linkElements) {
+                for (let value of linkElements) {
+                    const link = await cardLinks_1.default.create({
+                        string: value,
+                        cardId: card.id,
+                    }, { transaction: t });
+                    console.log(link);
+                }
+            }
             const userCategories = await userCategories_1.default.findAll({
                 where: { id: categoryIds },
             });
-            console.log(userCategories);
             if (card) {
                 await card.setUserCategories(userCategories, {
                     through: {
@@ -65,10 +68,6 @@ Card.init({
         type: sequelize_1.default.INTEGER,
         allowNull: false,
     },
-    linkId: {
-        type: sequelize_1.default.INTEGER,
-        allowNull: true,
-    },
     title: {
         type: sequelize_1.default.STRING,
         allowNull: false,
@@ -87,14 +86,6 @@ Card.init({
         allowNull: false,
     },
     lastCheckedAt: {
-        type: sequelize_1.default.DATE,
-        allowNull: false,
-    },
-    createdAt: {
-        type: sequelize_1.default.DATE,
-        allowNull: false,
-    },
-    updatedAt: {
         type: sequelize_1.default.DATE,
         allowNull: false,
     },
