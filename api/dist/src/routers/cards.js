@@ -6,7 +6,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cards_1 = __importDefault(require("../models/cards"));
 const route = express_1.default.Router();
-route.get("/", async (req, res) => { });
+route.get("/", async (req, res) => {
+    const userId = req.user.id;
+    try {
+        const cards = await cards_1.default.get(userId);
+        res.json({ cards });
+    }
+    catch (e) {
+        res.json({ e });
+    }
+});
 route.post("/", async (req, res) => {
     const { card: { links, ...reqBody }, } = req.body;
     const userId = req.user.id;

@@ -3,9 +3,13 @@ import { sequelize } from ".";
 import CardCategory from "./cardCategories";
 import CardLinks from "./cardLinks";
 import UserCategory from "./userCategories";
+import differenceInHours from "date-fns/differenceInHours";
 
 class Card extends Model {
   public id?: number;
+  public lastCheckedAt?: Date;
+  public totalCount?: number;
+  public leanCount?: number;
 
   static async add(
     cardElements: any,
@@ -15,7 +19,6 @@ class Card extends Model {
     await sequelize.transaction(async (t) => {
       cardElements.lastCheckedAt = new Date();
       const card = await Card.create(cardElements, { transaction: t });
-      console.log(card);
       if (linkElements) {
         for (let value of linkElements) {
           const link = await CardLinks.create(
@@ -25,7 +28,6 @@ class Card extends Model {
             },
             { transaction: t }
           );
-          console.log(link);
         }
       }
       const userCategories = await UserCategory.findAll({
@@ -40,6 +42,25 @@ class Card extends Model {
         });
       }
     });
+  }
+
+  static async get(userId: number) {
+    const allCards = await Card.findAll({ where: { userId } });
+    const returnCrads: any[] = [];
+    const compareTimes = [0, 48, 168, 336, 672];
+    const getCards = (card: any) => {
+      if (card.leanCount > card.totalCount) {
+        return;
+      }
+      const time = differenceInHours(new Date(), card.lastCheckedAt!);
+      if (time >= compareTimes[card.leanCount]) {
+        returnCrads.push(card);
+      }
+    };
+    allCards.forEach((card) => {
+      getCards(card);
+    });
+    return returnCrads;
   }
 }
 

@@ -5,7 +5,15 @@ const route = express.Router();
 
 // cardの取得
 
-route.get("/", async (req: Request, res: Response) => {});
+route.get("/", async (req: any, res: Response) => {
+  const userId = req.user.id;
+  try {
+    const cards = await Card.get(userId);
+    res.json({ cards });
+  } catch (e) {
+    res.json({ e });
+  }
+});
 
 // cardの投稿
 
