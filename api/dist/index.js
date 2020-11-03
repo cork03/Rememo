@@ -11,6 +11,7 @@ const auth_1 = __importDefault(require("./src/routers/auth"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const passport_1 = __importDefault(require("passport"));
 const cors_1 = __importDefault(require("cors"));
+const date_fns_1 = require("date-fns");
 const app = express_1.default();
 const port = 8080;
 const options = {
@@ -36,4 +37,5 @@ app.use("/auth", auth_1.default);
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
 });
+console.log(date_fns_1.format(new Date(), "MM/dd/yyyy"));
 //# sourceMappingURL=index.js.map

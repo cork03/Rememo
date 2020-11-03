@@ -28,21 +28,23 @@ const _1 = require(".");
 const cardCategories_1 = __importDefault(require("./cardCategories"));
 const cardLinks_1 = __importDefault(require("./cardLinks"));
 const userCategories_1 = __importDefault(require("./userCategories"));
+const differenceInHours_1 = __importDefault(require("date-fns/differenceInHours"));
 class Card extends sequelize_1.Model {
-    static async add(cardElements, linkElement, categoryIds) {
+    static async add(cardElements, linkElements, categoryIds) {
         await _1.sequelize.transaction(async (t) => {
-            if (linkElement) {
-                const link = await cardLinks_1.default.create({ string: linkElement }, { transaction: t });
-                const linkId = link.id;
-                cardElements.linkId = linkId;
-            }
             cardElements.lastCheckedAt = new Date();
-            console.log(cardElements);
             const card = await Card.create(cardElements, { transaction: t });
+            if (linkElements) {
+                for (let value of linkElements) {
+                    const link = await cardLinks_1.default.create({
+                        string: value,
+                        cardId: card.id,
+                    }, { transaction: t });
+                }
+            }
             const userCategories = await userCategories_1.default.findAll({
                 where: { id: categoryIds },
             });
-            console.log(userCategories);
             if (card) {
                 await card.setUserCategories(userCategories, {
                     through: {
@@ -52,6 +54,24 @@ class Card extends sequelize_1.Model {
                 });
             }
         });
+    }
+    static async get(userId) {
+        const allCards = await Card.findAll({ where: { userId } });
+        const returnCrads = [];
+        const compareTimes = [0, 48, 168, 336, 672];
+        const getCards = (card) => {
+            if (card.leanCount > card.totalCount) {
+                return;
+            }
+            const time = differenceInHours_1.default(new Date(), card.lastCheckedAt);
+            if (time >= compareTimes[card.leanCount]) {
+                returnCrads.push(card);
+            }
+        };
+        allCards.forEach((card) => {
+            getCards(card);
+        });
+        return returnCrads;
     }
 }
 Card.init({
@@ -64,10 +84,6 @@ Card.init({
     userId: {
         type: sequelize_1.default.INTEGER,
         allowNull: false,
-    },
-    linkId: {
-        type: sequelize_1.default.INTEGER,
-        allowNull: true,
     },
     title: {
         type: sequelize_1.default.STRING,
@@ -87,14 +103,6 @@ Card.init({
         allowNull: false,
     },
     lastCheckedAt: {
-        type: sequelize_1.default.DATE,
-        allowNull: false,
-    },
-    createdAt: {
-        type: sequelize_1.default.DATE,
-        allowNull: false,
-    },
-    updatedAt: {
         type: sequelize_1.default.DATE,
         allowNull: false,
     },

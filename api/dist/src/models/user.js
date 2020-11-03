@@ -24,7 +24,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = __importStar(require("sequelize"));
 const _1 = require(".");
-const cardCategories_1 = __importDefault(require("./cardCategories"));
 const cards_1 = __importDefault(require("./cards"));
 class User extends sequelize_1.Model {
 }
@@ -47,21 +46,11 @@ User.init({
         type: sequelize_1.default.STRING,
         allowNull: false,
     },
-    createdAt: {
-        type: sequelize_1.default.DATE,
-        allowNull: false,
-    },
-    updatedAt: {
-        type: sequelize_1.default.DATE,
-        allowNull: false,
-    },
 }, {
     sequelize: _1.sequelize,
     modelName: "user",
 });
 User.hasMany(cards_1.default);
 cards_1.default.belongsTo(User);
-User.hasMany(cardCategories_1.default);
-cardCategories_1.default.belongsTo(User);
 exports.default = User;
 //# sourceMappingURL=user.js.map

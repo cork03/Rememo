@@ -6,15 +6,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cards_1 = __importDefault(require("../models/cards"));
 const route = express_1.default.Router();
-route.get("/", async (req, res) => { });
-route.post("/", async (req, res) => {
-    const { card: { link, ...cardElements }, } = req.body;
+route.get("/", async (req, res) => {
     const userId = req.user.id;
-    cardElements.userId = userId;
-    const { categoryIds } = cardElements;
-    console.log(categoryIds);
     try {
-        await cards_1.default.add(cardElements, link, categoryIds);
+        const cards = await cards_1.default.get(userId);
+        res.json({ cards });
+    }
+    catch (e) {
+        res.json({ e });
+    }
+});
+route.post("/", async (req, res) => {
+    const { card: { links, ...reqBody }, } = req.body;
+    const userId = req.user.id;
+    const { categoryIds, ...cardElements } = reqBody;
+    cardElements.userId = userId;
+    try {
+        await cards_1.default.add(cardElements, links, categoryIds);
         res.status(201).json({});
     }
     catch (e) {

@@ -13,10 +13,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      linkId: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-      },
       title: {
         type: Sequelize.STRING,
         allowNull: false,

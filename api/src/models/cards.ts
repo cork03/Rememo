@@ -3,27 +3,36 @@ import { sequelize } from ".";
 import CardCategory from "./cardCategories";
 import CardLinks from "./cardLinks";
 import UserCategory from "./userCategories";
+import differenceInHours from "date-fns/differenceInHours";
 
 class Card extends Model {
   public id?: number;
+  public lastCheckedAt?: Date;
+  public totalCount?: number;
+  public leanCount?: number;
 
-  static async add(cardElements: any, linkElement: any, categoryIds: number[]) {
+  static async add(
+    cardElements: any,
+    linkElements: string[],
+    categoryIds: number[]
+  ) {
     await sequelize.transaction(async (t) => {
-      if (linkElement) {
-        const link = await CardLinks.create(
-          { string: linkElement },
-          { transaction: t }
-        );
-        const linkId = link.id;
-        cardElements.linkId = linkId;
-      }
       cardElements.lastCheckedAt = new Date();
-      console.log(cardElements);
       const card = await Card.create(cardElements, { transaction: t });
+      if (linkElements) {
+        for (let value of linkElements) {
+          const link = await CardLinks.create(
+            {
+              string: value,
+              cardId: card.id,
+            },
+            { transaction: t }
+          );
+        }
+      }
       const userCategories = await UserCategory.findAll({
         where: { id: categoryIds },
       });
-      console.log(userCategories);
       if (card) {
         await (card as any).setUserCategories(userCategories, {
           through: {
@@ -33,6 +42,25 @@ class Card extends Model {
         });
       }
     });
+  }
+
+  static async get(userId: number) {
+    const allCards = await Card.findAll({ where: { userId } });
+    const returnCrads: any[] = [];
+    const compareTimes = [0, 48, 168, 336, 672];
+    const getCards = (card: any) => {
+      if (card.leanCount > card.totalCount) {
+        return;
+      }
+      const time = differenceInHours(new Date(), card.lastCheckedAt!);
+      if (time >= compareTimes[card.leanCount]) {
+        returnCrads.push(card);
+      }
+    };
+    allCards.forEach((card) => {
+      getCards(card);
+    });
+    return returnCrads;
   }
 }
 
@@ -47,10 +75,6 @@ Card.init(
     userId: {
       type: Sequelize.INTEGER,
       allowNull: false,
-    },
-    linkId: {
-      type: Sequelize.INTEGER,
-      allowNull: true,
     },
     title: {
       type: Sequelize.STRING,
@@ -70,14 +94,6 @@ Card.init(
       allowNull: false,
     },
     lastCheckedAt: {
-      type: Sequelize.DATE,
-      allowNull: false,
-    },
-    createdAt: {
-      type: Sequelize.DATE,
-      allowNull: false,
-    },
-    updatedAt: {
       type: Sequelize.DATE,
       allowNull: false,
     },

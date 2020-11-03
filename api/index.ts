@@ -6,6 +6,7 @@ import auth from "./src/routers/auth";
 import bodyParser from "body-parser";
 import passport from "passport";
 import cors from "cors";
+import { format } from "date-fns";
 
 const app = express();
 const port = 8080;
@@ -44,3 +45,5 @@ app.use("/auth", auth);
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
+
+console.log(format(new Date(), "MM/dd/yyyy"));
