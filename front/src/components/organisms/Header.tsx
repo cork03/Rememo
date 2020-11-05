@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ButtonGreen } from "../atoms/Buttons"
 import { Link } from 'react-router-dom'
 import { LoginModal } from '../templetes/LoginModal'
-import { SignUpModal } from '../templetes/SignUp'
+import { SignUpModal } from '../templetes/SignUpModal'
 import { colors } from '../../styles/Variables'
 
 const Container = styled.div`
@@ -37,11 +37,11 @@ const Menus = styled.div`
 
 export const Header = ({showModal,hideModal,createUser}: any) => {
   const showLogin = useCallback(() => {
-    showModal({component: <LoginModal />});
-  },[showModal])
+    showModal({component: <LoginModal hideModal={hideModal}/>});
+  },[showModal,hideModal])
   const showSignUp = useCallback(() => {
-    showModal({component: <SignUpModal createUser={createUser}/>});
-  },[showModal,createUser])
+    showModal({component: <SignUpModal hideModal={hideModal} createUser={createUser}/>});
+  },[showModal,createUser,hideModal])
   return (
     <Container>
       <Width>

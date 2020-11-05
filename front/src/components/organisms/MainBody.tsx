@@ -1,5 +1,6 @@
-import React from "react";
+import React,{useEffect} from "react";
 import styled from "styled-components";
+import { Card } from "./Card";
 
 const Container = styled.div`
   height: 100vh;
@@ -8,33 +9,40 @@ const Width = styled.div`
   width: 65%;
   margin: 0 auto;
   display: flex;
+  padding-top: 50px;
 `
 
-const Descriptions =styled.div`
-  margin-top: 50px;
-  width: 50%;
+const ListsField = styled.div`
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 6px;
+  margin-right: 30px;
+  padding: 5px;
+`
+const ListTitle = styled.p`
+`
+const Cards = styled.ul`
+
 `
 
-export const MainBody = () => {
-    return (
-        <Container>
-            <Width>
-                <Descriptions>
-                    <h1>想起学習</h1>
-                    <p>dafjaksfhafdashjfasdahjfklafhasjhdfalkjhfdah</p>
-                    <p>dafjaksfhafdashjfasdahjfklafhasjhdfalkjhfdah</p>
-                    <p>dafjaksfhafdashjfasdahjfklafhasjhdfalkjhfdah</p>
-                    <p>dafjaksfhafdashjfasdahjfklafhasjhdfalkjhfdah</p>
-                    <p>dafjaksfhafdashjfasdahjfklafhasjhdfalkjhfdah</p>
-                </Descriptions>
-                <Descriptions>
-                    <h1>忘却曲線</h1>
-                    <p>dafjaksfhafdashjfasdahjfklafhasjhdfalkjhfdah</p>
-                    <p>dafjaksfhafdashjfasdahjfklafhasjhdfalkjhfdah</p>
-                    <p>dafjaksfhafdashjfasdahjfklafhasjhdfalkjhfdah</p>
-                    <p>dafjaksfhafdashjfasdahjfklafhasjhdfalkjhfdah</p>
-                </Descriptions>
-            </Width>
-        </Container>
+export const MainBody = ({fetchCards,data,showModal,hideModal} :any) => {
+  useEffect(() => {
+    fetchCards()
+  },[fetchCards])
+  const cards = Object.values(data)
+  return (
+     <Container>
+      <Width>
+      <ListsField>
+        <ListTitle>今日の学習</ListTitle>
+        <Cards>
+          {cards.map((card: any) => {
+            return <Card card={card} showModal={showModal} hideModal={hideModal} />
+          })}
+        </Cards>
+      </ListsField>
+      <ListsField></ListsField>
+      </Width>
+    </Container>
     )
 }

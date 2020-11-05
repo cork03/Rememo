@@ -1,4 +1,4 @@
-import React,{useState}  from "react";
+import React,{useState,useCallback}  from "react";
 import styled from "styled-components";
 import {colors} from '../../styles/Variables'
 import { TextInput } from "../atoms/Input";
@@ -7,7 +7,16 @@ import { TextInput } from "../atoms/Input";
 const Container =styled.div`
   margin: 0 auto;
   width: 70%;
+  position: relative;
 `;
+
+const CloseButton = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 30px;
+  cursor: pointer;
+`
 
 const Title = styled.h2`
   text-align: center;
@@ -20,7 +29,7 @@ const InputArea = styled.div`
   align-items: center;
 `;
 const Text = styled.p`
-  width: 120px;
+  width: 160px;
 `
 
 const LodinArea = styled.div`
@@ -49,11 +58,15 @@ const SignUp = styled.a`
 `
 
 
-export const LoginModal = () => {
+export const LoginModal = ({hideModal}: any) => {
   const [mail,setMail] = useState("")
   const [password,setPassword] = useState("")
+  const closeModal = useCallback(() => {
+    hideModal()
+  },[hideModal])
     return (
         <Container>
+            <CloseButton onClick={closeModal}>✖️</CloseButton>
             <Title>ログイン</Title>
             <InputArea>
               <Text>メールアドレス：</Text>

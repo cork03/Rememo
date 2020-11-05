@@ -1,10 +1,11 @@
 import { connect } from 'react-redux'
-import {HomePage} from '../components/templetes'
+import {MainPage} from '../components/templetes/MainPage'
 import { bindActionCreators } from 'redux'
 import {actionCreators} from '../actions'
 
-const mapStateToProps = () => {
+const mapStateToProps = ({cards}: any) => {
   return {
+    data: cards.data
   }
 }
 
@@ -12,9 +13,9 @@ const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators({
     showModal: actionCreators.showModal,
     hideModal: actionCreators.hideModal,
-    createUser: actionCreators.createUser,
-    userLogin: actionCreators.userLogin
+    fetchCards: actionCreators.fetchCards
   },dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage)
+
