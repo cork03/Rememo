@@ -1,9 +1,9 @@
 import { createGlobalStyle } from "styled-components";
-import { colors } from "./Variables";
+import { colors, font } from "./Variables";
 
 export const GlobalStyle = createGlobalStyle`
   html{
-    font-family: Lato, "Lucida Grande", "Lucida Sans Unicode", Tahoma, sans-serif;
+  font-family: ${font.base}, Lato, "Lucida Grande", "Lucida Sans Unicode", Tahoma, sans-serif;
     line-height: 1.5;
     font-size: 14px;
     color: ${colors.colorBlack};

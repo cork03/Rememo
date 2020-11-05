@@ -1,8 +1,10 @@
 import { combineReducers} from 'redux'
-import modal from './modal'
+import modal from './Modal'
+import cards from './Cards'
 
 const reducer = combineReducers({
-    modal
+    modal,
+    cards
 })
 
 export default reducer

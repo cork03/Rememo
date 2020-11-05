@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import {Header} from "../organisms/Header";
-import {MainBody} from '../organisms/MainBody'
+import {TopBody} from '../organisms/TopBody'
 
 const Container = styled.div``
 
@@ -15,7 +15,7 @@ export const HomePage = ({showModal,hideModal,createUser}: any) => {
         hideModal={hideModal}
         createUser={createUser}
       />
-      <MainBody/>
+      <TopBody/>
     </Container>
   )
 }

@@ -1,17 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import TopPage from '../containers'
+import MainPage from '../containers/MainPage'
 
 const Container = styled.div``
 
 
 
-const Index = () => {
+const Main = () => {
     return (
         <Container>
-          <TopPage />
+            <MainPage />
         </Container>
     )
 }
 
-export default Index
+export default Main
