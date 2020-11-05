@@ -28,7 +28,6 @@ const BodyTitle = styled.h2``
 export const CardModal = ({card,hideModal}: any) => {
   const [title,setTitle] = useState(card.title)
   const [body,setBody] = useState(card.body)
-  const [link,setLink] = useState("")
   const closeCard = useCallback(() => {
     hideModal()
   },[hideModal])

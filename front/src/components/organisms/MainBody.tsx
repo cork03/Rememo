@@ -30,6 +30,7 @@ export const MainBody = ({fetchCards,data,showModal,hideModal} :any) => {
     fetchCards()
   },[fetchCards])
   const cards = Object.values(data)
+  console.log(cards)
   return (
      <Container>
       <Width>
