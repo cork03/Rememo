@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { AuthenticatedPage } from '../components/ProvideContext'
+import { AuthenticatedPage } from '../components/AuthenticatedPage'
 
 
 const mapStateToProps = ({auth} : any) => {
