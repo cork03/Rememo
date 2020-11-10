@@ -19,5 +19,8 @@ export const userLogin = async({data}: any) => {
         "/auth/login",
         data,
     )
-    return result
+    const token = result.data.token
+    const user = result.data.user.name
+    localStorage.setItem('token',token)
+    return user
 }

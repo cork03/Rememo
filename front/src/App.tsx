@@ -5,27 +5,26 @@ import { GlobalStyle } from './styles/GlobalStyle';
 import HomePage from './pages'
 import Modal from './containers/Modal'
 import Main from './pages/MainPage'
-
+import  Auth  from './containers/Auth'
 
 const Container = styled.div``
 
 function App() {
   return (
-    <Router basename='/rememo'>
-      <Container>
-        <GlobalStyle />
+      <Router basename='/rememo' >
+        <Container>
+          <GlobalStyle />
           <Switch>
             <Route exact path='/'>
               <HomePage />
             </Route>
-            <Route path='/main'>
+            <Auth>
               <Main />
-            </Route>
+            </Auth>
           </Switch>
           <Modal />
-      </Container>
-    </Router>
-
+        </Container>
+      </Router>
   )
 }
 

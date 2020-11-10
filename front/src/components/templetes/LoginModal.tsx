@@ -1,4 +1,5 @@
 import React,{useState,useCallback}  from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import {colors} from '../../styles/Variables'
 import { TextInput } from "../atoms/Input";
@@ -32,7 +33,7 @@ const Text = styled.p`
   width: 160px;
 `
 
-const LodinArea = styled.div`
+const LoginArea = styled.div`
   width: 100%;
   margin-top: 40px;
 `;
@@ -49,7 +50,7 @@ const LoginButton = styled.a`
   margin: 20px auto;
 `;
 
-const UnLodin = styled.div`
+const UnLogin = styled.div`
   text-align: center;
   margin: 30px 0;
 `;
@@ -58,12 +59,25 @@ const SignUp = styled.a`
 `
 
 
-export const LoginModal = ({hideModal}: any) => {
+export const LoginModal = ({hideModal,userLogin}: any) => {
   const [mail,setMail] = useState("")
   const [password,setPassword] = useState("")
   const closeModal = useCallback(() => {
     hideModal()
   },[hideModal])
+  const history=useHistory()
+  const asynchronous = useCallback(async() => {
+    return　await userLogin({payload:{
+      loginId: mail,
+      password
+    }
+   })
+  },[userLogin,mail,password])
+  const login = useCallback(async() => {
+    await asynchronous()
+    hideModal()
+    history.push('/main')
+   },[asynchronous,hideModal,history])
     return (
         <Container>
             <CloseButton onClick={closeModal}>✖️</CloseButton>
@@ -76,16 +90,13 @@ export const LoginModal = ({hideModal}: any) => {
               <Text>パスワード：</Text>
               <TextInput value={password} onChangeText={setPassword} placeholder='6文字以上入力してください'></TextInput>
             </InputArea>
-            <LodinArea>
-              <LoginButton>ログイン</LoginButton>
+            <LoginArea>
+                <LoginButton onClick={login}>ログイン</LoginButton>
               <LoginButton>ゲストユーザー</LoginButton>
-            </LodinArea>
-            <UnLodin>
+            </LoginArea>
+            <UnLogin>
                 登録してない方<SignUp>アカウント作成</SignUp>
-            </UnLodin>
-
-
-
+            </UnLogin>
         </Container>
     )
 }

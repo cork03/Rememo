@@ -35,10 +35,13 @@ const Menus = styled.div`
 `;
 
 
-export const Header = ({showModal,hideModal,createUser}: any) => {
+export const Header = ({showModal,hideModal,createUser,userLogin}: any) => {
+  const clear = useCallback(() => {
+    localStorage.clear()
+  },[])
   const showLogin = useCallback(() => {
-    showModal({component: <LoginModal hideModal={hideModal}/>});
-  },[showModal,hideModal])
+    showModal({component: <LoginModal hideModal={hideModal} userLogin={userLogin} />});
+  },[showModal,hideModal,userLogin])
   const showSignUp = useCallback(() => {
     showModal({component: <SignUpModal hideModal={hideModal} createUser={createUser}/>});
   },[showModal,createUser,hideModal])
@@ -46,7 +49,7 @@ export const Header = ({showModal,hideModal,createUser}: any) => {
     <Container>
       <Width>
         <Logo>
-          <Link to='/'>Rememo</Link>
+          <Link to='/' onClick={clear}>Rememo</Link>
         </Logo>
         <Menus>
             <ButtonGreen onClick={showSignUp}>
