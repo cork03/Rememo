@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import * as actions from '../actions'
-import { createUser,userLogin } from '../axios/User'
+import { createUser,userLogin } from '../axios/user'
 
 function* createUsers(action: any) {
     try{

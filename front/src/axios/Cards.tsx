@@ -7,7 +7,7 @@ export const fetchCard = async() => {
     const result = await axios.get(
         "/cards",
         {headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibG9naW5JZCI6Imh1Z2FAZXhhbXBsZS5jb20iLCJpYXQiOjE2MDQ1NzY3MTV9.Otyj463XrJgGfuRWIjXQ_FhkgAHgzbb8Ad-drtQmdTE`,
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibG9naW5JZCI6InRzdWJhc2EiLCJpYXQiOjE2MDUwMTk2NjF9.YisG_fDTqY8UgdDySi-JlejYyfThvdy8u_3cb-iwp14`,
           }
         }
     )

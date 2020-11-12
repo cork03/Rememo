@@ -25,7 +25,7 @@ const Logo = styled.div`
 `;
 
 
-export const MainHeader = ({showModal,hideModal,createUser}: any) => {
+export const MainHeader = () => {
   return (
     <Container>
       <Width>
