@@ -13,7 +13,6 @@ function* createUsers(action: any) {
 
 function* usersLogin(action: any) {
     try{
-        console.log(action)
         yield call(userLogin, {data: action.payload}  )
         yield put({type: actions.USER_LOGIN_SUCCEEDED})
      } catch(e) {

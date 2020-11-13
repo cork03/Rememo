@@ -29,14 +29,14 @@ const ListTitle = styled.p`
 const Cards = styled.ul`
 `
 
-export const MainBody = ({fetchCards,data,showModal,hideModal} :any) => {
+export const MainBody = ({fetchCards,data,showModal,hideModal,postCard} :any) => {
   useEffect(() => {
     fetchCards()
   },[fetchCards])
   const cards = Object.values(data)
   const _showModal= useCallback(() => {
-    showModal({component: <CreateCardModal hideModal={hideModal}/>})
-  },[showModal,hideModal])
+    showModal({component: <CreateCardModal hideModal={hideModal} postCard={postCard}/>})
+  },[showModal,hideModal,postCard])
   console.log(cards)
   return (
      <Container>

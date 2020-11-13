@@ -7,11 +7,11 @@ const Container = styled.div``
 
 
 
-export const MainPage = ({showModal,hideModal,fetchCards,data}: any) => {
+export const MainPage = ({showModal,hideModal,fetchCards,data,postCard}: any) => {
   return (
     <Container>
       <MainHeader />
-      <MainBody fetchCards={ fetchCards } data={data} showModal={showModal} hideModal={hideModal} />
+      <MainBody fetchCards={ fetchCards } data={data} showModal={showModal} hideModal={hideModal} postCard={postCard} />
     </Container>
   )
 }

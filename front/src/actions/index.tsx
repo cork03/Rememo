@@ -25,6 +25,16 @@ const fetchCards = (cards: any) => {
     return {type: FETCH_CARDS_REQUESTED,payload: cards}
 }
 
+// cardPost
+
+export const POST_CARD_REQUESTED = "POST_CARD_REQUESTED"
+export const POST_CARD_SUCCEEDED = "POST_CARD_SUCCEEDED"
+export const POST_CARD_FAILED = "POST_CARD_FAILED"
+
+export const postCard = ({payload} : any) => {
+    return {type: POST_CARD_REQUESTED, payload}
+}
+
 
 // createUser
 
@@ -51,5 +61,6 @@ export const actionCreators = {
     hideModal,
     createUser,
     userLogin,
-    fetchCards
+    fetchCards,
+    postCard
 }

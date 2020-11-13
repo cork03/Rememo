@@ -1,6 +1,5 @@
 import React,{useCallback,useState}  from "react";
 import styled from "styled-components";
-import { AddLink } from "../atoms/AddLink";
 import Button from "../atoms/Buttons";
 import Input from "../atoms/Input";
 import { TextArea } from "../atoms/TextArea";
@@ -49,13 +48,12 @@ const CategoryTitle = styled.label`
 `
 
 
-export const CreateCardModal = ({hideModal}: any) => {
+export const CreateCardModal = ({hideModal,postCard}: any) => {
   const [title,setTitle] = useState("")
   const [body,setBody] = useState("")
   const [count,setCount] = useState(3)
   const [category,setCategory] = useState(1)
-  const [links,setLinks] = useState(['hoge'])
-  const [value,setValue] = useState()
+  const [link,setLink] = useState("")
   const closeCard = useCallback(() => {
     hideModal()
   },[hideModal])
@@ -66,6 +64,16 @@ export const CreateCardModal = ({hideModal}: any) => {
     setCategory(e.target.value)
   },[setCategory])
   const counts = [2,3,4]
+  const createCard = useCallback(() => {
+    postCard({payload:{
+      title,
+      body,
+      links: [link],
+      totalCount: count,
+      categoryIds: [category]
+    }})
+    hideModal()
+  },[postCard,title,body,link,count,category,hideModal])
   return (
     <Container>
       <CloseButton onClick={closeCard}>✖️</CloseButton>
@@ -80,10 +88,7 @@ export const CreateCardModal = ({hideModal}: any) => {
         </BodyArea>
         <LinksArea>
           <LinksTitle>参考サイト</LinksTitle>
-          {links ? (links.map((item: any) => {
-            return(<Input type='card' value={item}/>)
-          })): (<></>)}
-          <AddLink value={value} placeholder='リンクを追加する'  onChangeText={setValue} changeLink={setLinks} link={links}/>
+          <Input type='card' value={link} onChangeText={setLink} placeholder='リンクを追加する' />
         </LinksArea>
         <Options>
           <CountArea>
@@ -100,7 +105,7 @@ export const CreateCardModal = ({hideModal}: any) => {
               <option value='1' >選択</option>
             </select>
           </CategoryArea>
-          <Button type='primary'>作成</Button>
+          <Button type='primary' onClick={createCard}>作成</Button>
         </Options>
       </Width>
     </Container>

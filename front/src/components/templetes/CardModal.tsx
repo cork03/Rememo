@@ -34,7 +34,6 @@ export const CardModal = ({card,hideModal}: any) => {
   const closeCard = useCallback(() => {
     hideModal()
   },[hideModal])
-  console.log(card)
   return (
     <Container>
       <CloseButton onClick={closeCard}>✖️</CloseButton>
