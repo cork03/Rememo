@@ -21,7 +21,7 @@ body{
     padding: 0;
     margin: 0;
   }
-  ul, p,h2 {
+  ul, p, h2, h3 {
     padding: 0;
     margin: 0;
   }
@@ -32,12 +32,12 @@ body{
     text-decoration: none;
   }
   .ReactModal__Content {
-    background: ${colors.baseBackground};
+    background: ${colors.modalBackground};
     border-radius: 10px;
     margin: 100px auto;
     padding: 16px;
     border: 1px solid lightgray;
-    width: 40%;
+    max-width: 600px;
     outline: none;
     bottom: auto !important;
     top: 200px !important;
