@@ -7,6 +7,10 @@ export const colors = {
   baseBackground: "rgb(255,255,240)",
   baseColor: "rgb(255,255,240)",
   colorBlack: "black",
+  modalBackground: "#f5f5f5",
+  modalHover: "#dcdcdc",
+  cardBackground: "#f5f5f5",
+  cardHover: "#dcdcdc",
 };
 
 export const font = {

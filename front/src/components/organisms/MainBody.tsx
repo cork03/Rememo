@@ -1,6 +1,9 @@
-import React,{useEffect} from "react";
+import React,{useCallback, useEffect} from "react";
 import styled from "styled-components";
+import { colors } from "../../styles/Variables";
 import { Card } from "./Card";
+import Button  from '../atoms/Buttons'
+import { CreateCardModal } from "../templetes/CreateCardModal";
 
 const Container = styled.div`
   height: 100vh;
@@ -17,19 +20,23 @@ const ListsField = styled.div`
   border: 1px solid black;
   border-radius: 6px;
   margin-right: 30px;
-  padding: 5px;
+  padding: 10px;
+  background: ${colors.cardBackground};
 `
 const ListTitle = styled.p`
+  font-size: 20px;
 `
 const Cards = styled.ul`
-
 `
 
-export const MainBody = ({fetchCards,data,showModal,hideModal} :any) => {
+export const MainBody = ({fetchCards,data,showModal,hideModal,postCard} :any) => {
   useEffect(() => {
     fetchCards()
   },[fetchCards])
   const cards = Object.values(data)
+  const _showModal= useCallback(() => {
+    showModal({component: <CreateCardModal hideModal={hideModal} postCard={postCard}/>})
+  },[showModal,hideModal,postCard])
   console.log(cards)
   return (
      <Container>
@@ -40,6 +47,7 @@ export const MainBody = ({fetchCards,data,showModal,hideModal} :any) => {
           {cards.map((card: any) => {
             return <Card card={card} showModal={showModal} hideModal={hideModal} />
           })}
+          <Button type='card' onClick={_showModal}>カードを追加する</Button>
         </Cards>
       </ListsField>
       <ListsField></ListsField>

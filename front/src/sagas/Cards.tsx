@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import * as actions from '../actions'
-import { fetchCard } from '../axios/Cards'
+import { fetchCard,postCard } from '../axios/Cards'
 
 function* fetchCards(action: any) {
     try{
@@ -11,11 +11,21 @@ function* fetchCards(action: any) {
     }
 }
 
+function* post(action: any) {
+    try{
+        yield call(postCard,{data: action.payload})
+        yield put({type: actions.POST_CARD_SUCCEEDED})
+     } catch(e) {
+        yield put({type: actions.POST_CARD_FAILED, messagae: e.message})
+    }
+}
+
+
 
 
 function* cards() {
     yield takeLatest(actions.FETCH_CARDS_REQUESTED,fetchCards)
-
+    yield takeLatest(actions.POST_CARD_REQUESTED,post)
 }
 
 export default cards;

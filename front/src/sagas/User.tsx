@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import * as actions from '../actions'
-import { createUser,userLogin } from '../axios/User'
+import { createUser,userLogin } from '../axios/user'
 
 function* createUsers(action: any) {
     try{
@@ -13,7 +13,6 @@ function* createUsers(action: any) {
 
 function* usersLogin(action: any) {
     try{
-        console.log(action)
         yield call(userLogin, {data: action.payload}  )
         yield put({type: actions.USER_LOGIN_SUCCEEDED})
      } catch(e) {

@@ -4,8 +4,10 @@ import { CardModal } from "../templetes/CardModal";
 
 const Content = styled.li`
   background-color: white;
-  margin-bottom: 5px;
-  padding: 3px 0;
+  margin-bottom: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .5);
 `
 
 export const Card = ({card,showModal,hideModal}: any) => {

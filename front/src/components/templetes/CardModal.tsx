@@ -1,6 +1,6 @@
 import React,{useCallback,useState}  from "react";
 import styled from "styled-components";
-import { TextInput } from "../atoms/Input";
+import Input  from "../atoms/Input";
 import { TextArea } from "../atoms/TextArea";
 
 
@@ -15,35 +15,43 @@ const CloseButton = styled.div`
   cursor: pointer;
 `
 const Width =styled.div`
-  margin: 30px auto;
-  width: 70%;
+  margin: 10px auto;
 `;
 const TitleArea = styled.div``
-const Title = styled.h2``
 
-const BodyArea = styled.div``
+const BodyArea = styled.div`
+  margin-top: 30px;
+`
 const BodyTitle = styled.h2``
 
+const LinksArea = styled.div``
+const LinksTitle = styled.h2``
 
 export const CardModal = ({card,hideModal}: any) => {
   const [title,setTitle] = useState(card.title)
   const [body,setBody] = useState(card.body)
+  const [links,setLinks] = useState(card.links)
   const closeCard = useCallback(() => {
     hideModal()
   },[hideModal])
-  console.log(card)
   return (
     <Container>
       <CloseButton onClick={closeCard}>✖️</CloseButton>
       <Width>
         <TitleArea>
-          <Title>Title</Title>
-          <TextInput value={title} onChangeText={setTitle} />
+          <Input type='card' value={title} onChangeText={setTitle} />
         </TitleArea>
         <BodyArea>
-          <BodyTitle>Text</BodyTitle>
+          <BodyTitle>説明</BodyTitle>
           <TextArea value={body} onChangeText={setBody} />
         </BodyArea>
+        <LinksArea>
+          <LinksTitle>参考サイト</LinksTitle>
+          {links ? (links.map((item: any) => {
+            return(<Input type='card' value={item}/>)
+          })): (<></>)}
+          <Input type='card' placeholder='リンクを追加する' />
+        </LinksArea>
       </Width>
     </Container>
     )

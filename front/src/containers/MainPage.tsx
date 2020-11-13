@@ -13,7 +13,8 @@ const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators({
     showModal: actionCreators.showModal,
     hideModal: actionCreators.hideModal,
-    fetchCards: actionCreators.fetchCards
+    fetchCards: actionCreators.fetchCards,
+    postCard: actionCreators.postCard
   },dispatch)
 }
 

@@ -83,9 +83,6 @@ export const LoginModal = ({hideModal}: any) => {
             <UnLodin>
                 登録してない方<SignUp>アカウント作成</SignUp>
             </UnLodin>
-
-
-
         </Container>
     )
 }
