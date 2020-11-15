@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
-import modal from "./Modal";
-import cards from "./Cards";
-import auth from "./User";
+import modal from "./modal";
+import cards from "./cards";
+import auth from "./user";
 
 const reducer = combineReducers({
   modal,

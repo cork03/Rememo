@@ -1,6 +1,6 @@
 import { all } from "redux-saga/effects";
-import user from "./User";
-import cards from "./Cards";
+import user from "./user";
+import cards from "./cards";
 
 function* rootSaga() {
   yield all([user(), cards()]);

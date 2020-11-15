@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import * as actions from "../actions";
-import { fetchCard, postCard } from "../axios/Cards";
+import { fetchCard, postCard } from "../axios/cards";
 
 function* fetchCards(action: any) {
   try {
