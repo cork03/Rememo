@@ -1,10 +1,10 @@
-import React,{useCallback} from "react";
+import React, { useCallback } from "react";
 import styled from "styled-components";
-import { ButtonGreen } from "../atoms/Buttons"
-import { Link } from 'react-router-dom'
-import { LoginModal } from '../templetes/LoginModal'
-import { SignUpModal } from '../templetes/SignUpModal'
-import { colors } from '../../styles/Variables'
+import { Link } from "react-router-dom";
+import { ButtonGreen } from "../atoms/Buttons";
+import { LoginModal } from "../templetes/LoginModal";
+import { SignUpModal } from "../templetes/SignUpModal";
+import { colors } from "../../styles/Variables";
 
 const Container = styled.div`
   width: 100%;
@@ -21,7 +21,7 @@ const Width = styled.div`
 
 const Logo = styled.div`
   margin: 0 auto;
-  a{
+  a {
     font-size: 70px;
     color: ${colors.baseColor};
   }
@@ -34,31 +34,38 @@ const Menus = styled.div`
   display: flex;
 `;
 
-
-export const Header = ({showModal,hideModal,createUser}: any) => {
+export const Header = ({
+  showModal,
+  hideModal,
+  createUser,
+  userLogin,
+}: any) => {
+  const clear = useCallback(() => {
+    localStorage.clear();
+  }, []);
   const showLogin = useCallback(() => {
-    showModal({component: <LoginModal hideModal={hideModal}/>});
-  },[showModal,hideModal])
+    showModal({
+      component: <LoginModal hideModal={hideModal} userLogin={userLogin} />,
+    });
+  }, [showModal, hideModal, userLogin]);
   const showSignUp = useCallback(() => {
-    showModal({component: <SignUpModal hideModal={hideModal} createUser={createUser}/>});
-  },[showModal,createUser,hideModal])
+    showModal({
+      component: <SignUpModal hideModal={hideModal} createUser={createUser} />,
+    });
+  }, [showModal, createUser, hideModal]);
   return (
     <Container>
       <Width>
         <Logo>
-          <Link to='/'>Rememo</Link>
+          <Link to="/" onClick={clear}>
+            Rememo
+          </Link>
         </Logo>
         <Menus>
-            <ButtonGreen onClick={showSignUp}>
-              新規登録
-            </ButtonGreen>
-            <ButtonGreen onClick={showLogin} >
-              ログイン
-            </ButtonGreen>
+          <ButtonGreen onClick={showSignUp}>新規登録</ButtonGreen>
+          <ButtonGreen onClick={showLogin}>ログイン</ButtonGreen>
         </Menus>
       </Width>
     </Container>
   );
 };
-
-
