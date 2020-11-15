@@ -1,13 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import {Header} from "../organisms/Header";
-import {TopBody} from '../organisms/TopBody'
+import { Header } from "../organisms/Header";
+import { TopBody } from "../organisms/TopBody";
 
-const Container = styled.div``
+const Container = styled.div``;
 
-
-
-export const HomePage = ({showModal,hideModal,createUser,userLogin}: any) => {
+export const HomePage = ({
+  showModal,
+  hideModal,
+  createUser,
+  userLogin,
+}: any) => {
   return (
     <Container>
       <Header
@@ -16,7 +19,7 @@ export const HomePage = ({showModal,hideModal,createUser,userLogin}: any) => {
         createUser={createUser}
         userLogin={userLogin}
       />
-      <TopBody/>
+      <TopBody />
     </Container>
-  )
-}
+  );
+};

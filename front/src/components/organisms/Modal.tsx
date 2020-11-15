@@ -1,14 +1,17 @@
-import React from 'react'
-import Modal from 'react-modal'
+import React from "react";
+import Modal from "react-modal";
 
-Modal.setAppElement('#root')
+Modal.setAppElement("#root");
 
-const ModalContainer = ({ show, component }:any) => {
+const ModalContainer = ({ show, component }: any) => {
   if (!show) {
-    return <></>
+    return <></>;
   }
-  return <Modal className="ReactModal__Content__modal" isOpen={show}>{component}</Modal>
-}
+  return (
+    <Modal className="ReactModal__Content__modal" isOpen={show}>
+      {component}
+    </Modal>
+  );
+};
 
-
-export default ModalContainer
+export default ModalContainer;

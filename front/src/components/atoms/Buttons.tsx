@@ -1,6 +1,6 @@
 import styled from "styled-components";
+import React from "react";
 import { colors } from "../../styles/Variables";
-import React from 'react'
 
 export const Button = styled.a`
   min-width: 100px;
@@ -26,7 +26,7 @@ export const ButtonRed = styled(Button)`
   &:hover {
     background: #af1c2a;
   }
-`
+`;
 
 export const AddCardButton = styled.a`
   width: 100%;
@@ -35,19 +35,19 @@ export const AddCardButton = styled.a`
   padding: 5px;
   border-radius: 5px;
   :hover {
-    background: ${colors.cardHover}
+    background: ${colors.cardHover};
   }
-`
+`;
 
 const map: any = {
   default: Button,
   primary: ButtonGreen,
-  card: AddCardButton
-}
+  card: AddCardButton,
+};
 
-const ButtonComponent = ({type,onClick,children}: any) => {
-  const component = map[type] || map.defalut
-  return React.createElement(component,{onClick},children)
-}
+const ButtonComponent = ({ type, onClick, children }: any) => {
+  const component = map[type] || map.defalut;
+  return React.createElement(component, { onClick }, children);
+};
 
-export default ButtonComponent
+export default ButtonComponent;

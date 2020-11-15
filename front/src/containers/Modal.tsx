@@ -1,15 +1,15 @@
-import { connect } from 'react-redux'
-import Modal from '../components/organisms/Modal'
+import { connect } from "react-redux";
+import Modal from "../components/organisms/Modal";
 
 const mapStateToProps = ({ modal }: any) => {
   return {
     show: modal.show,
-    component: modal.component
-  }
-}
+    component: modal.component,
+  };
+};
 
 const mapDispatchToProps = (dispatch: any) => {
-  return {}
-}
+  return {};
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Modal)
+export default connect(mapStateToProps, mapDispatchToProps)(Modal);

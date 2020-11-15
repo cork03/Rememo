@@ -30,19 +30,26 @@
     "@types/react-router-dom": "^5.1.6",
     "@types/redux-saga": "^0.10.5",
     "@types/styled-components": "^5.1.4",
+    "@typescript-eslint/eslint-plugin": "^4.7.0",
+    "@typescript-eslint/parser": "^4.7.0",
+    "eslint": "^7.13.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-config-react-app": "^6.0.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-app": "^6.2.2",
+    "prettier": "^2.1.2",
     "redux-devtools-extension": "^2.13.8"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "eject": "react-scripts eject",
+    "lint": "eslint --ext .ts,.tsx ./src"
   },
   "browserslist": {
     "production": [
@@ -56,5 +63,4 @@
       "last 1 safari version"
     ]
   }
-
 }
