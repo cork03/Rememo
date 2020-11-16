@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, FC } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { colors } from "../../styles/Variables";
@@ -55,7 +55,7 @@ const UnLogin = styled.div`
 `;
 const SignUp = styled.a``;
 
-export const LoginModal = ({ hideModal, userLogin }: any) => {
+export const LoginModal = ({ hideModal, userLogin, user }: any) => {
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const closeModal = useCallback(() => {
@@ -74,7 +74,7 @@ export const LoginModal = ({ hideModal, userLogin }: any) => {
     await asynchronous();
     hideModal();
     history.push("/main");
-  }, [asynchronous, hideModal, history]);
+  }, [asynchronous, hideModal, history, user]);
   return (
     <Container>
       <CloseButton onClick={closeModal}>✖️</CloseButton>
@@ -84,7 +84,7 @@ export const LoginModal = ({ hideModal, userLogin }: any) => {
         <TextInput
           value={mail}
           onChangeText={setMail}
-          placeholder="例：田中　太郎"
+          placeholder="例：taro@example.com"
         />
       </InputArea>
       <InputArea>

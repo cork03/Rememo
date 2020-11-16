@@ -1,10 +1,12 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { HomePage } from "../components/templetes";
+import { Header } from "../components/organisms/Header";
 import { actionCreators } from "../actions";
 
-const mapStateToProps = () => {
-  return {};
+const mapStateToProps = ({ auth }: any) => {
+  return {
+    user: auth.user,
+  };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
@@ -19,4 +21,4 @@ const mapDispatchToProps = (dispatch: any) => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

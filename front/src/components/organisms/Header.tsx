@@ -39,13 +39,16 @@ export const Header = ({
   hideModal,
   createUser,
   userLogin,
+  user,
 }: any) => {
   const clear = useCallback(() => {
     localStorage.clear();
   }, []);
   const showLogin = useCallback(() => {
     showModal({
-      component: <LoginModal hideModal={hideModal} userLogin={userLogin} />,
+      component: (
+        <LoginModal hideModal={hideModal} userLogin={userLogin} user={user} />
+      ),
     });
   }, [showModal, hideModal, userLogin]);
   const showSignUp = useCallback(() => {
