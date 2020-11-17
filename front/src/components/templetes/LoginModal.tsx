@@ -2,25 +2,18 @@ import React, { useState, useCallback, FC } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { colors } from "../../styles/Variables";
+import { ErrorMessage } from "../atoms/ErrorMessage";
 import { TextInput } from "../atoms/Input";
+import { SignUpModal } from "./SignUpModal";
 
 const Container = styled.div`
   margin: 0 auto;
   width: 70%;
-  position: relative;
-`;
-
-const CloseButton = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  font-size: 30px;
-  cursor: pointer;
 `;
 
 const Title = styled.h2`
+  margin: 20px 0;
   text-align: center;
-  margin: 30px 0;
 `;
 
 const InputArea = styled.div`
@@ -34,7 +27,8 @@ const Text = styled.p`
 
 const LoginArea = styled.div`
   width: 100%;
-  margin-top: 40px;
+  margin-top: 30px;
+  display: flex;
 `;
 const LoginButton = styled.a`
   text-align: center;
@@ -45,22 +39,29 @@ const LoginButton = styled.a`
   background: ${colors.buttonGreen};
   border-bottom: 2px solid #28a745;
   display: block;
-  width: 200px;
-  margin: 20px auto;
+  min-width: 140px;
+  margin: 0 auto;
 `;
 
 const UnLogin = styled.div`
-  text-align: center;
   margin: 30px 0;
+  text-align: center;
 `;
-const SignUp = styled.a``;
+const SignUp = styled.a`
+  cursor: pointer;
+  font-weight: 700;
+  margin-left: 10px;
+`;
 
-export const LoginModal = ({ hideModal, userLogin, user }: any) => {
+export const LoginModal = ({
+  hideModal,
+  userLogin,
+  showModal,
+  createUser,
+}: any) => {
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
-  const closeModal = useCallback(() => {
-    hideModal();
-  }, [hideModal]);
+  const [errorMessage, setErrorMessage] = useState("");
   const history = useHistory();
   const asynchronous = useCallback(async () => {
     return await userLogin({
@@ -70,14 +71,41 @@ export const LoginModal = ({ hideModal, userLogin, user }: any) => {
       },
     });
   }, [userLogin, mail, password]);
+  const messageError = useCallback(() => {
+    if (!mail) {
+      setErrorMessage("メールアドレスを入力してください。");
+      return;
+    }
+    if (!password || password.length < 6) {
+      setErrorMessage("パスワードは６文字以上入力してください。");
+      return;
+    }
+    return true;
+  }, [setErrorMessage, mail, password, setMail, setPassword]);
+  const unAuthorizedError = useCallback(() => {
+    setMail("");
+    setPassword("");
+    setErrorMessage("メールアドレス、またはパスワードに誤りがあります。");
+  }, [setMail, setPassword, setErrorMessage]);
   const login = useCallback(async () => {
-    await asynchronous();
+    const noOmission = messageError();
+    if (noOmission) {
+      const user = await asynchronous();
+      if (user) {
+        hideModal();
+        history.push("/main");
+      }
+      unAuthorizedError();
+    }
+  }, [asynchronous, hideModal, history, messageError]);
+  const forSignUP = useCallback(() => {
     hideModal();
-    history.push("/main");
-  }, [asynchronous, hideModal, history, user]);
+    showModal({
+      component: <SignUpModal hideModal={hideModal} createUser={createUser} />,
+    });
+  }, [showModal, hideModal]);
   return (
     <Container>
-      <CloseButton onClick={closeModal}>✖️</CloseButton>
       <Title>ログイン</Title>
       <InputArea>
         <Text>メールアドレス：</Text>
@@ -95,12 +123,13 @@ export const LoginModal = ({ hideModal, userLogin, user }: any) => {
           placeholder="6文字以上入力してください"
         />
       </InputArea>
+      {errorMessage ? <ErrorMessage errorMessage={errorMessage} /> : <></>}
       <LoginArea>
         <LoginButton onClick={login}>ログイン</LoginButton>
         <LoginButton>ゲストユーザー</LoginButton>
       </LoginArea>
       <UnLogin>
-        登録してない方<SignUp>アカウント作成</SignUp>
+        登録してない方<SignUp onClick={forSignUP}>アカウント作成</SignUp>
       </UnLogin>
     </Container>
   );

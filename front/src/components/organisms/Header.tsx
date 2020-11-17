@@ -39,7 +39,6 @@ export const Header = ({
   hideModal,
   createUser,
   userLogin,
-  user,
 }: any) => {
   const clear = useCallback(() => {
     localStorage.clear();
@@ -47,7 +46,12 @@ export const Header = ({
   const showLogin = useCallback(() => {
     showModal({
       component: (
-        <LoginModal hideModal={hideModal} userLogin={userLogin} user={user} />
+        <LoginModal
+          hideModal={hideModal}
+          userLogin={userLogin}
+          showModal={showModal}
+          createUser={createUser}
+        />
       ),
     });
   }, [showModal, hideModal, userLogin]);

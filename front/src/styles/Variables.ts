@@ -11,6 +11,7 @@ export const colors = {
   modalHover: "#dcdcdc",
   cardBackground: "#f5f5f5",
   cardHover: "#dcdcdc",
+  error: "#c2302a",
 };
 
 export const font = {

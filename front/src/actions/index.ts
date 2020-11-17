@@ -52,12 +52,14 @@ export const createUser = ({ payload }: any) => {
 export const USER_LOGIN = "USER_LOGIN";
 
 export const userLogin = ({ payload }: any) => {
-  return async (dispatch: any) => {
+  return async (dispatch: any): Promise<string | undefined> => {
     try {
       const user = await usersLogin({ data: payload });
       dispatch({ type: USER_LOGIN, payload: user });
+      return user;
     } catch (e) {
       console.log(e);
+      return undefined;
     }
   };
 };
