@@ -4,6 +4,7 @@ import { createStore, applyMiddleware } from "redux";
 import createSagaMiddleware from "redux-saga";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { Provider } from "react-redux";
+import thunk from "redux-thunk";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import reducer from "./reducers";
@@ -12,7 +13,7 @@ import rootSaga from "./sagas";
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
   reducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware))
+  composeWithDevTools(applyMiddleware(sagaMiddleware, thunk))
 );
 sagaMiddleware.run(rootSaga);
 

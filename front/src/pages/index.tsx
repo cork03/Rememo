@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import TopPage from "../containers";
+import { HomePage } from "../components/templetes";
 
 const Container = styled.div``;
 
 const Index = () => {
   return (
     <Container>
-      <TopPage />
+      <HomePage />
     </Container>
   );
 };

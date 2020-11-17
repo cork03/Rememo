@@ -1,24 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import { Header } from "../organisms/Header";
+import Header from "../../containers/TopHeader";
 import { TopBody } from "../organisms/TopBody";
 
 const Container = styled.div``;
 
-export const HomePage = ({
-  showModal,
-  hideModal,
-  createUser,
-  userLogin,
-}: any) => {
+export const HomePage = () => {
   return (
     <Container>
-      <Header
-        showModal={showModal}
-        hideModal={hideModal}
-        createUser={createUser}
-        userLogin={userLogin}
-      />
+      <Header />
       <TopBody />
     </Container>
   );

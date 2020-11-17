@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import { colors } from "../../styles/Variables";
+import { ErrorMessage } from "../atoms/ErrorMessage";
 import { TextInput } from "../atoms/Input";
 
 const Container = styled.div`
@@ -53,21 +54,36 @@ export const SignUpModal = ({ createUser, hideModal }: any) => {
   const [userName, setUserName] = useState("");
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const messageError = useCallback(() => {
+    if (!userName) {
+      setErrorMessage("ユーザー名を入力してください");
+      return;
+    }
+    if (!mail) {
+      setErrorMessage("メールアドレスを入力してください");
+      return;
+    }
+    if (!password) {
+      setErrorMessage("パスワードは６文字以上入力してください");
+      return;
+    }
+    return true;
+  }, [setErrorMessage, userName, mail, password, setMail, setPassword]);
   const onSubmit = useCallback(() => {
-    createUser({
-      payload: {
-        loginId: mail,
-        name: userName,
-        password,
-      },
-    });
+    const noOmission = messageError();
+    if (noOmission) {
+      createUser({
+        payload: {
+          loginId: mail,
+          name: userName,
+          password,
+        },
+      });
+    }
   }, [createUser, userName, mail, password]);
-  const closeModal = useCallback(() => {
-    hideModal();
-  }, [hideModal]);
   return (
     <Container>
-      <CloseButton onClick={closeModal}>✖️</CloseButton>
       <Width>
         <Title>アカウント作成</Title>
         <InputArea>
@@ -94,6 +110,7 @@ export const SignUpModal = ({ createUser, hideModal }: any) => {
             placeholder="6文字以上入力してください"
           />
         </InputArea>
+        <ErrorMessage errorMessage={errorMessage} />
         <LodinArea>
           <LoginButton onClick={onSubmit}>アカウント作成</LoginButton>
         </LodinArea>

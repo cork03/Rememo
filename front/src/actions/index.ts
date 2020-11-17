@@ -1,5 +1,6 @@
-// modal
+import { usersLogin } from "../axios/user";
 
+// modal
 export const SHOW_MODAL = "SHOW_MODAL";
 export const HIDE_MODAL = "HIDE_MODAL";
 
@@ -9,6 +10,7 @@ const showModal = ({ component }: any) => {
     payload: component,
   };
 };
+
 const hideModal = () => {
   return {
     type: HIDE_MODAL,
@@ -47,12 +49,19 @@ export const createUser = ({ payload }: any) => {
 
 // userLogin
 
-export const USER_LOGIN_REQUESTED = "USER_LOGIN_REQUESTED";
-export const USER_LOGIN_SUCCEEDED = "USER_LOGIN_SUCCEEDED";
-export const USER_LOGIN_FAILED = "USER_LOGIN_FAILED";
+export const USER_LOGIN = "USER_LOGIN";
 
 export const userLogin = ({ payload }: any) => {
-  return { type: USER_LOGIN_REQUESTED, payload };
+  return async (dispatch: any): Promise<string | undefined> => {
+    try {
+      const user = await usersLogin({ data: payload });
+      dispatch({ type: USER_LOGIN, payload: user });
+      return user;
+    } catch (e) {
+      console.log(e);
+      return undefined;
+    }
+  };
 };
 
 export const actionCreators = {

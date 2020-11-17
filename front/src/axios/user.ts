@@ -11,7 +11,7 @@ export const createUser = async ({ data }: any) => {
 
 // ログイン
 
-export const userLogin = async ({ data }: any) => {
+export const usersLogin = async ({ data }: any) => {
   const result = await axios.post("/auth/login", data);
   const { token } = result.data;
   const user = result.data.user.name;

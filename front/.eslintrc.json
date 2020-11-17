@@ -43,6 +43,8 @@
         "import/no-extraneous-dependencies": "off",
         "no-shadow": "off",
         "no-return-await": "off",
+        "no-debugger": "off",
+        "consistent-return": "off",
         "import/extensions": [
             "error",
             {

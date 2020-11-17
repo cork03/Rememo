@@ -45,7 +45,14 @@ export const Header = ({
   }, []);
   const showLogin = useCallback(() => {
     showModal({
-      component: <LoginModal hideModal={hideModal} userLogin={userLogin} />,
+      component: (
+        <LoginModal
+          hideModal={hideModal}
+          userLogin={userLogin}
+          showModal={showModal}
+          createUser={createUser}
+        />
+      ),
     });
   }, [showModal, hideModal, userLogin]);
   const showSignUp = useCallback(() => {
