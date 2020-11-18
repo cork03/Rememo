@@ -55,23 +55,37 @@ class Card extends sequelize_1.Model {
             }
         });
     }
+    static async patch(cardElements, linkElements, categoryIds, postId) {
+        await _1.sequelize.transaction(async (t) => {
+            Card.update(cardElements, { where: { id: postId } });
+            const card = await Card.findByPk(postId);
+            const userCategories = await userCategories_1.default.findAll({ where: { id: categoryIds } });
+            await card.setUserCategories(userCategories, {
+                through: {
+                    cardId: card.id,
+                },
+            });
+        });
+    }
     static async get(userId) {
-        const allCards = await Card.findAll({ where: { userId } });
-        const returnCrads = [];
+        const allCards = await Card.findAll({ where: {
+                [sequelize_1.Op.and]: [
+                    { leanCount: { [sequelize_1.Op.lte]: sequelize_1.default.col("totalCount") } },
+                    { userId },
+                ],
+            }, });
+        const returnCards = [];
         const compareTimes = [0, 48, 168, 336, 672];
         const getCards = (card) => {
-            if (card.leanCount > card.totalCount) {
-                return;
-            }
             const time = differenceInHours_1.default(new Date(), card.lastCheckedAt);
-            if (time >= compareTimes[card.leanCount]) {
-                returnCrads.push(card);
+            if (time >= compareTimes[card.leanCount] || time <= 24) {
+                returnCards.push(card);
             }
         };
         allCards.forEach((card) => {
             getCards(card);
         });
-        return returnCrads;
+        return returnCards;
     }
 }
 Card.init({

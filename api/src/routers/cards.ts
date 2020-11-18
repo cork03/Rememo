@@ -1,5 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
-import Card from "../models/cards";
+import CardLinks from "../models/cardLinks";
+import Card, { UserCategories } from "../models/cards";
+import UserCategory from '../models/userCategories'
 
 const route = express.Router();
 
@@ -8,8 +10,11 @@ const route = express.Router();
 route.get("/", async (req: any, res: Response) => {
   const userId = req.user.id;
   try {
-    const cards = await Card.get(userId);
-    res.json({ cards });
+    const cards = await Card.findAll({
+      where: {userId},
+      include: [{model: UserCategory, as: 'userCategories'},{model: CardLinks}]
+    },);
+     res.status(200).json({ cards });
   } catch (e) {
     res.json({ e });
   }
@@ -34,7 +39,7 @@ route.post("/", async (req: any, res: Response) => {
 
 // cardの編集
 
-route.put("/:id", async (req: any, res: Response) => {
+route.patch("/:id", async (req: any, res: Response) => {
   const {id} = req.params;
   const {
     card: { links, ...reqBody },
@@ -43,8 +48,8 @@ route.put("/:id", async (req: any, res: Response) => {
   const { categoryIds, ...cardElements } = reqBody;
   cardElements.userId = userId;
   try {
-    await Card.add(cardElements, links, categoryIds);
-    res.status(201).json({});
+    await Card.patch(cardElements, links, categoryIds, id);
+    res.status(200).json({});
   } catch (e) {
     res.status(400).json({ e });
   }
@@ -57,10 +62,14 @@ route.delete("/:id", async (req: any, res: Response) => {
   try {
     const card =  await Card.findByPk(id);
     await card!.destroy()
-    res.status(201).json({});
+    res.status(200).json({});
   } catch (e) {
     res.status(400).json({ e });
   }
 });
 
+// cardのチェク
+
+route.patch("/check/:id",async (req: any, res: Response) => {
+})
 export default route;

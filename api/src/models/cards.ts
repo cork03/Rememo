@@ -1,4 +1,4 @@
-import Sequelize, { Model } from "sequelize";
+import Sequelize, { Model , Op} from "sequelize";
 import { sequelize } from ".";
 import CardCategory from "./cardCategories";
 import CardLinks from "./cardLinks";
@@ -44,23 +44,43 @@ class Card extends Model {
     });
   }
 
+  static async patch(
+    cardElements: any,
+    linkElements: string[],
+    categoryIds: number[],
+    postId: number
+    ) {
+      await sequelize.transaction(async(t) => {
+        Card.update(cardElements,{where: {id: postId}})
+        const card = await Card.findByPk(postId);
+        const userCategories = await UserCategory.findAll({ where: { id: categoryIds } });
+        await (card as any).setUserCategories(userCategories, {
+          through: {
+            cardId: card!.id,
+        },
+      });
+      })
+    }
+
   static async get(userId: number) {
-    const allCards = await Card.findAll({ where: { userId } });
-    const returnCrads: any[] = [];
+    const allCards = await Card.findAll({ where: {
+      [Op.and]: [
+        { leanCount: { [Op.lte]: Sequelize.col("totalCount") } },
+        { userId },
+      ],
+    }, });
+    const returnCards: any[] = [];
     const compareTimes = [0, 48, 168, 336, 672];
     const getCards = (card: any) => {
-      if (card.leanCount > card.totalCount) {
-        return;
-      }
       const time = differenceInHours(new Date(), card.lastCheckedAt!);
-      if (time >= compareTimes[card.leanCount]) {
-        returnCrads.push(card);
+      if (time >= compareTimes[card.leanCount] || time <= 24) {
+        returnCards.push(card);
       }
     };
     allCards.forEach((card) => {
       getCards(card);
     });
-    return returnCrads;
+    return returnCards;
   }
 }
 
