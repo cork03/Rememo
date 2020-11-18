@@ -87,6 +87,15 @@ class Card extends sequelize_1.Model {
         });
         return returnCards;
     }
+    static async check(cardId) {
+        await _1.sequelize.transaction(async (t) => {
+            const card = await Card.findByPk(cardId);
+            let leanCount = card?.leanCount;
+            leanCount++;
+            const now = new Date();
+            await Card.update({ lastCheckedAt: now, checked: 1, leanCount }, { where: { id: cardId } });
+        });
+    }
 }
 Card.init({
     id: {

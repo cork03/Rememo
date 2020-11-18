@@ -71,5 +71,12 @@ route.delete("/:id", async (req: any, res: Response) => {
 // cardのチェク
 
 route.patch("/check/:id",async (req: any, res: Response) => {
+  const {id} = req.params;
+  try {
+    await Card.check(id);
+    res.status(200).json({})
+  } catch (e) {
+    res.status(400).json({e})
+  }
 })
 export default route;

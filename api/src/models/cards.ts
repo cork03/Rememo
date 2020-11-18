@@ -1,4 +1,4 @@
-import Sequelize, { Model , Op} from "sequelize";
+import Sequelize, { DATE, Model , Op} from "sequelize";
 import { sequelize } from ".";
 import CardCategory from "./cardCategories";
 import CardLinks from "./cardLinks";
@@ -81,6 +81,16 @@ class Card extends Model {
       getCards(card);
     });
     return returnCards;
+  }
+
+  static async check(cardId: number)  {
+    await sequelize.transaction(async(t) => {
+      const card = await Card.findByPk(cardId)
+      let leanCount = card?.leanCount
+      leanCount!++
+      const now = new Date()
+      await Card.update({lastCheckedAt: now, checked: 1, leanCount},{where: {id: cardId}})
+    })
   }
 }
 

@@ -60,6 +60,14 @@ route.delete("/:id", async (req, res) => {
     }
 });
 route.patch("/check/:id", async (req, res) => {
+    const { id } = req.params;
+    try {
+        await cards_1.default.check(id);
+        res.status(200).json({});
+    }
+    catch (e) {
+        res.status(400).json({ e });
+    }
 });
 exports.default = route;
 //# sourceMappingURL=cards.js.map
