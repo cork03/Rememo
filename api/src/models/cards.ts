@@ -93,6 +93,10 @@ Card.init(
       type: Sequelize.INTEGER,
       allowNull: false,
     },
+    checked: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false
+    },
     lastCheckedAt: {
       type: Sequelize.DATE,
       allowNull: false,

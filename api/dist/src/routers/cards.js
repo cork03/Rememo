@@ -30,6 +30,7 @@ route.post("/", async (req, res) => {
     }
 });
 route.put("/:id", async (req, res) => {
+    const { id } = req.params;
     const { card: { links, ...reqBody }, } = req.body;
     const userId = req.user.id;
     const { categoryIds, ...cardElements } = reqBody;

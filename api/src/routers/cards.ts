@@ -35,6 +35,7 @@ route.post("/", async (req: any, res: Response) => {
 // cardの編集
 
 route.put("/:id", async (req: any, res: Response) => {
+  const {id} = req.params;
   const {
     card: { links, ...reqBody },
   } = req.body;
