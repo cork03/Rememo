@@ -29,5 +29,29 @@ route.post("/", async (req, res) => {
         res.status(400).json({ e });
     }
 });
+route.put("/:id", async (req, res) => {
+    const { card: { links, ...reqBody }, } = req.body;
+    const userId = req.user.id;
+    const { categoryIds, ...cardElements } = reqBody;
+    cardElements.userId = userId;
+    try {
+        await cards_1.default.add(cardElements, links, categoryIds);
+        res.status(201).json({});
+    }
+    catch (e) {
+        res.status(400).json({ e });
+    }
+});
+route.delete("/:id", async (req, res) => {
+    const { id } = req.params;
+    try {
+        const card = await cards_1.default.findByPk(id);
+        await card.destroy();
+        res.status(201).json({});
+    }
+    catch (e) {
+        res.status(400).json({ e });
+    }
+});
 exports.default = route;
 //# sourceMappingURL=cards.js.map
