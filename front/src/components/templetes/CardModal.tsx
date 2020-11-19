@@ -26,16 +26,12 @@ const BodyTitle = styled.h2``;
 const LinksArea = styled.div``;
 const LinksTitle = styled.h2``;
 
-export const CardModal = ({ card, hideModal }: any) => {
+export const CardModal = ({ card }: any) => {
   const [title, setTitle] = useState(card.title);
   const [body, setBody] = useState(card.body);
   const [links, setLinks] = useState(card.links);
-  const closeCard = useCallback(() => {
-    hideModal();
-  }, [hideModal]);
   return (
     <Container>
-      <CloseButton onClick={closeCard}>✖️</CloseButton>
       <Width>
         <TitleArea>
           <Input type="card" value={title} onChangeText={setTitle} />

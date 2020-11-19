@@ -15,7 +15,15 @@ const Width = styled.div`
   padding-top: 50px;
 `;
 
-const ListsField = styled.div`
+const UnLeanedArea = styled.div`
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 6px;
+  margin-right: 30px;
+  padding: 10px;
+  background: ${colors.cardBackground};
+`;
+const LeanedArea = styled.div`
   width: 100%;
   border: 1px solid black;
   border-radius: 6px;
@@ -48,20 +56,43 @@ export const MainBody = ({
   return (
     <Container>
       <Width>
-        <ListsField>
+        <UnLeanedArea>
           <ListTitle>今日の学習</ListTitle>
           <Cards>
             {cards.map((card: any) => {
-              return (
-                <Card card={card} showModal={showModal} hideModal={hideModal} />
-              );
+              if (!card.checked) {
+                return (
+                  <Card
+                    card={card}
+                    showModal={showModal}
+                    hideModal={hideModal}
+                  />
+                );
+              }
+              return <></>;
             })}
             <Button type="card" onClick={_showModal}>
               カードを追加する
             </Button>
           </Cards>
-        </ListsField>
-        <ListsField />
+        </UnLeanedArea>
+        <LeanedArea>
+          <ListTitle>完了した学習</ListTitle>
+          <Cards>
+            {cards.map((card: any) => {
+              if (card.checked) {
+                return (
+                  <Card
+                    card={card}
+                    showModal={showModal}
+                    hideModal={hideModal}
+                  />
+                );
+              }
+              return <></>;
+            })}
+          </Cards>
+        </LeanedArea>
       </Width>
     </Container>
   );

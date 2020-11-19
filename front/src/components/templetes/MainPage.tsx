@@ -1,27 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import { MainHeader } from "../organisms/MainHeader";
-import { MainBody } from "../organisms/MainBody";
+import MainBody from "../../containers/MainBody";
 
 const Container = styled.div``;
 
-export const MainPage = ({
-  showModal,
-  hideModal,
-  fetchCards,
-  data,
-  postCard,
-}: any) => {
+export const MainPage = () => {
   return (
     <Container>
       <MainHeader />
-      <MainBody
-        fetchCards={fetchCards}
-        data={data}
-        showModal={showModal}
-        hideModal={hideModal}
-        postCard={postCard}
-      />
+      <MainBody />
     </Container>
   );
 };

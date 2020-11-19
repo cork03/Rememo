@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { MainPage } from "../components/templetes/MainPage";
+import { MainBody } from "../components/organisms/MainBody";
 import { actionCreators } from "../actions";
 
 const mapStateToProps = ({ cards }: any) => {
@@ -21,4 +21,4 @@ const mapDispatchToProps = (dispatch: any) => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
+export default connect(mapStateToProps, mapDispatchToProps)(MainBody);
