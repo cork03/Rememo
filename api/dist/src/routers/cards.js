@@ -10,7 +10,6 @@ route.get("/", async (req, res) => {
     const userId = req.user.id;
     try {
         const cards = await cards_1.default.get(userId);
-        console.log(cards);
         res.status(200).json({ cards });
     }
     catch (e) {

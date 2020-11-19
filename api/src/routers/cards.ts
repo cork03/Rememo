@@ -11,7 +11,6 @@ route.get("/", async (req: any, res: Response) => {
   const userId = req.user.id;
   try {
     const cards = await Card.get(userId)
-    console.log(cards)
     res.status(200).json({ cards });
   } catch (e) {
     res.json({ e });

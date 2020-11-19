@@ -4,6 +4,7 @@ import CardCategory from "./cardCategories";
 import CardLinks from "./cardLinks";
 import UserCategory from "./userCategories";
 import differenceInHours from "date-fns/differenceInHours";
+import { ca } from "date-fns/locale";
 
 class Card extends Model {
   public id?: number;
@@ -32,14 +33,14 @@ class Card extends Model {
         }
       }
       const userCategories = await UserCategory.findAll({
-        where: { id: categoryIds },
+        where: { id: categoryIds },transaction: t
       });
       if (card) {
         await (card as any).setUserCategories(userCategories, {
           through: {
             cardId: card.id,
           },
-          transaction: t,
+          transaction: t
         });
       }
     });
@@ -53,42 +54,43 @@ class Card extends Model {
     ) {
       await sequelize.transaction(async(t) => {
         Card.update(cardElements,{where: {id: postId}})
-        const card = await Card.findByPk(postId);
-        const userCategories = await UserCategory.findAll({ where: { id: categoryIds } });
+        const card = await Card.findByPk(postId,{transaction: t});
+        const userCategories = await UserCategory.findAll({ where: { id: categoryIds },transaction: t });
         await (card as any).setUserCategories(userCategories, {
           through: {
             cardId: card!.id,
         },
+        transaction: t
       });
       })
     }
 
-  static async get(userId: number) {
-    await sequelize.transaction(async (t) => {
-      const allCards = await Card.findAll({ where: {
-        [Op.and]: [
-          { leanCount: { [Op.lte]: Sequelize.col("totalCount") } },
-          { userId },
-        ],
-      }, });
-      const returnCards: any[] = [];
-      const compareTimes = [0, 48, 168, 336, 672];
-      const getCards = async(card: any) => {
-        const time = differenceInHours(new Date(), card.lastCheckedAt!);
-        if (time >= compareTimes[card.leanCount] ) {
-          await Card.update({checked: 0},{where: {id: card.id}})
-          returnCards.push(card);
-        }
-        if( time <= 24 ) {
-          returnCards.push(card);
-        }
-      };
-      allCards.forEach(async (card) => {
-        await getCards(card);
-      });
-      return returnCards;
-    })
-  }
+    static async get(userId: number) {
+          const allCards = await Card.findAll({ where: {
+            [Op.and]: [
+              { leanCount: { [Op.lte]: Sequelize.col("totalCount") } },
+              { userId },
+            ]
+          },});
+          const returnCards: any[] = [];
+          const compareTimes = [0, 48, 168, 336, 672];
+          const getCards = async(card: any) => {
+            const time = differenceInHours(new Date(), card.lastCheckedAt!);
+            if (time >= compareTimes[card.leanCount] ) {
+              await Card.update({checked: 0},{where: {id: card.id}})
+              const fixedCard = await Card.findByPk(card.id)
+              returnCards.push(fixedCard);
+              console.log(returnCards)
+            }
+            if( time <= 24 ) {
+              returnCards.push(card);
+              console.log(returnCards)
+            }
+          };
+          await Promise.all(allCards.map(async card => await getCards(card)))
+          console.log(returnCards)
+          return returnCards;
+    }
 
   static async check(cardId: number)  {
     await sequelize.transaction(async(t) => {
