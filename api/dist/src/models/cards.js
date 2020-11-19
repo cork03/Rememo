@@ -76,7 +76,7 @@ class Card extends sequelize_1.Model {
                         { leanCount: { [sequelize_1.Op.lte]: sequelize_1.default.col("totalCount") } },
                         { userId },
                     ]
-                }, transaction });
+                }, include: [{ model: userCategories_1.default, as: 'userCategories' }, { model: cardLinks_1.default }], transaction });
             const returnCards = [];
             const compareTimes = [0, 48, 168, 336, 672];
             const getCards = async (card) => {
