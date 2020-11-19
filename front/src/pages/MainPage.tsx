@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import MainPage from "../containers/MainPage";
+import { MainPage } from "../components/templetes/MainPage";
 
 const Container = styled.div``;
 
