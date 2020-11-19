@@ -18,6 +18,7 @@ class Card extends Model {
   ) {
     await sequelize.transaction(async (t) => {
       cardElements.lastCheckedAt = new Date();
+      cardElements.leanCount = 1
       const card = await Card.create(cardElements, { transaction: t });
       if (linkElements) {
         for (let value of linkElements) {
@@ -63,24 +64,30 @@ class Card extends Model {
     }
 
   static async get(userId: number) {
-    const allCards = await Card.findAll({ where: {
-      [Op.and]: [
-        { leanCount: { [Op.lte]: Sequelize.col("totalCount") } },
-        { userId },
-      ],
-    }, });
-    const returnCards: any[] = [];
-    const compareTimes = [0, 48, 168, 336, 672];
-    const getCards = (card: any) => {
-      const time = differenceInHours(new Date(), card.lastCheckedAt!);
-      if (time >= compareTimes[card.leanCount] || time <= 24) {
-        returnCards.push(card);
-      }
-    };
-    allCards.forEach((card) => {
-      getCards(card);
-    });
-    return returnCards;
+    await sequelize.transaction(async (t) => {
+      const allCards = await Card.findAll({ where: {
+        [Op.and]: [
+          { leanCount: { [Op.lte]: Sequelize.col("totalCount") } },
+          { userId },
+        ],
+      }, });
+      const returnCards: any[] = [];
+      const compareTimes = [0, 48, 168, 336, 672];
+      const getCards = async(card: any) => {
+        const time = differenceInHours(new Date(), card.lastCheckedAt!);
+        if (time >= compareTimes[card.leanCount] ) {
+          await Card.update({checked: 0},{where: {id: card.id}})
+          returnCards.push(card);
+        }
+        if( time <= 24 ) {
+          returnCards.push(card);
+        }
+      };
+      allCards.forEach(async (card) => {
+        await getCards(card);
+      });
+      return returnCards;
+    })
   }
 
   static async check(cardId: number)  {

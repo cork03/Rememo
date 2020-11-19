@@ -10,11 +10,9 @@ const route = express.Router();
 route.get("/", async (req: any, res: Response) => {
   const userId = req.user.id;
   try {
-    const cards = await Card.findAll({
-      where: {userId},
-      include: [{model: UserCategory, as: 'userCategories'},{model: CardLinks}]
-    },);
-     res.status(200).json({ cards });
+    const cards = await Card.get(userId)
+    console.log(cards)
+    res.status(200).json({ cards });
   } catch (e) {
     res.json({ e });
   }
@@ -68,7 +66,7 @@ route.delete("/:id", async (req: any, res: Response) => {
   }
 });
 
-// cardのチェク
+// cardのチェック
 
 route.patch("/check/:id",async (req: any, res: Response) => {
   const {id} = req.params;
