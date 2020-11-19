@@ -72,8 +72,8 @@ class Card extends Model {
           { leanCount: { [Op.lte]: Sequelize.col("totalCount") } },
           { userId },
         ]
-      },transaction});
-      const returnCards: any[] = [];
+      },include: [{model: UserCategory, as: 'userCategories'},{model: CardLinks}], transaction});
+       const returnCards: any[] = [];
       const compareTimes = [0, 48, 168, 336, 672];
       const getCards = async(card: any) => {
         const time = differenceInHours(new Date(), card.lastCheckedAt!);
