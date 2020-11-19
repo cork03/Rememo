@@ -33,6 +33,7 @@ class Card extends sequelize_1.Model {
     static async add(cardElements, linkElements, categoryIds) {
         await _1.sequelize.transaction(async (t) => {
             cardElements.lastCheckedAt = new Date();
+            cardElements.leanCount = 1;
             const card = await Card.create(cardElements, { transaction: t });
             if (linkElements) {
                 for (let value of linkElements) {
@@ -43,35 +44,65 @@ class Card extends sequelize_1.Model {
                 }
             }
             const userCategories = await userCategories_1.default.findAll({
-                where: { id: categoryIds },
+                where: { id: categoryIds }, transaction: t
             });
             if (card) {
                 await card.setUserCategories(userCategories, {
                     through: {
                         cardId: card.id,
                     },
-                    transaction: t,
+                    transaction: t
                 });
             }
         });
     }
-    static async get(userId) {
-        const allCards = await Card.findAll({ where: { userId } });
-        const returnCrads = [];
-        const compareTimes = [0, 48, 168, 336, 672];
-        const getCards = (card) => {
-            if (card.leanCount > card.totalCount) {
-                return;
-            }
-            const time = differenceInHours_1.default(new Date(), card.lastCheckedAt);
-            if (time >= compareTimes[card.leanCount]) {
-                returnCrads.push(card);
-            }
-        };
-        allCards.forEach((card) => {
-            getCards(card);
+    static async patch(cardElements, linkElements, categoryIds, postId) {
+        await _1.sequelize.transaction(async (t) => {
+            Card.update(cardElements, { where: { id: postId } });
+            const card = await Card.findByPk(postId, { transaction: t });
+            const userCategories = await userCategories_1.default.findAll({ where: { id: categoryIds }, transaction: t });
+            await card.setUserCategories(userCategories, {
+                through: {
+                    cardId: card.id,
+                },
+                transaction: t
+            });
         });
-        return returnCrads;
+    }
+    static async get(userId) {
+        const cards = await _1.sequelize.transaction(async (transaction) => {
+            const allCards = await Card.findAll({ where: {
+                    [sequelize_1.Op.and]: [
+                        { leanCount: { [sequelize_1.Op.lte]: sequelize_1.default.col("totalCount") } },
+                        { userId },
+                    ]
+                }, transaction });
+            const returnCards = [];
+            const compareTimes = [0, 48, 168, 336, 672];
+            const getCards = async (card) => {
+                const time = differenceInHours_1.default(new Date(), card.lastCheckedAt);
+                if (time >= compareTimes[card.leanCount]) {
+                    await Card.update({ checked: 0 }, { where: { id: card.id }, transaction });
+                    const fixedCard = await Card.findByPk(card.id, { transaction });
+                    returnCards.push(fixedCard);
+                }
+                if (time <= 24) {
+                    returnCards.push(card);
+                }
+            };
+            await Promise.all(allCards.map(async (card) => await getCards(card)));
+            return returnCards;
+        });
+        return cards;
+    }
+    static async check(cardId) {
+        await _1.sequelize.transaction(async (t) => {
+            const card = await Card.findByPk(cardId);
+            let leanCount = card?.leanCount;
+            leanCount++;
+            const now = new Date();
+            await Card.update({ lastCheckedAt: now, checked: 1, leanCount }, { where: { id: cardId } });
+        });
     }
 }
 Card.init({
@@ -101,6 +132,10 @@ Card.init({
     totalCount: {
         type: sequelize_1.default.INTEGER,
         allowNull: false,
+    },
+    checked: {
+        type: sequelize_1.default.BOOLEAN,
+        allowNull: false
     },
     lastCheckedAt: {
         type: sequelize_1.default.DATE,
