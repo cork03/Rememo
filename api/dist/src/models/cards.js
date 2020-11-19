@@ -70,30 +70,30 @@ class Card extends sequelize_1.Model {
         });
     }
     static async get(userId) {
-        const allCards = await Card.findAll({ where: {
-                [sequelize_1.Op.and]: [
-                    { leanCount: { [sequelize_1.Op.lte]: sequelize_1.default.col("totalCount") } },
-                    { userId },
-                ]
-            }, });
-        const returnCards = [];
-        const compareTimes = [0, 48, 168, 336, 672];
-        const getCards = async (card) => {
-            const time = differenceInHours_1.default(new Date(), card.lastCheckedAt);
-            if (time >= compareTimes[card.leanCount]) {
-                await Card.update({ checked: 0 }, { where: { id: card.id } });
-                const fixedCard = await Card.findByPk(card.id);
-                returnCards.push(fixedCard);
-                console.log(returnCards);
-            }
-            if (time <= 24) {
-                returnCards.push(card);
-                console.log(returnCards);
-            }
-        };
-        await Promise.all(allCards.map(async (card) => await getCards(card)));
-        console.log(returnCards);
-        return returnCards;
+        const cards = await _1.sequelize.transaction(async (transaction) => {
+            const allCards = await Card.findAll({ where: {
+                    [sequelize_1.Op.and]: [
+                        { leanCount: { [sequelize_1.Op.lte]: sequelize_1.default.col("totalCount") } },
+                        { userId },
+                    ]
+                }, transaction });
+            const returnCards = [];
+            const compareTimes = [0, 48, 168, 336, 672];
+            const getCards = async (card) => {
+                const time = differenceInHours_1.default(new Date(), card.lastCheckedAt);
+                if (time >= compareTimes[card.leanCount]) {
+                    await Card.update({ checked: 0 }, { where: { id: card.id }, transaction });
+                    const fixedCard = await Card.findByPk(card.id, { transaction });
+                    returnCards.push(fixedCard);
+                }
+                if (time <= 24) {
+                    returnCards.push(card);
+                }
+            };
+            await Promise.all(allCards.map(async (card) => await getCards(card)));
+            return returnCards;
+        });
+        return cards;
     }
     static async check(cardId) {
         await _1.sequelize.transaction(async (t) => {

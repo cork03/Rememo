@@ -66,30 +66,30 @@ class Card extends Model {
     }
 
     static async get(userId: number) {
-          const allCards = await Card.findAll({ where: {
-            [Op.and]: [
-              { leanCount: { [Op.lte]: Sequelize.col("totalCount") } },
-              { userId },
-            ]
-          },});
-          const returnCards: any[] = [];
-          const compareTimes = [0, 48, 168, 336, 672];
-          const getCards = async(card: any) => {
-            const time = differenceInHours(new Date(), card.lastCheckedAt!);
-            if (time >= compareTimes[card.leanCount] ) {
-              await Card.update({checked: 0},{where: {id: card.id}})
-              const fixedCard = await Card.findByPk(card.id)
-              returnCards.push(fixedCard);
-              console.log(returnCards)
-            }
-            if( time <= 24 ) {
-              returnCards.push(card);
-              console.log(returnCards)
-            }
-          };
-          await Promise.all(allCards.map(async card => await getCards(card)))
-          console.log(returnCards)
-          return returnCards;
+      const cards = await sequelize.transaction(async (transaction) => {
+        const allCards = await Card.findAll({ where: {
+        [Op.and]: [
+          { leanCount: { [Op.lte]: Sequelize.col("totalCount") } },
+          { userId },
+        ]
+      },transaction});
+      const returnCards: any[] = [];
+      const compareTimes = [0, 48, 168, 336, 672];
+      const getCards = async(card: any) => {
+        const time = differenceInHours(new Date(), card.lastCheckedAt!);
+        if (time >= compareTimes[card.leanCount] ) {
+          await Card.update({checked: 0},{where: {id: card.id},transaction})
+          const fixedCard = await Card.findByPk(card.id,{transaction})
+          returnCards.push(fixedCard);
+        }
+        if( time <= 24 ) {
+          returnCards.push(card);
+        }
+      };
+      await Promise.all(allCards.map(async card => await getCards(card)))
+      return returnCards;
+      })
+      return cards
     }
 
   static async check(cardId: number)  {
