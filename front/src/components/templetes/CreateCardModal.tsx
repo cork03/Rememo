@@ -51,9 +51,7 @@ export const CreateCardModal = ({ hideModal, postCard }: any) => {
   const [count, setCount] = useState(3);
   const [category, setCategory] = useState(1);
   const [link, setLink] = useState("");
-  const closeCard = useCallback(() => {
-    hideModal();
-  }, [hideModal]);
+
   const changeCount = useCallback(
     (e) => {
       setCount(e.target.value);
@@ -81,7 +79,6 @@ export const CreateCardModal = ({ hideModal, postCard }: any) => {
   }, [postCard, title, body, link, count, category, hideModal]);
   return (
     <Container>
-      <CloseButton onClick={closeCard}>✖️</CloseButton>
       <Width>
         <TitleArea>
           <Title>タイトル</Title>
