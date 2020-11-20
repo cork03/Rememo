@@ -74,7 +74,7 @@ export const CardModal = ({ card, hideModal, checkCard, patchCard }: any) => {
       card.id
     );
     hideModal();
-  }, [patchCard, hideModal]);
+  }, [patchCard, hideModal, title, body, count, category]);
   return (
     <Container>
       {" "}
