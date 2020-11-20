@@ -1,15 +1,17 @@
-import Sequelize, { DATE, Model , Op} from "sequelize";
+import Sequelize, { Model, Op } from "sequelize";
+import differenceInHours from "date-fns/differenceInHours";
 import { sequelize } from ".";
 import CardCategory from "./cardCategories";
 import CardLinks from "./cardLinks";
 import UserCategory from "./userCategories";
-import differenceInHours from "date-fns/differenceInHours";
-import { ca } from "date-fns/locale";
 
 class Card extends Model {
   public id?: number;
+
   public lastCheckedAt?: Date;
+
   public totalCount?: number;
+
   public leanCount?: number;
 
   static async add(
@@ -19,10 +21,10 @@ class Card extends Model {
   ) {
     await sequelize.transaction(async (t) => {
       cardElements.lastCheckedAt = new Date();
-      cardElements.leanCount = 1
+      cardElements.leanCount = 1;
       const card = await Card.create(cardElements, { transaction: t });
       if (linkElements) {
-        for (let value of linkElements) {
+        for (const value of linkElements) {
           const link = await CardLinks.create(
             {
               string: value,
@@ -33,14 +35,15 @@ class Card extends Model {
         }
       }
       const userCategories = await UserCategory.findAll({
-        where: { id: categoryIds },transaction: t
+        where: { id: categoryIds },
+        transaction: t,
       });
       if (card) {
         await (card as any).setUserCategories(userCategories, {
           through: {
             cardId: card.id,
           },
-          transaction: t
+          transaction: t,
         });
       }
     });
@@ -51,55 +54,77 @@ class Card extends Model {
     linkElements: string[],
     categoryIds: number[],
     postId: number
-    ) {
-      await sequelize.transaction(async(t) => {
-        Card.update(cardElements,{where: {id: postId}})
-        const card = await Card.findByPk(postId,{transaction: t});
-        const userCategories = await UserCategory.findAll({ where: { id: categoryIds },transaction: t });
-        await (card as any).setUserCategories(userCategories, {
-          through: {
-            cardId: card!.id,
-        },
-        transaction: t
+  ) {
+    await sequelize.transaction(async (t) => {
+      Card.update(cardElements, { where: { id: postId } });
+      const card = await Card.findByPk(postId, { transaction: t });
+      const userCategories = await UserCategory.findAll({
+        where: { id: categoryIds },
+        transaction: t,
       });
-      })
-    }
+      await (card as any).setUserCategories(userCategories, {
+        through: {
+          cardId: card!.id,
+        },
+        transaction: t,
+      });
+    });
+  }
 
-    static async get(userId: number) {
-      const cards = await sequelize.transaction(async (transaction) => {
-        const allCards = await Card.findAll({ where: {
-        [Op.and]: [
-          { leanCount: { [Op.lte]: Sequelize.col("totalCount") } },
-          { userId },
-        ]
-      },include: [{model: UserCategory, as: 'userCategories'},{model: CardLinks}], transaction});
-       const returnCards: any[] = [];
+  static async get(userId: number) {
+    const cards = await sequelize.transaction(async (transaction) => {
+      const allCards = await Card.findAll({
+        where: {
+          [Op.and]: [
+            { leanCount: { [Op.lte]: Sequelize.col("totalCount") } },
+            { userId },
+          ],
+        },
+        include: [
+          { model: UserCategory, as: "userCategories" },
+          { model: CardLinks },
+        ],
+        transaction,
+      });
+      const returnCards: any[] = [];
       const compareTimes = [0, 48, 168, 336, 672];
-      const getCards = async(card: any) => {
+      const getCards = async (card: any) => {
         const time = differenceInHours(new Date(), card.lastCheckedAt!);
-        if (time >= compareTimes[card.leanCount] ) {
-          await Card.update({checked: 0},{where: {id: card.id},transaction})
-          const fixedCard = await Card.findByPk(card.id,{transaction})
+        if (time >= compareTimes[card.leanCount]) {
+          await Card.update(
+            { checked: 0 },
+            { where: { id: card.id }, transaction }
+          );
+          const fixedCard = await Card.findByPk(card.id, {
+            transaction,
+            include: [
+              { model: UserCategory, as: "userCategories" },
+              { model: CardLinks },
+            ],
+          });
           returnCards.push(fixedCard);
         }
-        if( time <= 24 ) {
+        if (time <= 24) {
           returnCards.push(card);
         }
       };
-      await Promise.all(allCards.map(async card => await getCards(card)))
+      await Promise.all(allCards.map(async (card) => await getCards(card)));
       return returnCards;
-      })
-      return cards
-    }
+    });
+    return cards;
+  }
 
-  static async check(cardId: number)  {
-    await sequelize.transaction(async(t) => {
-      const card = await Card.findByPk(cardId)
-      let leanCount = card?.leanCount
-      leanCount!++
-      const now = new Date()
-      await Card.update({lastCheckedAt: now, checked: 1, leanCount},{where: {id: cardId}})
-    })
+  static async check(cardId: number) {
+    await sequelize.transaction(async (t) => {
+      const card = await Card.findByPk(cardId);
+      let leanCount = card?.leanCount;
+      leanCount!++;
+      const now = new Date();
+      await Card.update(
+        { lastCheckedAt: now, checked: 1, leanCount },
+        { where: { id: cardId } }
+      );
+    });
   }
 }
 
@@ -134,7 +159,7 @@ Card.init(
     },
     checked: {
       type: Sequelize.BOOLEAN,
-      allowNull: false
+      allowNull: false,
     },
     lastCheckedAt: {
       type: Sequelize.DATE,

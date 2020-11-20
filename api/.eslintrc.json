@@ -1,0 +1,43 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended",
+        "prettier/@typescript-eslint",
+        "prettier/react"
+
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "import/no-extraneous-dependencies": "off",
+        "import/extensions": "off",
+        "import/no-unresolved": "off",
+        "no-return-await": "off",
+        "no-restricted-syntax": "off",
+        "no-param-reassign": "off",
+        "no-await-in-loop": "warn",
+        "no-plusplus": "off",
+        "no-non-null-assertion": "off",
+        "prefer-const": "warn",
+        "consistent-return": "off",
+        "no-var-requires": "off"
+    }
+}
