@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return await queryInterface.createTable("cards", {
@@ -32,7 +30,7 @@ module.exports = {
       },
       checked: {
         type: Sequelize.BOOLEAN,
-        allowNull: false
+        allowNull: false,
       },
       lastCheckedAt: {
         type: Sequelize.DATE,
@@ -51,5 +49,5 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     return await queryInterface.dropTable("cards");
-  }
+  },
 };

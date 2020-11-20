@@ -16,7 +16,7 @@ passport.use(
       usernameField: "loginId",
       passwordField: "password",
     },
-    async (loginId: string, password: string, done: Function) => {
+    async (loginId: string, password: string, done: any) => {
       const user = await User.findOne({ where: { loginId } });
       if (!user) {
         return done(null, false);
@@ -30,7 +30,6 @@ passport.use(
   )
 );
 
-
 // jwtPassportの設定
 
 passport.use(
@@ -39,7 +38,7 @@ passport.use(
       jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
       secretOrKey: process.env.SECRET_KEY,
     },
-    async (jwtPayload: any, done: Function) => {
+    async (jwtPayload: any, done: any) => {
       const user = await User.findOne({
         where: { loginId: jwtPayload.loginId },
       });

@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from "express";
+import express, { Response } from "express";
 import UserCategory from "../models/userCategories";
 
 const route = express.Router();
