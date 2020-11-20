@@ -1,8 +1,8 @@
-import express, { Request, Response, NextFunction } from "express";
+import express, { Response, NextFunction } from "express";
 import passport from "passport";
+import jwt from "jsonwebtoken";
 import { hash } from "../passport/bcrypt";
 import User from "../models/user";
-import jwt from "jsonwebtoken";
 
 const router = express.Router();
 
@@ -35,7 +35,6 @@ router.post("/login", function (req: any, res: Response, next: NextFunction) {
     "local",
     { session: false },
     (err: Error, user: any, info: any) => {
-      console.log(2);
       if (err || !user) {
         return res.status(401).json({ error: "認証に失敗しました" });
       }

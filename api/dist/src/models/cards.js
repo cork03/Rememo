@@ -24,11 +24,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Cards = exports.UserCategories = exports.cardCategory = exports.CardCategories = void 0;
 const sequelize_1 = __importStar(require("sequelize"));
+const differenceInHours_1 = __importDefault(require("date-fns/differenceInHours"));
 const _1 = require(".");
 const cardCategories_1 = __importDefault(require("./cardCategories"));
 const cardLinks_1 = __importDefault(require("./cardLinks"));
 const userCategories_1 = __importDefault(require("./userCategories"));
-const differenceInHours_1 = __importDefault(require("date-fns/differenceInHours"));
 class Card extends sequelize_1.Model {
     static async add(cardElements, linkElements, categoryIds) {
         await _1.sequelize.transaction(async (t) => {
@@ -36,7 +36,7 @@ class Card extends sequelize_1.Model {
             cardElements.leanCount = 1;
             const card = await Card.create(cardElements, { transaction: t });
             if (linkElements) {
-                for (let value of linkElements) {
+                for (const value of linkElements) {
                     const link = await cardLinks_1.default.create({
                         string: value,
                         cardId: card.id,
@@ -44,14 +44,15 @@ class Card extends sequelize_1.Model {
                 }
             }
             const userCategories = await userCategories_1.default.findAll({
-                where: { id: categoryIds }, transaction: t
+                where: { id: categoryIds },
+                transaction: t,
             });
             if (card) {
                 await card.setUserCategories(userCategories, {
                     through: {
                         cardId: card.id,
                     },
-                    transaction: t
+                    transaction: t,
                 });
             }
         });
@@ -60,30 +61,46 @@ class Card extends sequelize_1.Model {
         await _1.sequelize.transaction(async (t) => {
             Card.update(cardElements, { where: { id: postId } });
             const card = await Card.findByPk(postId, { transaction: t });
-            const userCategories = await userCategories_1.default.findAll({ where: { id: categoryIds }, transaction: t });
+            const userCategories = await userCategories_1.default.findAll({
+                where: { id: categoryIds },
+                transaction: t,
+            });
             await card.setUserCategories(userCategories, {
                 through: {
                     cardId: card.id,
                 },
-                transaction: t
+                transaction: t,
             });
         });
     }
     static async get(userId) {
         const cards = await _1.sequelize.transaction(async (transaction) => {
-            const allCards = await Card.findAll({ where: {
+            const allCards = await Card.findAll({
+                where: {
                     [sequelize_1.Op.and]: [
                         { leanCount: { [sequelize_1.Op.lte]: sequelize_1.default.col("totalCount") } },
                         { userId },
-                    ]
-                }, include: [{ model: userCategories_1.default, as: 'userCategories' }, { model: cardLinks_1.default }], transaction });
+                    ],
+                },
+                include: [
+                    { model: userCategories_1.default, as: "userCategories" },
+                    { model: cardLinks_1.default },
+                ],
+                transaction,
+            });
             const returnCards = [];
             const compareTimes = [0, 48, 168, 336, 672];
             const getCards = async (card) => {
                 const time = differenceInHours_1.default(new Date(), card.lastCheckedAt);
                 if (time >= compareTimes[card.leanCount]) {
                     await Card.update({ checked: 0 }, { where: { id: card.id }, transaction });
-                    const fixedCard = await Card.findByPk(card.id, { transaction });
+                    const fixedCard = await Card.findByPk(card.id, {
+                        transaction,
+                        include: [
+                            { model: userCategories_1.default, as: "userCategories" },
+                            { model: cardLinks_1.default },
+                        ],
+                    });
                     returnCards.push(fixedCard);
                 }
                 if (time <= 24) {
@@ -135,7 +152,7 @@ Card.init({
     },
     checked: {
         type: sequelize_1.default.BOOLEAN,
-        allowNull: false
+        allowNull: false,
     },
     lastCheckedAt: {
         type: sequelize_1.default.DATE,

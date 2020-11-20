@@ -5,9 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const passport_1 = __importDefault(require("passport"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcrypt_1 = require("../passport/bcrypt");
 const user_1 = __importDefault(require("../models/user"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const router = express_1.default.Router();
 router.post("/signup", async (req, res) => {
     const { user } = req.body;
@@ -35,7 +35,6 @@ router.post("/signup", async (req, res) => {
 });
 router.post("/login", function (req, res, next) {
     passport_1.default.authenticate("local", { session: false }, (err, user, info) => {
-        console.log(2);
         if (err || !user) {
             return res.status(401).json({ error: "認証に失敗しました" });
         }
