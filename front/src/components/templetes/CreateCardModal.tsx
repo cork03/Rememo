@@ -73,6 +73,7 @@ export const CreateCardModal = ({ hideModal, postCard }: any) => {
         links: [link],
         totalCount: count,
         categoryIds: [category],
+        checked: 1,
       },
     });
     hideModal();

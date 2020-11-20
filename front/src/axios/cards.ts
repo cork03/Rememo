@@ -18,8 +18,17 @@ export const fetchCard = async () => {
 
 export const postCard = async ({ data }: any) => {
   const card = { card: data };
-  console.log(card);
   await axios.post("/cards", card, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+// カードのチェックをつける
+export const checkCard = async (id: any) => {
+  const value = {};
+  await axios.patch(`/cards/check/${id}`, value, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

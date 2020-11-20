@@ -37,6 +37,16 @@ export const postCard = ({ payload }: any) => {
   return { type: POST_CARD_REQUESTED, payload };
 };
 
+// カードのチェックをつける
+
+export const CHECK_CARD_REQUESTED = "CHECK_CARD_REQUESTED";
+export const CHECK_CARD_SUCCEEDED = "CHECK_CARD_SUCCEEDED";
+export const CHECK_CARD_FAILED = "CHECK_CARD_FAILED";
+
+export const checkCard = (payload: any) => {
+  return { type: CHECK_CARD_REQUESTED, payload };
+};
+
 // createUser
 
 export const CREATE_USER_REQUESTED = "CREATE_USER_REQUESTED";
@@ -71,4 +81,5 @@ export const actionCreators = {
   userLogin,
   fetchCards,
   postCard,
+  checkCard,
 };
