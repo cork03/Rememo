@@ -43,6 +43,7 @@ export const MainBody = ({
   hideModal,
   postCard,
   checkCard,
+  patchCard,
 }: any) => {
   useEffect(() => {
     fetchCards();
@@ -61,7 +62,6 @@ export const MainBody = ({
           <ListTitle>今日の学習</ListTitle>
           <Cards>
             {cards.map((card: any) => {
-              console.log(card);
               if (!card.checked) {
                 return (
                   <Card
@@ -69,6 +69,7 @@ export const MainBody = ({
                     showModal={showModal}
                     hideModal={hideModal}
                     checkCard={checkCard}
+                    patchCard={patchCard}
                   />
                 );
               }

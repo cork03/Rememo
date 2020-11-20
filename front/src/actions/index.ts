@@ -47,6 +47,16 @@ export const checkCard = (payload: any) => {
   return { type: CHECK_CARD_REQUESTED, payload };
 };
 
+// カードの編集をする;
+
+export const PATCH_CARD_REQUESTED = "PATCH_CARD_REQUESTED";
+export const PATCH_CARD_SUCCEEDED = "PATCH_CARD_SUCCEEDED";
+export const PATCH_CARD_FAILED = "PATCH_CARD_FAILED";
+
+export const patchCard = ({ payload }: any, id: number) => {
+  return { type: PATCH_CARD_REQUESTED, payload, id };
+};
+
 // createUser
 
 export const CREATE_USER_REQUESTED = "CREATE_USER_REQUESTED";
@@ -85,4 +95,5 @@ export const actionCreators = {
   fetchCards,
   postCard,
   checkCard,
+  patchCard,
 };

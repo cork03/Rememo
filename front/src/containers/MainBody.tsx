@@ -16,6 +16,7 @@ const mapDispatchToProps = (dispatch: any) => {
     fetchCards,
     postCard,
     checkCard,
+    patchCard,
   } = actionCreators;
   return bindActionCreators(
     {
@@ -24,6 +25,7 @@ const mapDispatchToProps = (dispatch: any) => {
       fetchCards,
       postCard,
       checkCard,
+      patchCard,
     },
     dispatch
   );

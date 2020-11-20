@@ -38,7 +38,7 @@ const CategoryTitle = styled.label`
   margin-right: 7px;
 `;
 
-export const CardModal = ({ card, hideModal, checkCard }: any) => {
+export const CardModal = ({ card, hideModal, checkCard, patchCard }: any) => {
   const [title, setTitle] = useState(card.title);
   const [body, setBody] = useState(card.body);
   const [links, setLinks] = useState(card.links);
@@ -61,9 +61,23 @@ export const CardModal = ({ card, hideModal, checkCard }: any) => {
     checkCard(card.id);
     hideModal();
   }, [checkCard, hideModal]);
-  console.log(card);
+  const patch = useCallback(() => {
+    patchCard(
+      {
+        payload: {
+          title,
+          body,
+          totalCount: count,
+          categoryIds: [category],
+        },
+      },
+      card.id
+    );
+    hideModal();
+  }, [patchCard, hideModal]);
   return (
     <Container>
+      {" "}
       <Width>
         <TitleArea>
           <Title>タイトル</Title>
@@ -97,6 +111,9 @@ export const CardModal = ({ card, hideModal, checkCard }: any) => {
               <option value="1">選択</option>
             </select>
           </CategoryArea>
+          <Button type="primary" onClick={patch}>
+            変更を保存
+          </Button>
           <Button type="primary" onClick={check}>
             覚えた
           </Button>
