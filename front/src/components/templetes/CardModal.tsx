@@ -42,7 +42,7 @@ export const CardModal = ({ card, hideModal, checkCard }: any) => {
   const [title, setTitle] = useState(card.title);
   const [body, setBody] = useState(card.body);
   const [links, setLinks] = useState(card.links);
-  const [count, setCount] = useState(3);
+  const [count, setCount] = useState(card.totalCount);
   const [category, setCategory] = useState(1);
   const counts = [2, 3, 4];
   const changeCount = useCallback(

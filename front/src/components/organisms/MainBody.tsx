@@ -61,6 +61,7 @@ export const MainBody = ({
           <ListTitle>今日の学習</ListTitle>
           <Cards>
             {cards.map((card: any) => {
+              console.log(card);
               if (!card.checked) {
                 return (
                   <Card

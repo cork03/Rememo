@@ -60,15 +60,18 @@ export const createUser = ({ payload }: any) => {
 // userLogin
 
 export const USER_LOGIN = "USER_LOGIN";
+export const USER_LOGIN_SUCCEEDED = "USER_LOGIN_SUCCEEDED";
+export const USER_LOGIN_FAILED = "USER_LOGIN_FAILED";
 
 export const userLogin = ({ payload }: any) => {
   return async (dispatch: any): Promise<string | undefined> => {
+    dispatch({ type: USER_LOGIN });
     try {
       const user = await usersLogin({ data: payload });
-      dispatch({ type: USER_LOGIN, payload: user });
+      dispatch({ type: USER_LOGIN_SUCCEEDED, payload: user });
       return user;
     } catch (e) {
-      console.log(e);
+      dispatch({ type: USER_LOGIN_FAILED });
       return undefined;
     }
   };
