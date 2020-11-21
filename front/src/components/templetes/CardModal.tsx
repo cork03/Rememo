@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import styled from "styled-components";
+import cards from "../../sagas/cards";
 import Button from "../atoms/Buttons";
 import Input from "../atoms/Input";
 import { TextArea } from "../atoms/TextArea";
@@ -41,7 +42,7 @@ const CategoryTitle = styled.label`
 export const CardModal = ({ card, hideModal, checkCard, patchCard }: any) => {
   const [title, setTitle] = useState(card.title);
   const [body, setBody] = useState(card.body);
-  const [links, setLinks] = useState(card.links);
+  const [links, setLinks] = useState(card.cardLinks);
   const [count, setCount] = useState(card.totalCount);
   const [category, setCategory] = useState(1);
   const counts = [2, 3, 4];
@@ -89,12 +90,16 @@ export const CardModal = ({ card, hideModal, checkCard, patchCard }: any) => {
         </BodyArea>
         <LinksArea>
           <LinksTitle>参考サイト</LinksTitle>
-          <Input
-            type="card"
-            value={links}
-            onChangeText={setLinks}
-            placeholder="リンクを追加する"
-          />
+          {links.map((link: any) => {
+            return (
+              <Input
+                type="default"
+                value={link.string}
+                onChangeText={setLinks}
+              />
+            );
+          })}
+          <Input type="card" placeholder="リンクを追加する" />
         </LinksArea>
         <Options>
           <CountArea>
@@ -114,9 +119,13 @@ export const CardModal = ({ card, hideModal, checkCard, patchCard }: any) => {
           <Button type="primary" onClick={patch}>
             変更を保存
           </Button>
-          <Button type="primary" onClick={check}>
-            覚えた
-          </Button>
+          {card.checked ? (
+            <></>
+          ) : (
+            <Button type="primary" onClick={check}>
+              学習完了
+            </Button>
+          )}
         </Options>
       </Width>
     </Container>

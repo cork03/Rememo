@@ -16,7 +16,6 @@ const CardInput = styled.input`
   display: block;
   width: 100%;
   padding: 8px;
-  font-size: 20px;
   border-radius: 6px;
   :focus {
     border: 1px solid ${colors.border};
