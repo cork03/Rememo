@@ -45,6 +45,7 @@
         "no-return-await": "off",
         "no-debugger": "warn",
         "consistent-return": "off",
+        "no-plusplus":"off",
         "import/extensions": [
             "error",
             {

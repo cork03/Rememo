@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from "react";
+import { constants } from "buffer";
+import React, { useCallback, useState, useEffect } from "react";
 import styled from "styled-components";
-import cards from "../../sagas/cards";
 import Button from "../atoms/Buttons";
 import Input from "../atoms/Input";
 import { TextArea } from "../atoms/TextArea";
@@ -20,6 +20,9 @@ const BodyTitle = styled.label``;
 
 const LinksArea = styled.div`
   margin-top: 20px;
+`;
+const AddLinkArea = styled.div`
+  display: flex;
 `;
 const LinksTitle = styled.label``;
 
@@ -42,8 +45,11 @@ const CategoryTitle = styled.label`
 export const CardModal = ({ card, hideModal, checkCard, patchCard }: any) => {
   const [title, setTitle] = useState(card.title);
   const [body, setBody] = useState(card.body);
-  const [links, setLinks] = useState(card.cardLinks);
+  const [links, setLinks] = useState({});
+  const [newLinks, setNewLinks] = useState({});
+  const [forAddLink, setForAddLink] = useState("");
   const [count, setCount] = useState(card.totalCount);
+  const [id, setId] = useState(0);
   const [category, setCategory] = useState(1);
   const counts = [2, 3, 4];
   const changeCount = useCallback(
@@ -63,6 +69,16 @@ export const CardModal = ({ card, hideModal, checkCard, patchCard }: any) => {
     hideModal();
   }, [checkCard, hideModal]);
   const patch = useCallback(() => {
+    const linksValue = Object.values(links);
+    const linkEl = linksValue.reduce((acc: any, item: any) => {
+      acc.push({ id: item.id, string: item.string });
+      return acc;
+    }, []);
+    const newLinksValue = Object.values(newLinks);
+    const newLinkEl = newLinksValue.reduce((acc: any, item: any) => {
+      acc.push(item.string);
+      return acc;
+    }, []);
     patchCard(
       {
         payload: {
@@ -70,15 +86,30 @@ export const CardModal = ({ card, hideModal, checkCard, patchCard }: any) => {
           body,
           totalCount: count,
           categoryIds: [category],
+          links: linkEl,
+          newLinks: newLinkEl,
         },
       },
       card.id
     );
     hideModal();
-  }, [patchCard, hideModal, title, body, count, category]);
+  }, [patchCard, hideModal, title, body, count, category, links, newLinks]);
+  const addLink = useCallback(() => {
+    let test = newLinks;
+    setId(id + 1);
+    test = { ...test, [id]: { id, string: forAddLink } };
+    setNewLinks({ ...newLinks, ...test });
+    setForAddLink("");
+  }, [forAddLink, setNewLinks, newLinks, id, setId]);
+  useEffect(() => {
+    const links = card.cardLinks.reduce((acc: any, item: any) => {
+      acc[item.id] = item;
+      return acc;
+    }, {});
+    setLinks(links);
+  }, []);
   return (
     <Container>
-      {" "}
       <Width>
         <TitleArea>
           <Title>タイトル</Title>
@@ -90,16 +121,45 @@ export const CardModal = ({ card, hideModal, checkCard, patchCard }: any) => {
         </BodyArea>
         <LinksArea>
           <LinksTitle>参考サイト</LinksTitle>
-          {links.map((link: any) => {
+          {Object.values(links).map((link: any) => {
+            const onChange = (text: string) => {
+              const newItem = { ...link, string: text };
+              const _links = { ...links, [link.id]: newItem };
+              setLinks(_links);
+            };
             return (
               <Input
                 type="default"
                 value={link.string}
-                onChangeText={setLinks}
+                onChangeText={onChange}
               />
             );
           })}
-          <Input type="card" placeholder="リンクを追加する" />
+          {Object.values(newLinks).map((link: any) => {
+            const onChange = (text: string) => {
+              const newItem = { ...link, string: text };
+              const _links = { ...newLinks, [link.id]: newItem };
+              setNewLinks(_links);
+            };
+            return (
+              <Input
+                type="default"
+                value={link.string}
+                onChangeText={onChange}
+              />
+            );
+          })}
+          <AddLinkArea>
+            <Input
+              type="card"
+              value={forAddLink}
+              onChangeText={setForAddLink}
+              placeholder="リンクを追加する"
+            />
+            <Button type="primary" onClick={addLink}>
+              追加
+            </Button>
+          </AddLinkArea>
         </LinksArea>
         <Options>
           <CountArea>

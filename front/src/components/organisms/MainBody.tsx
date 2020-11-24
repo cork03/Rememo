@@ -54,7 +54,6 @@ export const MainBody = ({
       component: <CreateCardModal hideModal={hideModal} postCard={postCard} />,
     });
   }, [showModal, hideModal, postCard]);
-  console.log(cards);
   return (
     <Container>
       <Width>

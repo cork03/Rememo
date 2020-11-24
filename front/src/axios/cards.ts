@@ -29,8 +29,6 @@ export const postCard = async ({ data }: any) => {
 
 export const patchCard = async ({ data }: any, id: number) => {
   const card = { card: data };
-  console.log(id);
-  console.log(card);
   await axios.patch(`/cards/${id}`, card, {
     headers: {
       Authorization: `Bearer ${token}`,
