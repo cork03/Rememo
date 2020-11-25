@@ -57,6 +57,16 @@ export const patchCard = ({ payload }: any, id: number) => {
   return { type: PATCH_CARD_REQUESTED, payload, id };
 };
 
+// リンクの削除
+
+export const DELETE_LINK_REQUESTED = "DELETE_LINK_REQUESTED";
+export const DELETE_LINK_SUCCEEDED = "DELETE_LINK_SUCCEEDED";
+export const DELETE_LINK_FAILED = "DELETE_LINK_FAILED";
+
+export const deleteLink = (id: number) => {
+  return { type: DELETE_LINK_REQUESTED, id };
+};
+
 // createUser
 
 export const CREATE_USER_REQUESTED = "CREATE_USER_REQUESTED";
@@ -96,4 +106,5 @@ export const actionCreators = {
   postCard,
   checkCard,
   patchCard,
+  deleteLink,
 };

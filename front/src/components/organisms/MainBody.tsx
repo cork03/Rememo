@@ -44,6 +44,7 @@ export const MainBody = ({
   postCard,
   checkCard,
   patchCard,
+  deleteLink,
 }: any) => {
   useEffect(() => {
     fetchCards();
@@ -69,6 +70,7 @@ export const MainBody = ({
                     hideModal={hideModal}
                     checkCard={checkCard}
                     patchCard={patchCard}
+                    deleteLink={deleteLink}
                   />
                 );
               }

@@ -21,9 +21,10 @@ const BodyTitle = styled.label``;
 const LinksArea = styled.div`
   margin-top: 20px;
 `;
-const AddLinkArea = styled.div`
+const LinkArea = styled.div`
   display: flex;
 `;
+
 const LinksTitle = styled.label``;
 
 const Options = styled.div`
@@ -42,7 +43,13 @@ const CategoryTitle = styled.label`
   margin-right: 7px;
 `;
 
-export const CardModal = ({ card, hideModal, checkCard, patchCard }: any) => {
+export const CardModal = ({
+  card,
+  hideModal,
+  checkCard,
+  patchCard,
+  deleteLink,
+}: any) => {
   const [title, setTitle] = useState(card.title);
   const [body, setBody] = useState(card.body);
   const [links, setLinks] = useState({});
@@ -100,7 +107,7 @@ export const CardModal = ({ card, hideModal, checkCard, patchCard }: any) => {
     test = { ...test, [id]: { id, string: forAddLink } };
     setNewLinks({ ...newLinks, ...test });
     setForAddLink("");
-  }, [forAddLink, setNewLinks, newLinks, id, setId]);
+  }, [forAddLink, setNewLinks, newLinks, id, setId, setForAddLink]);
   useEffect(() => {
     const links = card.cardLinks.reduce((acc: any, item: any) => {
       acc[item.id] = item;
@@ -127,12 +134,20 @@ export const CardModal = ({ card, hideModal, checkCard, patchCard }: any) => {
               const _links = { ...links, [link.id]: newItem };
               setLinks(_links);
             };
+            const _deleteLink = () => {
+              deleteLink(link.id);
+            };
             return (
-              <Input
-                type="default"
-                value={link.string}
-                onChangeText={onChange}
-              />
+              <LinkArea>
+                <Input
+                  type="default"
+                  value={link.string}
+                  onChangeText={onChange}
+                />
+                <Button type="primary" onClick={_deleteLink}>
+                  削除
+                </Button>
+              </LinkArea>
             );
           })}
           {Object.values(newLinks).map((link: any) => {
@@ -141,15 +156,23 @@ export const CardModal = ({ card, hideModal, checkCard, patchCard }: any) => {
               const _links = { ...newLinks, [link.id]: newItem };
               setNewLinks(_links);
             };
+            const _deleteLink = () => {
+              deleteLink(link.id);
+            };
             return (
-              <Input
-                type="default"
-                value={link.string}
-                onChangeText={onChange}
-              />
+              <LinkArea>
+                <Input
+                  type="default"
+                  value={link.string}
+                  onChangeText={onChange}
+                />
+                <Button type="primary" onClick={deleteLink}>
+                  削除
+                </Button>
+              </LinkArea>
             );
           })}
-          <AddLinkArea>
+          <LinkArea>
             <Input
               type="card"
               value={forAddLink}
@@ -159,7 +182,7 @@ export const CardModal = ({ card, hideModal, checkCard, patchCard }: any) => {
             <Button type="primary" onClick={addLink}>
               追加
             </Button>
-          </AddLinkArea>
+          </LinkArea>
         </LinksArea>
         <Options>
           <CountArea>
