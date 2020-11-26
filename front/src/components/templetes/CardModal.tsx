@@ -115,7 +115,6 @@ export const CardModal = ({
     }, {});
     setLinks(links);
   }, []);
-  console.log(card);
   return (
     <Container>
       <Width>
