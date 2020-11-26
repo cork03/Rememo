@@ -5,13 +5,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 require("./src/passport/passport");
-const userCategories_1 = __importDefault(require("./src/routers/userCategories"));
-const cards_1 = __importDefault(require("./src/routers/cards"));
-const auth_1 = __importDefault(require("./src/routers/auth"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const passport_1 = __importDefault(require("passport"));
 const cors_1 = __importDefault(require("cors"));
 const date_fns_1 = require("date-fns");
+const auth_1 = __importDefault(require("./src/routers/auth"));
+const cards_1 = __importDefault(require("./src/routers/cards"));
+const links_1 = __importDefault(require("./src/routers/links"));
+const userCategories_1 = __importDefault(require("./src/routers/userCategories"));
 const app = express_1.default();
 const port = 8080;
 const options = {
@@ -29,6 +30,7 @@ app.get("/", (req, res) => {
 const jwtAuthenticated = [
     { path: "/userCategories", router: userCategories_1.default },
     { path: "/cards", router: cards_1.default },
+    { path: "/links", router: links_1.default },
 ];
 jwtAuthenticated.forEach((router) => {
     app.use(router.path, passport_1.default.authenticate("jwt", { session: false }), router.router);
