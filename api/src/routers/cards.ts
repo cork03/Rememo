@@ -38,13 +38,13 @@ route.post("/", async (req: any, res: Response) => {
 route.patch("/:id", async (req: any, res: Response) => {
   const { id } = req.params;
   const {
-    card: { links, ...reqBody },
+    card: { links, newLinks, ...reqBody },
   } = req.body;
   const userId = req.user.id;
   const { categoryIds, ...cardElements } = reqBody;
   cardElements.userId = userId;
   try {
-    await Card.patch(cardElements, links, categoryIds, id);
+    await Card.patch(cardElements, links, newLinks, categoryIds, id);
     res.status(200).json({});
   } catch (e) {
     res.status(400).json({ e });
