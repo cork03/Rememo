@@ -36,12 +36,12 @@ class Card extends sequelize_1.Model {
             cardElements.leanCount = 1;
             const card = await Card.create(cardElements, { transaction: t });
             if (linkElements) {
-                for (const value of linkElements) {
-                    const link = await cardLinks_1.default.create({
-                        string: value,
+                await Promise.all(linkElements.map(async (link) => {
+                    await cardLinks_1.default.create({
+                        string: link,
                         cardId: card.id,
                     }, { transaction: t });
-                }
+                }));
             }
             const userCategories = await userCategories_1.default.findAll({
                 where: { id: categoryIds },
@@ -57,10 +57,19 @@ class Card extends sequelize_1.Model {
             }
         });
     }
-    static async patch(cardElements, linkElements, categoryIds, postId) {
+    static async patch(cardElements, linkElements, newLinkElements, categoryIds, cardId) {
         await _1.sequelize.transaction(async (t) => {
-            Card.update(cardElements, { where: { id: postId } });
-            const card = await Card.findByPk(postId, { transaction: t });
+            console.log(categoryIds);
+            await Promise.all(linkElements.map(async (link) => {
+                await cardLinks_1.default.update({ string: link.string }, { where: { id: link.id }, transaction: t });
+            }));
+            if (newLinkElements) {
+                await Promise.all(newLinkElements.map(async (link) => {
+                    const test = await cardLinks_1.default.create({ string: link, cardId }, { transaction: t });
+                }));
+            }
+            await Card.update(cardElements, { where: { id: cardId } });
+            const card = await Card.findByPk(cardId, { transaction: t });
             const userCategories = await userCategories_1.default.findAll({
                 where: { id: categoryIds },
                 transaction: t,

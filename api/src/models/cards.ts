@@ -1,5 +1,6 @@
 import Sequelize, { Model, Op } from "sequelize";
 import differenceInHours from "date-fns/differenceInHours";
+import { te } from "date-fns/locale";
 import { sequelize } from ".";
 import CardCategory from "./cardCategories";
 import CardLinks from "./cardLinks";
@@ -24,15 +25,17 @@ class Card extends Model {
       cardElements.leanCount = 1;
       const card = await Card.create(cardElements, { transaction: t });
       if (linkElements) {
-        for (const value of linkElements) {
-          const link = await CardLinks.create(
-            {
-              string: value,
-              cardId: card.id,
-            },
-            { transaction: t }
-          );
-        }
+        await Promise.all(
+          linkElements.map(async (link: string) => {
+            await CardLinks.create(
+              {
+                string: link,
+                cardId: card.id,
+              },
+              { transaction: t }
+            );
+          })
+        );
       }
       const userCategories = await UserCategory.findAll({
         where: { id: categoryIds },
@@ -51,17 +54,38 @@ class Card extends Model {
 
   static async patch(
     cardElements: any,
-    linkElements: string[],
+    linkElements: any,
+    newLinkElements: string[],
     categoryIds: number[],
-    postId: number
+    cardId: number
   ) {
     await sequelize.transaction(async (t) => {
-      Card.update(cardElements, { where: { id: postId } });
-      const card = await Card.findByPk(postId, { transaction: t });
+      console.log(categoryIds);
+      await Promise.all(
+        linkElements.map(async (link: any) => {
+          await CardLinks.update(
+            { string: link.string },
+            { where: { id: link.id }, transaction: t }
+          );
+        })
+      );
+      if (newLinkElements) {
+        await Promise.all(
+          newLinkElements.map(async (link: string) => {
+            const test = await CardLinks.create(
+              { string: link, cardId },
+              { transaction: t }
+            );
+          })
+        );
+      }
+      await Card.update(cardElements, { where: { id: cardId } });
+      const card = await Card.findByPk(cardId, { transaction: t });
       const userCategories = await UserCategory.findAll({
         where: { id: categoryIds },
         transaction: t,
       });
+
       await (card as any).setUserCategories(userCategories, {
         through: {
           cardId: card!.id,
