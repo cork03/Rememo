@@ -17,6 +17,7 @@ export const Card = ({
   checkCard,
   patchCard,
   deleteLink,
+  createCategory,
 }: any) => {
   const showCard = useCallback(() => {
     showModal({
@@ -27,6 +28,7 @@ export const Card = ({
           checkCard={checkCard}
           patchCard={patchCard}
           deleteLink={deleteLink}
+          createCategory={createCategory}
         />
       ),
     });

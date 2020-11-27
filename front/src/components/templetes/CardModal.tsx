@@ -23,11 +23,13 @@ const LinksArea = styled.div`
 `;
 const LinkArea = styled.div`
   display: flex;
+  margin-top: 10px;
 `;
 
 const LinksTitle = styled.label``;
 
 const Options = styled.div`
+  margin-top: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -42,6 +44,15 @@ const CategoryArea = styled.div``;
 const CategoryTitle = styled.label`
   margin-right: 7px;
 `;
+const NewCategoryArea = styled.div`
+  display: flex;
+`;
+
+const SubmitArea = styled.div`
+  margin-top: 15px;
+  display: flex;
+  justify-content: start;
+`;
 
 export const CardModal = ({
   card,
@@ -49,6 +60,7 @@ export const CardModal = ({
   checkCard,
   patchCard,
   deleteLink,
+  createCategory,
 }: any) => {
   const [title, setTitle] = useState(card.title);
   const [body, setBody] = useState(card.body);
@@ -57,7 +69,8 @@ export const CardModal = ({
   const [forAddLink, setForAddLink] = useState("");
   const [count, setCount] = useState(card.totalCount);
   const [id, setId] = useState(0);
-  const [category, setCategory] = useState(1);
+  const [category, setCategory] = useState(0);
+  const [forAddCategory, setForAddCategory] = useState("");
   const counts = [2, 3, 4];
   const changeCount = useCallback(
     (e) => {
@@ -108,6 +121,16 @@ export const CardModal = ({
     setNewLinks({ ...newLinks, ...test });
     setForAddLink("");
   }, [forAddLink, setNewLinks, newLinks, id, setId, setForAddLink]);
+  const addCategory = useCallback(() => {
+    createCategory({
+      payload: {
+        userCategories: {
+          name: forAddCategory,
+        },
+      },
+    });
+    setForAddCategory("");
+  }, [createCategory, forAddCategory, setForAddCategory]);
   useEffect(() => {
     const links = card.cardLinks.reduce((acc: any, item: any) => {
       acc[item.id] = item;
@@ -174,7 +197,7 @@ export const CardModal = ({
           })}
           <LinkArea>
             <Input
-              type="card"
+              type="dafalut"
               value={forAddLink}
               onChangeText={setForAddLink}
               placeholder="リンクを追加する"
@@ -196,9 +219,23 @@ export const CardModal = ({
           <CategoryArea>
             <CategoryTitle>カテゴリー</CategoryTitle>
             <select value={category} onChange={changeCategory}>
-              <option value="1">選択</option>
+              <option value="0">なし</option>
+              <option value="2">あり</option>
             </select>
           </CategoryArea>
+          <NewCategoryArea>
+            <Input
+              type="default"
+              value={forAddCategory}
+              onChangeText={setForAddCategory}
+              placeholder="カテゴリーを追加する"
+            />
+            <Button type="primary" onClick={addCategory}>
+              追加
+            </Button>
+          </NewCategoryArea>
+        </Options>
+        <SubmitArea>
           <Button type="primary" onClick={patch}>
             変更を保存
           </Button>
@@ -209,7 +246,7 @@ export const CardModal = ({
               学習完了
             </Button>
           )}
-        </Options>
+        </SubmitArea>
       </Width>
     </Container>
   );

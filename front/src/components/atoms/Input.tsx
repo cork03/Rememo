@@ -25,9 +25,23 @@ const CardInput = styled.input`
   }
 `;
 
-const map: any = {
-  default: Input,
-  card: CardInput,
+export const LinkInput = ({ value, onChangeText, placeholder }: any) => {
+  const onChange = useCallback(
+    (e: any) => {
+      onChangeText(e.target.value);
+    },
+    [onChangeText]
+  );
+  return (
+    <>
+      <Input
+        type="input"
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+      />
+    </>
+  );
 };
 
 export const TextInput = ({ value, onChangeText, placeholder }: any) => {
@@ -47,6 +61,11 @@ export const TextInput = ({ value, onChangeText, placeholder }: any) => {
       />
     </>
   );
+};
+
+const map: any = {
+  default: Input,
+  card: CardInput,
 };
 
 const InputComponent = ({

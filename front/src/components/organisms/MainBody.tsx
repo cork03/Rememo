@@ -45,6 +45,7 @@ export const MainBody = ({
   checkCard,
   patchCard,
   deleteLink,
+  createCategory,
 }: any) => {
   useEffect(() => {
     fetchCards();
@@ -71,6 +72,7 @@ export const MainBody = ({
                     checkCard={checkCard}
                     patchCard={patchCard}
                     deleteLink={deleteLink}
+                    createCategory={createCategory}
                   />
                 );
               }

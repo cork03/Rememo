@@ -67,6 +67,16 @@ export const deleteLink = (id: number) => {
   return { type: DELETE_LINK_REQUESTED, id };
 };
 
+// カテゴリーの作成
+
+export const CREATE_CATEGORY_REQUESTED = "CREATE_CATEGORY_REQUESTED";
+export const CREATE_CATEGORY_SUCCEEDED = "CREATE_CATEGORY_SUCCEEDED";
+export const CREATE_CATEGORY_FAILED = "CREATE_CATEGORY_FAILED";
+
+export const createCategory = ({ payload }: any) => {
+  return { type: CREATE_CATEGORY_REQUESTED, payload };
+};
+
 // createUser
 
 export const CREATE_USER_REQUESTED = "CREATE_USER_REQUESTED";
@@ -107,4 +117,5 @@ export const actionCreators = {
   checkCard,
   patchCard,
   deleteLink,
+  createCategory,
 };
