@@ -3,6 +3,18 @@ import UserCategory from "../models/userCategories";
 
 const route = express.Router();
 
+// カテゴリの取得
+
+route.get("/:id", async (req: any, res: Response) => {
+  const userId = req.user.id;
+  try {
+    const userCategories = await UserCategory.findAll({ where: { userId } });
+    res.status(201).json({ userCategories });
+  } catch (e) {
+    res.status(400).json({ e });
+  }
+});
+
 // カテゴリの新規登録
 
 route.post("/", async (req: any, res: Response) => {
