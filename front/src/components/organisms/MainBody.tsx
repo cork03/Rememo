@@ -46,10 +46,13 @@ export const MainBody = ({
   patchCard,
   deleteLink,
   createCategory,
+  userCategories,
+  fetchCategory,
 }: any) => {
   useEffect(() => {
     fetchCards();
-  }, [fetchCards]);
+    fetchCategory();
+  }, [fetchCards, fetchCategory]);
   const cards = Object.values(data);
   const _showModal = useCallback(() => {
     showModal({
@@ -68,11 +71,7 @@ export const MainBody = ({
                   <Card
                     card={card}
                     showModal={showModal}
-                    hideModal={hideModal}
-                    checkCard={checkCard}
-                    patchCard={patchCard}
-                    deleteLink={deleteLink}
-                    createCategory={createCategory}
+                    userCategories={userCategories}
                   />
                 );
               }

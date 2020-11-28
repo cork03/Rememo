@@ -60,7 +60,6 @@ class Card extends Model {
     cardId: number
   ) {
     await sequelize.transaction(async (t) => {
-      console.log(categoryIds);
       await Promise.all(
         linkElements.map(async (link: any) => {
           await CardLinks.update(

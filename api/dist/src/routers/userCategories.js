@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const userCategories_1 = __importDefault(require("../models/userCategories"));
 const route = express_1.default.Router();
-route.get("/:id", async (req, res) => {
+route.get("/", async (req, res) => {
     const userId = req.user.id;
     try {
         const userCategories = await userCategories_1.default.findAll({ where: { userId } });

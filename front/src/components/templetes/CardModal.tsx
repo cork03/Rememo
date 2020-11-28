@@ -61,7 +61,9 @@ export const CardModal = ({
   patchCard,
   deleteLink,
   createCategory,
+  userCategories,
 }: any) => {
+  const categoryId = card.userCategories[0]?.id;
   const [title, setTitle] = useState(card.title);
   const [body, setBody] = useState(card.body);
   const [links, setLinks] = useState({});
@@ -69,7 +71,7 @@ export const CardModal = ({
   const [forAddLink, setForAddLink] = useState("");
   const [count, setCount] = useState(card.totalCount);
   const [id, setId] = useState(0);
-  const [category, setCategory] = useState(0);
+  const [category, setCategory] = useState(categoryId || 0);
   const [forAddCategory, setForAddCategory] = useState("");
   const counts = [2, 3, 4];
   const changeCount = useCallback(
@@ -138,6 +140,7 @@ export const CardModal = ({
     }, {});
     setLinks(links);
   }, []);
+  const categories = Object.values(userCategories);
   return (
     <Container>
       <Width>
@@ -159,6 +162,9 @@ export const CardModal = ({
             };
             const _deleteLink = () => {
               deleteLink(link.id);
+              const _links: any = { ...links };
+              delete _links[link.id];
+              setLinks(_links);
             };
             return (
               <LinkArea>
@@ -189,7 +195,7 @@ export const CardModal = ({
                   value={link.string}
                   onChangeText={onChange}
                 />
-                <Button type="primary" onClick={deleteLink}>
+                <Button type="primary" onClick={_deleteLink}>
                   削除
                 </Button>
               </LinkArea>
@@ -220,7 +226,9 @@ export const CardModal = ({
             <CategoryTitle>カテゴリー</CategoryTitle>
             <select value={category} onChange={changeCategory}>
               <option value="0">なし</option>
-              <option value="2">あり</option>
+              {categories.map((category: any) => {
+                return <option value={category.id}>{category.name}</option>;
+              })}
             </select>
           </CategoryArea>
           <NewCategoryArea>
