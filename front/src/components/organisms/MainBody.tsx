@@ -42,17 +42,10 @@ export const MainBody = ({
   showModal,
   hideModal,
   postCard,
-  checkCard,
-  patchCard,
-  deleteLink,
-  createCategory,
-  userCategories,
-  fetchCategory,
 }: any) => {
   useEffect(() => {
     fetchCards();
-    fetchCategory();
-  }, [fetchCards, fetchCategory]);
+  }, [fetchCards]);
   const cards = Object.values(data);
   const _showModal = useCallback(() => {
     showModal({
@@ -67,13 +60,7 @@ export const MainBody = ({
           <Cards>
             {cards.map((card: any) => {
               if (!card.checked) {
-                return (
-                  <Card
-                    card={card}
-                    showModal={showModal}
-                    userCategories={userCategories}
-                  />
-                );
+                return <Card card={card} showModal={showModal} />;
               }
               return <></>;
             })}
@@ -87,13 +74,7 @@ export const MainBody = ({
           <Cards>
             {cards.map((card: any) => {
               if (card.checked) {
-                return (
-                  <Card
-                    card={card}
-                    showModal={showModal}
-                    hideModal={hideModal}
-                  />
-                );
+                return <Card card={card} showModal={showModal} />;
               }
               return <></>;
             })}

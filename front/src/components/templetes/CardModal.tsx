@@ -1,11 +1,14 @@
 import { constants } from "buffer";
 import React, { useCallback, useState, useEffect } from "react";
 import styled from "styled-components";
+import { colors } from "../../styles/Variables";
 import Button from "../atoms/Buttons";
 import Input from "../atoms/Input";
 import { TextArea } from "../atoms/TextArea";
 
-const Container = styled.div``;
+const Container = styled.div`
+  margin: 10px;
+`;
 
 const Width = styled.div`
   margin: 10px auto;
@@ -27,7 +30,20 @@ const LinkArea = styled.div`
 `;
 
 const LinksTitle = styled.label``;
-
+const LinkButton = styled.a`
+  min-width: 50px;
+  text-align: center;
+  color: white;
+  padding: 4px 0;
+  margin: 4px;
+  border-radius: 6px;
+  cursor: pointer;
+  background: ${colors.buttonGreen};
+  border-bottom: 2px solid #28a745;
+  &:hover {
+    background: #28a745;
+  }
+`;
 const Options = styled.div`
   margin-top: 20px;
   display: flex;
@@ -62,6 +78,7 @@ export const CardModal = ({
   deleteLink,
   createCategory,
   userCategories,
+  fetchCategory,
 }: any) => {
   const categoryId = card.userCategories[0]?.id;
   const [title, setTitle] = useState(card.title);
@@ -139,7 +156,8 @@ export const CardModal = ({
       return acc;
     }, {});
     setLinks(links);
-  }, []);
+    fetchCategory();
+  }, [fetchCategory]);
   const categories = Object.values(userCategories);
   return (
     <Container>
@@ -173,8 +191,15 @@ export const CardModal = ({
                   value={link.string}
                   onChangeText={onChange}
                 />
-                <Button type="primary" onClick={_deleteLink}>
-                  削除
+                <LinkButton
+                  href={link.string}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className="fas fa-external-link-alt" />
+                </LinkButton>
+                <Button type="small" onClick={_deleteLink}>
+                  <i className="fas fa-trash" />
                 </Button>
               </LinkArea>
             );
@@ -186,7 +211,9 @@ export const CardModal = ({
               setNewLinks(_links);
             };
             const _deleteLink = () => {
-              deleteLink(link.id);
+              const _links: any = { ...newLinks };
+              delete _links[link.id];
+              setNewLinks(_links);
             };
             return (
               <LinkArea>
@@ -206,10 +233,10 @@ export const CardModal = ({
               type="dafalut"
               value={forAddLink}
               onChangeText={setForAddLink}
-              placeholder="リンクを追加する"
+              placeholder="リンクの追加 例:http://www.example.com"
             />
-            <Button type="primary" onClick={addLink}>
-              追加
+            <Button type="small" onClick={addLink}>
+              <i className="fas fa-plus-circle" />
             </Button>
           </LinkArea>
         </LinksArea>
@@ -238,8 +265,8 @@ export const CardModal = ({
               onChangeText={setForAddCategory}
               placeholder="カテゴリーを追加する"
             />
-            <Button type="primary" onClick={addCategory}>
-              追加
+            <Button type="small" onClick={addCategory}>
+              <i className="fas fa-plus-circle" />
             </Button>
           </NewCategoryArea>
         </Options>

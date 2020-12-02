@@ -19,6 +19,14 @@ export const ButtonGreen = styled(Button)`
     background: #28a745;
   }
 `;
+export const SmallButtonGreen = styled(Button)`
+  min-width: 50px;
+  background: ${colors.buttonGreen};
+  border-bottom: 2px solid #28a745;
+  &:hover {
+    background: #28a745;
+  }
+`;
 
 export const ButtonRed = styled(Button)`
   background: ${colors.buttonRed};
@@ -42,6 +50,7 @@ export const AddCardButton = styled.a`
 const map: any = {
   default: Button,
   primary: ButtonGreen,
+  small: SmallButtonGreen,
   card: AddCardButton,
 };
 

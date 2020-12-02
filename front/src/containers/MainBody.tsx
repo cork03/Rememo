@@ -3,36 +3,20 @@ import { bindActionCreators } from "redux";
 import { MainBody } from "../components/organisms/MainBody";
 import { actionCreators } from "../actions";
 
-const mapStateToProps = ({ cards, userCategories }: any) => {
+const mapStateToProps = ({ cards }: any) => {
   return {
     data: cards.data,
-    userCategories,
   };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
-  const {
-    showModal,
-    hideModal,
-    fetchCards,
-    postCard,
-    checkCard,
-    patchCard,
-    deleteLink,
-    createCategory,
-    fetchCategory,
-  } = actionCreators;
+  const { showModal, hideModal, fetchCards, postCard } = actionCreators;
   return bindActionCreators(
     {
       showModal,
       hideModal,
       fetchCards,
       postCard,
-      checkCard,
-      patchCard,
-      deleteLink,
-      createCategory,
-      fetchCategory,
     },
     dispatch
   );

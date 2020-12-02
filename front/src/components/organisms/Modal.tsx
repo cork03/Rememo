@@ -1,9 +1,14 @@
 import React from "react";
 import Modal from "react-modal";
 import styled from "styled-components";
+import { colors } from "../../styles/Variables";
 
 Modal.setAppElement("#root");
-
+const Container = styled.div`
+  margin: 2px;
+  border: 2px solid ${colors.cardBorder};
+  border-radius: 10px;
+`;
 const CloseButtonArea = styled.div`
   text-align: right;
 `;
@@ -18,10 +23,12 @@ const ModalContainer = ({ show, component, hideModal }: any) => {
   }
   return (
     <Modal className="ReactModal__Content__modal" isOpen={show}>
-      <CloseButtonArea>
-        <CloseButton onClick={hideModal}>✖️</CloseButton>
-      </CloseButtonArea>
-      {component}
+      <Container>
+        <CloseButtonArea>
+          <CloseButton onClick={hideModal}>✖️</CloseButton>
+        </CloseButtonArea>
+        {component}
+      </Container>
     </Modal>
   );
 };

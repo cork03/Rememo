@@ -3,8 +3,10 @@ import { bindActionCreators } from "redux";
 import { CardModal } from "../components/templetes/CardModal";
 import { actionCreators } from "../actions";
 
-const mapStateToProps = () => {
-  return {};
+const mapStateToProps = ({ userCategories }: any) => {
+  return {
+    userCategories,
+  };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
@@ -14,6 +16,7 @@ const mapDispatchToProps = (dispatch: any) => {
     patchCard,
     deleteLink,
     fetchCategory,
+    createCategory,
   } = actionCreators;
   return bindActionCreators(
     {
@@ -22,6 +25,7 @@ const mapDispatchToProps = (dispatch: any) => {
       patchCard,
       deleteLink,
       fetchCategory,
+      createCategory,
     },
     dispatch
   );
