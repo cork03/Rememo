@@ -5,7 +5,7 @@ const route = express.Router();
 
 // カテゴリの取得
 
-route.get("/:id", async (req: any, res: Response) => {
+route.get("/", async (req: any, res: Response) => {
   const userId = req.user.id;
   try {
     const userCategories = await UserCategory.findAll({ where: { userId } });

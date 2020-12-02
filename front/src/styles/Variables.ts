@@ -12,6 +12,7 @@ export const colors = {
   cardBackground: "#f5f5f5",
   cardHover: "#dcdcdc",
   error: "#c2302a",
+  cardBorder: "#262626",
 };
 
 export const font = {

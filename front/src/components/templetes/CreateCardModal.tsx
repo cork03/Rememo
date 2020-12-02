@@ -50,7 +50,7 @@ export const CreateCardModal = ({ hideModal, postCard }: any) => {
   const [body, setBody] = useState("");
   const [count, setCount] = useState(3);
   const [category, setCategory] = useState(1);
-  const [link, setLink] = useState("");
+  const [link, setLink] = useState(null);
 
   const changeCount = useCallback(
     (e) => {
@@ -66,15 +66,29 @@ export const CreateCardModal = ({ hideModal, postCard }: any) => {
   );
   const counts = [2, 3, 4];
   const createCard = useCallback(() => {
-    postCard({
-      payload: {
-        title,
-        body,
-        links: [link],
-        totalCount: count,
-        categoryIds: [category],
-      },
-    });
+    if (link) {
+      postCard({
+        payload: {
+          title,
+          body,
+          links: [link],
+          totalCount: count,
+          categoryIds: [category],
+          checked: 1,
+        },
+      });
+    } else {
+      postCard({
+        payload: {
+          title,
+          body,
+          totalCount: count,
+          categoryIds: [category],
+          checked: 1,
+        },
+      });
+    }
+
     hideModal();
   }, [postCard, title, body, link, count, category, hideModal]);
   return (

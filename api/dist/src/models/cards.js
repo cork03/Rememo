@@ -59,7 +59,6 @@ class Card extends sequelize_1.Model {
     }
     static async patch(cardElements, linkElements, newLinkElements, categoryIds, cardId) {
         await _1.sequelize.transaction(async (t) => {
-            console.log(categoryIds);
             await Promise.all(linkElements.map(async (link) => {
                 await cardLinks_1.default.update({ string: link.string }, { where: { id: link.id }, transaction: t });
             }));

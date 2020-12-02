@@ -35,7 +35,6 @@ body{
     background: ${colors.modalBackground};
     border-radius: 10px;
     margin: 100px auto;
-    padding: 16px;
     border: 1px solid lightgray;
     max-width: 600px;
     outline: none;

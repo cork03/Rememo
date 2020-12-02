@@ -52,7 +52,6 @@ export const MainBody = ({
       component: <CreateCardModal hideModal={hideModal} postCard={postCard} />,
     });
   }, [showModal, hideModal, postCard]);
-  console.log(cards);
   return (
     <Container>
       <Width>
@@ -61,13 +60,7 @@ export const MainBody = ({
           <Cards>
             {cards.map((card: any) => {
               if (!card.checked) {
-                return (
-                  <Card
-                    card={card}
-                    showModal={showModal}
-                    hideModal={hideModal}
-                  />
-                );
+                return <Card card={card} showModal={showModal} />;
               }
               return <></>;
             })}
@@ -81,13 +74,7 @@ export const MainBody = ({
           <Cards>
             {cards.map((card: any) => {
               if (card.checked) {
-                return (
-                  <Card
-                    card={card}
-                    showModal={showModal}
-                    hideModal={hideModal}
-                  />
-                );
+                return <Card card={card} showModal={showModal} />;
               }
               return <></>;
             })}

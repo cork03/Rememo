@@ -10,12 +10,13 @@ const mapStateToProps = ({ cards }: any) => {
 };
 
 const mapDispatchToProps = (dispatch: any) => {
+  const { showModal, hideModal, fetchCards, postCard } = actionCreators;
   return bindActionCreators(
     {
-      showModal: actionCreators.showModal,
-      hideModal: actionCreators.hideModal,
-      fetchCards: actionCreators.fetchCards,
-      postCard: actionCreators.postCard,
+      showModal,
+      hideModal,
+      fetchCards,
+      postCard,
     },
     dispatch
   );
