@@ -1,19 +1,14 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import styled from "styled-components";
+import { colors } from "../../styles/Variables";
 import Button from "../atoms/Buttons";
 import Input from "../atoms/Input";
 import { TextArea } from "../atoms/TextArea";
 
 const Container = styled.div`
-  position: relative;
+  margin: 10px;
 `;
-const CloseButton = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  font-size: 30px;
-  cursor: pointer;
-`;
+
 const Width = styled.div`
   margin: 10px auto;
 `;
@@ -28,13 +23,33 @@ const BodyTitle = styled.label``;
 const LinksArea = styled.div`
   margin-top: 20px;
 `;
-const LinksTitle = styled.label``;
+const LinkArea = styled.div`
+  display: flex;
+  margin-top: 10px;
+`;
 
+const LinksTitle = styled.label``;
+const LinkButton = styled.a`
+  min-width: 50px;
+  text-align: center;
+  color: white;
+  padding: 4px 0;
+  margin: 4px;
+  border-radius: 6px;
+  cursor: pointer;
+  background: ${colors.buttonGreen};
+  border-bottom: 2px solid #28a745;
+  &:hover {
+    background: #28a745;
+  }
+`;
 const Options = styled.div`
+  margin-top: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
+
 const CountArea = styled.div``;
 const CountTitle = styled.label`
   margin-right: 7px;
@@ -44,14 +59,32 @@ const CategoryArea = styled.div``;
 const CategoryTitle = styled.label`
   margin-right: 7px;
 `;
+const NewCategoryArea = styled.div`
+  display: flex;
+`;
 
-export const CreateCardModal = ({ hideModal, postCard }: any) => {
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
+const SubmitArea = styled.div`
+  margin-top: 15px;
+  display: flex;
+  justify-content: start;
+`;
+
+export const CreateCardModal = ({
+  hideModal,
+  createCategory,
+  userCategories,
+  fetchCategory,
+  postCard,
+}: any) => {
+  const [title, setTitle] = useState(null);
+  const [body, setBody] = useState(null);
+  const [newLinks, setNewLinks] = useState({});
+  const [forAddLink, setForAddLink] = useState("");
   const [count, setCount] = useState(3);
-  const [category, setCategory] = useState(1);
-  const [link, setLink] = useState(null);
-
+  const [id, setId] = useState(0);
+  const [category, setCategory] = useState(0);
+  const [forAddCategory, setForAddCategory] = useState("");
+  const counts = [2, 3, 4];
   const changeCount = useCallback(
     (e) => {
       setCount(e.target.value);
@@ -64,14 +97,37 @@ export const CreateCardModal = ({ hideModal, postCard }: any) => {
     },
     [setCategory]
   );
-  const counts = [2, 3, 4];
+  const addLink = useCallback(() => {
+    let test = newLinks;
+    setId(id + 1);
+    test = { ...test, [id]: { id, string: forAddLink } };
+    setNewLinks({ ...newLinks, ...test });
+    setForAddLink("");
+  }, [forAddLink, setNewLinks, newLinks, id, setId, setForAddLink]);
+  const addCategory = useCallback(() => {
+    createCategory({
+      payload: {
+        userCategories: {
+          name: forAddCategory,
+        },
+      },
+    });
+    setForAddCategory("");
+  }, [createCategory, forAddCategory, setForAddCategory]);
+  useEffect(() => {
+    fetchCategory();
+  }, [fetchCategory]);
   const createCard = useCallback(() => {
-    if (link) {
+    const newLinksValue = Object.values(newLinks);
+    const newLinkEl = newLinksValue.reduce((acc: any, item: any) => {
+      acc.push(item.string);
+      return acc;
+    }, []);
+    if (newLinksValue.length === 0) {
       postCard({
         payload: {
           title,
           body,
-          links: [link],
           totalCount: count,
           categoryIds: [category],
           checked: 1,
@@ -82,38 +138,83 @@ export const CreateCardModal = ({ hideModal, postCard }: any) => {
         payload: {
           title,
           body,
+          links: newLinkEl,
           totalCount: count,
           categoryIds: [category],
           checked: 1,
         },
       });
     }
-
-    hideModal();
-  }, [postCard, title, body, link, count, category, hideModal]);
+  }, [postCard, newLinks, title, body, count, category]);
+  const categories = Object.values(userCategories);
   return (
     <Container>
       <Width>
         <TitleArea>
-          <Title>タイトル</Title>
+          <Title>
+            <i className="fas fa-pen" />
+            タイトル
+          </Title>
           <Input type="default" value={title} onChangeText={setTitle} />
         </TitleArea>
         <BodyArea>
-          <BodyTitle>説明</BodyTitle>
+          <BodyTitle>
+            <i className="fas fa-book-open" />
+            内容
+          </BodyTitle>
           <TextArea value={body} onChangeText={setBody} />
         </BodyArea>
         <LinksArea>
-          <LinksTitle>参考サイト</LinksTitle>
-          <Input
-            type="card"
-            value={link}
-            onChangeText={setLink}
-            placeholder="リンクを追加する"
-          />
+          <LinksTitle>
+            <i className="fas fa-paperclip" />
+            参考サイト
+          </LinksTitle>
+          {Object.values(newLinks).map((link: any) => {
+            const onChange = (text: string) => {
+              const newItem = { ...link, string: text };
+              const _links = { ...newLinks, [link.id]: newItem };
+              setNewLinks(_links);
+            };
+            const _deleteLink = () => {
+              const _links: any = { ...newLinks };
+              delete _links[link.id];
+              setNewLinks(_links);
+            };
+            return (
+              <LinkArea>
+                <Input
+                  type="default"
+                  value={link.string}
+                  onChangeText={onChange}
+                />
+                <LinkButton
+                  href={link.string}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className="fas fa-external-link-alt" />
+                </LinkButton>
+                <Button type="small" onClick={_deleteLink}>
+                  <i className="fas fa-trash" />
+                </Button>
+              </LinkArea>
+            );
+          })}
+          <LinkArea>
+            <Input
+              type="dafalut"
+              value={forAddLink}
+              onChangeText={setForAddLink}
+              placeholder="リンクの追加 例:http://www.example.com"
+            />
+            <Button type="small" onClick={addLink}>
+              <i className="fas fa-plus-circle" />
+            </Button>
+          </LinkArea>
         </LinksArea>
         <Options>
           <CountArea>
-            <CountTitle>再表示回数</CountTitle>
+            <CountTitle>学習回数</CountTitle>
             <select value={count} onChange={changeCount}>
               {counts.map((count: number) => {
                 return <option value={count}>{count}</option>;
@@ -123,13 +224,29 @@ export const CreateCardModal = ({ hideModal, postCard }: any) => {
           <CategoryArea>
             <CategoryTitle>カテゴリー</CategoryTitle>
             <select value={category} onChange={changeCategory}>
-              <option value="1">選択</option>
+              <option value="0">なし</option>
+              {categories.map((category: any) => {
+                return <option value={category.id}>{category.name}</option>;
+              })}
             </select>
           </CategoryArea>
+          <NewCategoryArea>
+            <Input
+              type="default"
+              value={forAddCategory}
+              onChangeText={setForAddCategory}
+              placeholder="カテゴリーを追加する"
+            />
+            <Button type="small" onClick={addCategory}>
+              <i className="fas fa-plus-circle" />
+            </Button>
+          </NewCategoryArea>
+        </Options>
+        <SubmitArea>
           <Button type="primary" onClick={createCard}>
             作成
           </Button>
-        </Options>
+        </SubmitArea>
       </Width>
     </Container>
   );

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { colors } from "../../styles/Variables";
 import { Card } from "./Card";
 import Button from "../atoms/Buttons";
-import { CreateCardModal } from "../templetes/CreateCardModal";
+import CreateCardModal from "../../containers/CreateCardModal";
 
 const Container = styled.div`
   height: 100vh;
@@ -49,7 +49,7 @@ export const MainBody = ({
   const cards = Object.values(data);
   const _showModal = useCallback(() => {
     showModal({
-      component: <CreateCardModal hideModal={hideModal} postCard={postCard} />,
+      component: <CreateCardModal />,
     });
   }, [showModal, hideModal, postCard]);
   return (

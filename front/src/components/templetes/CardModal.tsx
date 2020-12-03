@@ -1,4 +1,3 @@
-import { constants } from "buffer";
 import React, { useCallback, useState, useEffect } from "react";
 import styled from "styled-components";
 import { colors } from "../../styles/Variables";
@@ -163,15 +162,24 @@ export const CardModal = ({
     <Container>
       <Width>
         <TitleArea>
-          <Title>タイトル</Title>
+          <Title>
+            <i className="fas fa-pen" />
+            タイトル
+          </Title>
           <Input type="default" value={title} onChangeText={setTitle} />
         </TitleArea>
         <BodyArea>
-          <BodyTitle>説明</BodyTitle>
+          <BodyTitle>
+            <i className="fas fa-book-open" />
+            内容
+          </BodyTitle>
           <TextArea value={body} onChangeText={setBody} />
         </BodyArea>
         <LinksArea>
-          <LinksTitle>参考サイト</LinksTitle>
+          <LinksTitle>
+            <i className="fas fa-paperclip" />
+            参考サイト
+          </LinksTitle>
           {Object.values(links).map((link: any) => {
             const onChange = (text: string) => {
               const newItem = { ...link, string: text };
@@ -222,8 +230,15 @@ export const CardModal = ({
                   value={link.string}
                   onChangeText={onChange}
                 />
-                <Button type="primary" onClick={_deleteLink}>
-                  削除
+                <LinkButton
+                  href={link.string}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className="fas fa-external-link-alt" />
+                </LinkButton>
+                <Button type="small" onClick={_deleteLink}>
+                  <i className="fas fa-trash" />
                 </Button>
               </LinkArea>
             );
