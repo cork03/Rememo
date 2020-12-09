@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { colors } from "../../styles/Variables";
 import { ErrorMessage } from "../atoms/ErrorMessage";
 import { TextInput } from "../atoms/Input";
 import { SignUpModal } from "./SignUpModal";

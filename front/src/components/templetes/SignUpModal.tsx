@@ -39,15 +39,18 @@ const LodinArea = styled.div`
 `;
 const LoginButton = styled.a`
   text-align: center;
-  color: ${colors.colorBlack};
+  color: ${colors.white};
   padding: 6px 0;
   border-radius: 6px;
   cursor: pointer;
-  background: ${colors.buttonGreen};
-  border-bottom: 2px solid #28a745;
+  background: ${colors.baseBlue};
+  border-bottom: 2px solid ${colors.darkBlue};
   display: block;
   width: 200px;
   margin: 20px auto;
+  :hover {
+    background-color: ${colors.darkBlue};
+  }
 `;
 
 export const SignUpModal = ({ createUser, hideModal }: any) => {
