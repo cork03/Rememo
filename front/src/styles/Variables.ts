@@ -5,6 +5,8 @@ export const colors = {
   baseColor: "rgb(85,85,85)",
   baseBlue: "rgba(0, 131, 226, 1)",
   darkBlue: "rgba(1, 119, 205, 1)",
+  skyBlue: "rgba(16, 186, 233, 1)",
+  darkSkyBlue: "rgba(54, 166, 197, 1)",
   gree: "#586069",
   menuBackground: "#0366d6",
   buttonGreen: "#42c360",

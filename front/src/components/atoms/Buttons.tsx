@@ -30,27 +30,20 @@ const ButtonBlue = styled(TopButton)`
   }
 `;
 
-export const ButtonGreen = styled(Button)`
-  background: ${colors.buttonGreen};
-  border-bottom: 2px solid #28a745;
+const ButtonSkyBlue = styled(TopButton)`
+  background: ${colors.skyBlue};
+  border-bottom: 2px solid ${colors.darkSkyBlue};
   &:hover {
-    background: #28a745;
+    background: ${colors.darkSkyBlue};
   }
 `;
+
 export const SmallButtonGreen = styled(Button)`
   min-width: 50px;
   background: ${colors.buttonGreen};
   border-bottom: 2px solid #28a745;
   &:hover {
     background: #28a745;
-  }
-`;
-
-export const ButtonRed = styled(Button)`
-  background: ${colors.buttonRed};
-  border-bottom: 2px solid #af1c2a;
-  &:hover {
-    background: #af1c2a;
   }
 `;
 
@@ -68,6 +61,7 @@ export const AddCardButton = styled.a`
 const map: any = {
   default: Button,
   primary: ButtonBlue,
+  skyBlue: ButtonSkyBlue,
   small: SmallButtonGreen,
   card: AddCardButton,
 };

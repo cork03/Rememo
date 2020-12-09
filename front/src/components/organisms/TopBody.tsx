@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import thinkImage from "../../images/think.jpg";
-import { colors } from "../../styles/Variables";
 import Button from "../atoms/Buttons";
 
 const Container = styled.div`
@@ -26,6 +25,7 @@ const Explanation = styled.div`
   margin-top: 20px;
   p {
     font-size: 25px;
+    margin-bottom: 10px;
   }
 `;
 const Guides = styled.div`
@@ -43,12 +43,19 @@ export const TopBody = () => {
           <ProblemPresentation>効率的な記憶定着を！</ProblemPresentation>
           <Explanation>
             <p>
-              Rememoでは<span>忘却曲線</span>に合わせた<span>想起学習</span>
-              を行うことで記憶定着を効率化しています。
+              Rememoでは<span>忘却曲線</span>に合わせた
+            </p>
+            <p>
+              <span>想起学習</span>
+              を行うことで記憶定着を
+              <p />
+              <p />
+              効率化しています。
             </p>
           </Explanation>
           <Guides>
             <Button type="primary">新規登録</Button>
+            <Button type="skyBlue">ログイン</Button>
           </Guides>
         </Descriptions>
       </Width>
