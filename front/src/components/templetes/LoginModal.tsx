@@ -5,6 +5,7 @@ import { colors } from "../../styles/Variables";
 import { ErrorMessage } from "../atoms/ErrorMessage";
 import { TextInput } from "../atoms/Input";
 import { SignUpModal } from "./SignUpModal";
+import Button from "../atoms/Buttons";
 
 const Container = styled.div`
   margin: 0 auto;
@@ -29,18 +30,6 @@ const LoginArea = styled.div`
   width: 100%;
   margin-top: 30px;
   display: flex;
-`;
-const LoginButton = styled.a`
-  text-align: center;
-  color: ${colors.colorBlack};
-  padding: 6px 0;
-  border-radius: 6px;
-  cursor: pointer;
-  background: ${colors.buttonGreen};
-  border-bottom: 2px solid #28a745;
-  display: block;
-  min-width: 140px;
-  margin: 0 auto;
 `;
 
 const UnLogin = styled.div`
@@ -138,8 +127,12 @@ export const LoginModal = ({
       </InputArea>
       {errorMessage ? <ErrorMessage errorMessage={errorMessage} /> : <></>}
       <LoginArea>
-        <LoginButton onClick={login}>ログイン</LoginButton>
-        <LoginButton onClick={gestLogin}>ゲストユーザー</LoginButton>
+        <Button type="loginModalSkyBlue" onClick={login}>
+          ログイン
+        </Button>
+        <Button type="loginModalPrimary" onClick={gestLogin}>
+          ゲストユーザー
+        </Button>
       </LoginArea>
       <UnLogin>
         登録してない方<SignUp onClick={forSignUP}>アカウント作成</SignUp>
