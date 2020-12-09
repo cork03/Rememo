@@ -15,21 +15,13 @@ const Width = styled.div`
   padding-top: 50px;
 `;
 
-const UnLeanedArea = styled.div`
+const ListArea = styled.div`
   width: 100%;
   border: 1px solid black;
   border-radius: 6px;
   margin-right: 30px;
   padding: 10px;
-  background: ${colors.cardBackground};
-`;
-const LeanedArea = styled.div`
-  width: 100%;
-  border: 1px solid black;
-  border-radius: 6px;
-  margin-right: 30px;
-  padding: 10px;
-  background: ${colors.cardBackground};
+  background: ${colors.listBackfround};
 `;
 const ListTitle = styled.p`
   font-size: 20px;
@@ -55,7 +47,7 @@ export const MainBody = ({
   return (
     <Container>
       <Width>
-        <UnLeanedArea>
+        <ListArea>
           <ListTitle>今日の学習</ListTitle>
           <Cards>
             {cards.map((card: any) => {
@@ -68,8 +60,8 @@ export const MainBody = ({
               カードを追加する
             </Button>
           </Cards>
-        </UnLeanedArea>
-        <LeanedArea>
+        </ListArea>
+        <ListArea>
           <ListTitle>完了した学習</ListTitle>
           <Cards>
             {cards.map((card: any) => {
@@ -79,7 +71,7 @@ export const MainBody = ({
               return <></>;
             })}
           </Cards>
-        </LeanedArea>
+        </ListArea>
       </Width>
     </Container>
   );

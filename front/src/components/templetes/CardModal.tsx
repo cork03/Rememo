@@ -25,7 +25,7 @@ const LinksArea = styled.div`
 `;
 const LinkArea = styled.div`
   display: flex;
-  margin-top: 10px;
+  margin-bottom: 5px;
 `;
 
 const LinksTitle = styled.label``;
@@ -67,6 +67,9 @@ const SubmitArea = styled.div`
   margin-top: 15px;
   display: flex;
   justify-content: start;
+`;
+const Icon = styled.i`
+  margin-right: 5px;
 `;
 
 export const CardModal = ({
@@ -163,21 +166,21 @@ export const CardModal = ({
       <Width>
         <TitleArea>
           <Title>
-            <i className="fas fa-pen" />
+            <Icon className="fas fa-pen" />
             タイトル
           </Title>
           <Input type="default" value={title} onChangeText={setTitle} />
         </TitleArea>
         <BodyArea>
           <BodyTitle>
-            <i className="fas fa-book-open" />
+            <Icon className="fas fa-book-open" />
             内容
           </BodyTitle>
           <TextArea value={body} onChangeText={setBody} />
         </BodyArea>
         <LinksArea>
           <LinksTitle>
-            <i className="fas fa-paperclip" />
+            <Icon className="fas fa-paperclip" />
             参考サイト
           </LinksTitle>
           {Object.values(links).map((link: any) => {

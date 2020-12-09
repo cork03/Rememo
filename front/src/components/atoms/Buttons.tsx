@@ -12,6 +12,24 @@ export const Button = styled.a`
   cursor: pointer;
 `;
 
+const TopButton = styled.a`
+  min-width: 100px;
+  text-align: center;
+  color: white;
+  padding: 4px 0;
+  margin: 4px;
+  border-radius: 6px;
+  cursor: pointer;
+`;
+
+const ButtonBlue = styled(TopButton)`
+  background: ${colors.baseBlue};
+  border-bottom: 2px solid ${colors.darkBlue};
+  &:hover {
+    background: ${colors.darkBlue};
+  }
+`;
+
 export const ButtonGreen = styled(Button)`
   background: ${colors.buttonGreen};
   border-bottom: 2px solid #28a745;
@@ -49,7 +67,7 @@ export const AddCardButton = styled.a`
 
 const map: any = {
   default: Button,
-  primary: ButtonGreen,
+  primary: ButtonBlue,
   small: SmallButtonGreen,
   card: AddCardButton,
 };

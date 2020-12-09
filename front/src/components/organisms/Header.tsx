@@ -1,39 +1,43 @@
 import React, { useCallback } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { ButtonGreen } from "../atoms/Buttons";
 import { LoginModal } from "../templetes/LoginModal";
 import { SignUpModal } from "../templetes/SignUpModal";
 import { colors } from "../../styles/Variables";
 
 const Container = styled.div`
   width: 100%;
-  background-color: black;
+  background-color: ${colors.white};
   color: ${colors.baseColor};
+  position: fixed;
 `;
 const Width = styled.div`
   width: 65%;
-  margin: auto;
+  margin: 0 auto;
   display: flex;
-  position: relative;
   align-items: center;
+  justify-content: space-between;
 `;
 
 const Logo = styled.div`
-  margin: 0 auto;
   a {
-    font-size: 70px;
-    color: ${colors.baseColor};
+    font-size: 40px;
+    color: ${colors.baseBlue};
   }
 `;
-const Menus = styled.div`
-  position: absolute;
-  right: 0;
-  bottom: 20%;
+const Menus = styled.ul`
   color: ${colors.baseColor};
   display: flex;
 `;
-
+const Menu = styled.li`
+  font-weight: 700;
+  padding: 5px;
+  margin-right: 20px;
+  cursor: pointer;
+  :hover {
+    color: ${colors.baseBlue};
+  }
+`;
 export const Header = ({
   showModal,
   hideModal,
@@ -69,8 +73,8 @@ export const Header = ({
           </Link>
         </Logo>
         <Menus>
-          <ButtonGreen onClick={showSignUp}>新規登録</ButtonGreen>
-          <ButtonGreen onClick={showLogin}>ログイン</ButtonGreen>
+          <Menu onClick={showSignUp}>新規登録</Menu>
+          <Menu onClick={showLogin}>ログイン</Menu>
         </Menus>
       </Width>
     </Container>

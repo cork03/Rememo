@@ -1,9 +1,10 @@
 import React, { useCallback } from "react";
 import styled from "styled-components";
 import CardModal from "../../containers/CardModal";
+import { colors } from "../../styles/Variables";
 
 const Content = styled.li`
-  background-color: white;
+  background-color: ${colors.card};
   margin-bottom: 10px;
   padding: 5px;
   border-radius: 5px;
