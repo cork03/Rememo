@@ -19,6 +19,7 @@ const ListArea = styled.div`
   width: 100%;
   border: 1px solid black;
   border-radius: 6px;
+  margin-top: 100px;
   margin-right: 30px;
   padding: 10px;
   background: ${colors.listBackfround};
@@ -57,7 +58,7 @@ export const MainBody = ({
               return <></>;
             })}
             <Button type="card" onClick={_showModal}>
-              カードを追加する
+              ＋カードを追加する
             </Button>
           </Cards>
         </ListArea>

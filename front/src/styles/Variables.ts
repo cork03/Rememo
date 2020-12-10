@@ -7,6 +7,8 @@ export const colors = {
   darkBlue: "rgba(1, 119, 205, 1)",
   skyBlue: "rgba(16, 186, 233, 1)",
   darkSkyBlue: "rgba(0, 166, 211, 1)",
+  baseOrange: "rgba(226, 109, 0, 1)",
+  darkOrange: "rgba(185, 111, 0, 1)",
   gree: "#586069",
   menuBackground: "#0366d6",
   buttonGreen: "#42c360",
@@ -17,9 +19,9 @@ export const colors = {
   modalBackground: "#f5f5f5",
   modalHover: "#dcdcdc",
   listBackfround: "#dcdcdc",
-  cardBackground: "#f5f5f5",
-  cardHover: "#f5f5f5",
-  card: "#f5f5f5",
+  cardBackground: "white",
+  cardHover: "white",
+  card: "white",
   cardBorder: "#666666",
 };
 

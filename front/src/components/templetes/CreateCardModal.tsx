@@ -37,10 +37,10 @@ const LinkButton = styled.a`
   margin: 4px;
   border-radius: 6px;
   cursor: pointer;
-  background: ${colors.buttonGreen};
-  border-bottom: 2px solid #28a745;
+  background: ${colors.skyBlue};
+  border-bottom: 2px solid ${colors.darkSkyBlue};
   &:hover {
-    background: #28a745;
+    background: ${colors.darkSkyBlue};
   }
 `;
 const Options = styled.div`
@@ -194,7 +194,7 @@ export const CreateCardModal = ({
                 >
                   <i className="fas fa-external-link-alt" />
                 </LinkButton>
-                <Button type="small" onClick={_deleteLink}>
+                <Button type="smallDanger" onClick={_deleteLink}>
                   <i className="fas fa-trash" />
                 </Button>
               </LinkArea>
@@ -207,7 +207,7 @@ export const CreateCardModal = ({
               onChangeText={setForAddLink}
               placeholder="リンクの追加 例:http://www.example.com"
             />
-            <Button type="small" onClick={addLink}>
+            <Button type="smallBlue" onClick={addLink}>
               <i className="fas fa-plus-circle" />
             </Button>
           </LinkArea>
@@ -237,7 +237,7 @@ export const CreateCardModal = ({
               onChangeText={setForAddCategory}
               placeholder="カテゴリーを追加する"
             />
-            <Button type="small" onClick={addCategory}>
+            <Button type="smallBlue" onClick={addCategory}>
               <i className="fas fa-plus-circle" />
             </Button>
           </NewCategoryArea>

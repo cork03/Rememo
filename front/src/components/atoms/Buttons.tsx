@@ -19,6 +19,9 @@ const ButtonBlue = styled(Button)`
     background: ${colors.darkBlue};
   }
 `;
+const SmallButtonBlue = styled(ButtonBlue)`
+  min-width: 50px;
+`;
 const ButtonSkyBlue = styled(Button)`
   background: ${colors.skyBlue};
   border-bottom: 2px solid ${colors.darkSkyBlue};
@@ -26,14 +29,18 @@ const ButtonSkyBlue = styled(Button)`
     background: ${colors.darkSkyBlue};
   }
 `;
-const SmallButtonGreen = styled(Button)`
-  min-width: 50px;
-  background: ${colors.buttonGreen};
-  border-bottom: 2px solid #28a745;
-  &:hover {
-    background: #28a745;
+
+const ButtonOrange = styled(Button)`
+  background: ${colors.baseOrange};
+  border-bottom: 2px solid ${colors.darkOrange};
+  :hover {
+    background: ${colors.darkOrange};
   }
 `;
+const SmallButtonOrange = styled(ButtonOrange)`
+  min-width: 50px;
+`;
+
 const AddCardButton = styled.a`
   width: 100%;
   display: block;
@@ -75,7 +82,9 @@ const map: any = {
   default: Button,
   primary: ButtonBlue,
   skyBlue: ButtonSkyBlue,
-  small: SmallButtonGreen,
+  smallBlue: SmallButtonBlue,
+  danger: ButtonOrange,
+  smallDanger: SmallButtonOrange,
   card: AddCardButton,
   loginModalPrimary: LoginModalPrimary,
   loginModalSkyBlue: LoginModalSkyBlue,
