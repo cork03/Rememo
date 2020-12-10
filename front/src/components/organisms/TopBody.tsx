@@ -8,11 +8,11 @@ const Container = styled.div`
 `;
 const Width = styled.div`
   width: 65%;
-  margin: 0 auto;
+  margin: auto;
   display: flex;
 `;
 const Descriptions = styled.div`
-  margin-top: 100px;
+  margin-top: 150px;
   width: 50%;
 `;
 const Image = styled.img`
@@ -20,7 +20,9 @@ const Image = styled.img`
   width: auto;
   border-radius: 10px;
 `;
-const ProblemPresentation = styled.h1``;
+const ProblemPresentation = styled.h1`
+  margin-top: 30px;
+`;
 const Explanation = styled.div`
   margin-top: 20px;
   p {
