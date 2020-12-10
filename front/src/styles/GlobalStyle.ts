@@ -6,7 +6,7 @@ export const GlobalStyle = createGlobalStyle`
   font-family: ${font.base}, Lato, "Lucida Grande", "Lucida Sans Unicode", Tahoma, sans-serif;
     line-height: 1.5;
     font-size: 14px;
-    color: ${colors.colorBlack};
+    color: ${colors.baseColor};
     background: ${colors.baseBackground};
   }
 body{

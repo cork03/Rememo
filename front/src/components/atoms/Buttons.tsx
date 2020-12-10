@@ -5,38 +5,43 @@ import { colors } from "../../styles/Variables";
 export const Button = styled.a`
   min-width: 100px;
   text-align: center;
-  color: white;
+  color: ${colors.white};
   padding: 4px 0;
   margin: 4px;
   border-radius: 6px;
   cursor: pointer;
 `;
 
-export const ButtonGreen = styled(Button)`
-  background: ${colors.buttonGreen};
-  border-bottom: 2px solid #28a745;
+const ButtonBlue = styled(Button)`
+  background: ${colors.baseBlue};
+  border-bottom: 2px solid ${colors.darkBlue};
   &:hover {
-    background: #28a745;
+    background: ${colors.darkBlue};
   }
 `;
-export const SmallButtonGreen = styled(Button)`
+const SmallButtonBlue = styled(ButtonBlue)`
   min-width: 50px;
-  background: ${colors.buttonGreen};
-  border-bottom: 2px solid #28a745;
+`;
+const ButtonSkyBlue = styled(Button)`
+  background: ${colors.skyBlue};
+  border-bottom: 2px solid ${colors.darkSkyBlue};
   &:hover {
-    background: #28a745;
+    background: ${colors.darkSkyBlue};
   }
 `;
 
-export const ButtonRed = styled(Button)`
-  background: ${colors.buttonRed};
-  border-bottom: 2px solid #af1c2a;
-  &:hover {
-    background: #af1c2a;
+const ButtonOrange = styled(Button)`
+  background: ${colors.baseOrange};
+  border-bottom: 2px solid ${colors.darkOrange};
+  :hover {
+    background: ${colors.darkOrange};
   }
 `;
+const SmallButtonOrange = styled(ButtonOrange)`
+  min-width: 50px;
+`;
 
-export const AddCardButton = styled.a`
+const AddCardButton = styled.a`
   width: 100%;
   display: block;
   cursor: pointer;
@@ -47,11 +52,42 @@ export const AddCardButton = styled.a`
   }
 `;
 
+const ButtonLoginModal = styled.a`
+  text-align: center;
+  color: ${colors.white};
+  padding: 6px 0;
+  border-radius: 6px;
+  cursor: pointer;
+  display: block;
+  min-width: 140px;
+  margin: 0 auto;
+`;
+
+const LoginModalPrimary = styled(ButtonLoginModal)`
+  background: ${colors.baseBlue};
+  border-bottom: 2px solid ${colors.darkBlue};
+  :hover {
+    background: ${colors.darkBlue};
+  }
+`;
+const LoginModalSkyBlue = styled(ButtonLoginModal)`
+  background: ${colors.skyBlue};
+  border-bottom: 2px solid ${colors.darkSkyBlue};
+  &:hover {
+    background: ${colors.darkSkyBlue};
+  }
+`;
+
 const map: any = {
   default: Button,
-  primary: ButtonGreen,
-  small: SmallButtonGreen,
+  primary: ButtonBlue,
+  skyBlue: ButtonSkyBlue,
+  smallBlue: SmallButtonBlue,
+  danger: ButtonOrange,
+  smallDanger: SmallButtonOrange,
   card: AddCardButton,
+  loginModalPrimary: LoginModalPrimary,
+  loginModalSkyBlue: LoginModalSkyBlue,
 };
 
 const ButtonComponent = ({ type, onClick, children }: any) => {

@@ -1,10 +1,10 @@
-import React, { useState, useCallback, FC } from "react";
+import React, { useState, useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { colors } from "../../styles/Variables";
 import { ErrorMessage } from "../atoms/ErrorMessage";
 import { TextInput } from "../atoms/Input";
 import { SignUpModal } from "./SignUpModal";
+import Button from "../atoms/Buttons";
 
 const Container = styled.div`
   margin: 0 auto;
@@ -30,18 +30,6 @@ const LoginArea = styled.div`
   margin-top: 30px;
   display: flex;
 `;
-const LoginButton = styled.a`
-  text-align: center;
-  color: ${colors.colorBlack};
-  padding: 6px 0;
-  border-radius: 6px;
-  cursor: pointer;
-  background: ${colors.buttonGreen};
-  border-bottom: 2px solid #28a745;
-  display: block;
-  min-width: 140px;
-  margin: 0 auto;
-`;
 
 const UnLogin = styled.div`
   margin: 30px 0;
@@ -63,7 +51,7 @@ export const LoginModal = ({
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const history = useHistory();
-  const asynchronous = useCallback(async () => {
+  const certify = useCallback(async () => {
     return await userLogin({
       payload: {
         loginId: mail,
@@ -71,6 +59,14 @@ export const LoginModal = ({
       },
     });
   }, [userLogin, mail, password]);
+  const gestCertify = useCallback(async () => {
+    return await userLogin({
+      payload: {
+        loginId: "tsubasa",
+        password: "tsubasa",
+      },
+    });
+  }, [userLogin]);
   const messageError = useCallback(() => {
     if (!mail) {
       setErrorMessage("メールアドレスを入力してください。");
@@ -90,14 +86,19 @@ export const LoginModal = ({
   const login = useCallback(async () => {
     const noOmission = messageError();
     if (noOmission) {
-      const user = await asynchronous();
+      const user = await certify();
       if (user) {
         hideModal();
         history.push("/main");
       }
       unAuthorizedError();
     }
-  }, [asynchronous, hideModal, history, messageError]);
+  }, [certify, hideModal, history, messageError]);
+  const gestLogin = useCallback(async () => {
+    await gestCertify();
+    hideModal();
+    history.push("/main");
+  }, [gestCertify, hideModal, history]);
   const forSignUP = useCallback(() => {
     hideModal();
     showModal({
@@ -125,8 +126,12 @@ export const LoginModal = ({
       </InputArea>
       {errorMessage ? <ErrorMessage errorMessage={errorMessage} /> : <></>}
       <LoginArea>
-        <LoginButton onClick={login}>ログイン</LoginButton>
-        <LoginButton>ゲストユーザー</LoginButton>
+        <Button type="loginModalSkyBlue" onClick={login}>
+          ログイン
+        </Button>
+        <Button type="loginModalPrimary" onClick={gestLogin}>
+          ゲストユーザー
+        </Button>
       </LoginArea>
       <UnLogin>
         登録してない方<SignUp onClick={forSignUP}>アカウント作成</SignUp>

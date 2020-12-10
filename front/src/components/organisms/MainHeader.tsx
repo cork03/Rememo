@@ -5,8 +5,8 @@ import { colors } from "../../styles/Variables";
 
 const Container = styled.div`
   width: 100%;
-  background-color: black;
-  color: ${colors.baseColor};
+  background-color: ${colors.headerBackground};
+  color: ${colors.white};
 `;
 const Width = styled.div`
   width: 65%;
@@ -20,7 +20,7 @@ const Logo = styled.div`
   margin: 0 auto;
   a {
     font-size: 70px;
-    color: ${colors.baseColor};
+    color: ${colors.white};
   }
 `;
 

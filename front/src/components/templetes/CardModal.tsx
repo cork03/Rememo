@@ -1,4 +1,3 @@
-import { constants } from "buffer";
 import React, { useCallback, useState, useEffect } from "react";
 import styled from "styled-components";
 import { colors } from "../../styles/Variables";
@@ -26,7 +25,7 @@ const LinksArea = styled.div`
 `;
 const LinkArea = styled.div`
   display: flex;
-  margin-top: 10px;
+  margin-bottom: 5px;
 `;
 
 const LinksTitle = styled.label``;
@@ -38,10 +37,10 @@ const LinkButton = styled.a`
   margin: 4px;
   border-radius: 6px;
   cursor: pointer;
-  background: ${colors.buttonGreen};
-  border-bottom: 2px solid #28a745;
+  background: ${colors.skyBlue};
+  border-bottom: 2px solid ${colors.darkSkyBlue};
   &:hover {
-    background: #28a745;
+    background: ${colors.darkSkyBlue};
   }
 `;
 const Options = styled.div`
@@ -68,6 +67,9 @@ const SubmitArea = styled.div`
   margin-top: 15px;
   display: flex;
   justify-content: start;
+`;
+const Icon = styled.i`
+  margin-right: 5px;
 `;
 
 export const CardModal = ({
@@ -163,15 +165,24 @@ export const CardModal = ({
     <Container>
       <Width>
         <TitleArea>
-          <Title>タイトル</Title>
+          <Title>
+            <Icon className="fas fa-pen" />
+            タイトル
+          </Title>
           <Input type="default" value={title} onChangeText={setTitle} />
         </TitleArea>
         <BodyArea>
-          <BodyTitle>説明</BodyTitle>
+          <BodyTitle>
+            <Icon className="fas fa-book-open" />
+            内容
+          </BodyTitle>
           <TextArea value={body} onChangeText={setBody} />
         </BodyArea>
         <LinksArea>
-          <LinksTitle>参考サイト</LinksTitle>
+          <LinksTitle>
+            <Icon className="fas fa-paperclip" />
+            参考サイト
+          </LinksTitle>
           {Object.values(links).map((link: any) => {
             const onChange = (text: string) => {
               const newItem = { ...link, string: text };
@@ -198,7 +209,7 @@ export const CardModal = ({
                 >
                   <i className="fas fa-external-link-alt" />
                 </LinkButton>
-                <Button type="small" onClick={_deleteLink}>
+                <Button type="smallDanger" onClick={_deleteLink}>
                   <i className="fas fa-trash" />
                 </Button>
               </LinkArea>
@@ -222,8 +233,15 @@ export const CardModal = ({
                   value={link.string}
                   onChangeText={onChange}
                 />
-                <Button type="primary" onClick={_deleteLink}>
-                  削除
+                <LinkButton
+                  href={link.string}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className="fas fa-external-link-alt" />
+                </LinkButton>
+                <Button type="smallDanger" onClick={_deleteLink}>
+                  <i className="fas fa-trash" />
                 </Button>
               </LinkArea>
             );
@@ -235,7 +253,7 @@ export const CardModal = ({
               onChangeText={setForAddLink}
               placeholder="リンクの追加 例:http://www.example.com"
             />
-            <Button type="small" onClick={addLink}>
+            <Button type="smallBlue" onClick={addLink}>
               <i className="fas fa-plus-circle" />
             </Button>
           </LinkArea>
@@ -265,7 +283,7 @@ export const CardModal = ({
               onChangeText={setForAddCategory}
               placeholder="カテゴリーを追加する"
             />
-            <Button type="small" onClick={addCategory}>
+            <Button type="smallBlue" onClick={addCategory}>
               <i className="fas fa-plus-circle" />
             </Button>
           </NewCategoryArea>
@@ -277,7 +295,7 @@ export const CardModal = ({
           {card.checked ? (
             <></>
           ) : (
-            <Button type="primary" onClick={check}>
+            <Button type="danger" onClick={check}>
               学習完了
             </Button>
           )}
