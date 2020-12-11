@@ -1,16 +1,10 @@
 import axios from "axios";
 import "./setting";
 
-const token = localStorage.getItem("token");
-
 // カードの取得
 
 export const fetchCard = async () => {
-  const result = await axios.get("/cards", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const result = await axios.get("/cards", {});
   return result.data;
 };
 
@@ -18,30 +12,18 @@ export const fetchCard = async () => {
 
 export const postCard = async ({ data }: any) => {
   const card = { card: data };
-  await axios.post("/cards", card, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  await axios.post("/cards", card, {});
 };
 
 // カードの編集
 
 export const patchCard = async ({ data }: any, id: number) => {
   const card = { card: data };
-  await axios.patch(`/cards/${id}`, card, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  await axios.patch(`/cards/${id}`, card, {});
 };
 
 // カードのチェックをつける
 export const checkCard = async (id: any) => {
   const value = {};
-  await axios.patch(`/cards/check/${id}`, value, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  await axios.patch(`/cards/check/${id}`, value, {});
 };

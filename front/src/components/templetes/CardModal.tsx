@@ -159,7 +159,7 @@ export const CardModal = ({
     }, {});
     setLinks(links);
     fetchCategory();
-  }, [fetchCategory]);
+  }, [fetchCategory, setLinks, card]);
   const categories = Object.values(userCategories);
   return (
     <Container>

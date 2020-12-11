@@ -123,26 +123,21 @@ export const CreateCardModal = ({
       acc.push(item.string);
       return acc;
     }, []);
+    const payload: any = {
+      title,
+      body,
+      totalCount: count,
+      categoryIds: [category],
+      checked: 1,
+    };
     if (newLinksValue.length === 0) {
       postCard({
-        payload: {
-          title,
-          body,
-          totalCount: count,
-          categoryIds: [category],
-          checked: 1,
-        },
+        payload,
       });
     } else {
+      payload.links = newLinkEl;
       postCard({
-        payload: {
-          title,
-          body,
-          links: newLinkEl,
-          totalCount: count,
-          categoryIds: [category],
-          checked: 1,
-        },
+        payload,
       });
     }
   }, [postCard, newLinks, title, body, count, category]);
