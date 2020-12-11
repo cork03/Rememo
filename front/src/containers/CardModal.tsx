@@ -17,6 +17,7 @@ const mapDispatchToProps = (dispatch: any) => {
     deleteLink,
     fetchCategory,
     createCategory,
+    deleteCard,
   } = actionCreators;
   return bindActionCreators(
     {
@@ -26,6 +27,7 @@ const mapDispatchToProps = (dispatch: any) => {
       deleteLink,
       fetchCategory,
       createCategory,
+      deleteCard,
     },
     dispatch
   );

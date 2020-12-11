@@ -1,6 +1,12 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import * as actions from "../actions";
-import { checkCard, fetchCard, patchCard, postCard } from "../axios/cards";
+import {
+  checkCard,
+  deleteCard,
+  fetchCard,
+  patchCard,
+  postCard,
+} from "../axios/cards";
 
 function* fetchCards(action: any) {
   try {
@@ -40,12 +46,22 @@ function* check(action: any) {
     yield put({ type: actions.CHECK_CARD_FAILED, messagae: e.message });
   }
 }
+function* deleteCards(action: any) {
+  try {
+    yield call(deleteCard, action.id);
+    yield put({ type: actions.DELETE_CARD_SUCCEEDED });
+    yield put({ type: actions.FETCH_CARDS_REQUESTED });
+  } catch (e) {
+    yield put({ type: actions.DELETE_CARD_FAILED, messagae: e.message });
+  }
+}
 
 function* cards() {
   yield takeLatest(actions.FETCH_CARDS_REQUESTED, fetchCards);
   yield takeLatest(actions.POST_CARD_REQUESTED, post);
   yield takeLatest(actions.CHECK_CARD_REQUESTED, check);
   yield takeLatest(actions.PATCH_CARD_REQUESTED, patch);
+  yield takeLatest(actions.DELETE_CARD_REQUESTED, deleteCards);
 }
 
 export default cards;

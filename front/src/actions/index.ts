@@ -44,6 +44,13 @@ export const PATCH_CARD_FAILED = "PATCH_CARD_FAILED";
 export const patchCard = ({ payload }: any, id: number) => {
   return { type: PATCH_CARD_REQUESTED, payload, id };
 };
+// 削除
+export const DELETE_CARD_REQUESTED = "DELETE_CARD_REQUESTED";
+export const DELETE_CARD_SUCCEEDED = "DELETE_CARD_SUCCEEDED";
+export const DELETE_CARD_FAILED = "DELETE_CARD_FAILED";
+export const deleteCard = (id: number) => {
+  return { type: DELETE_CARD_REQUESTED, id };
+};
 
 // リンク
 // 削除
@@ -105,6 +112,7 @@ export const actionCreators = {
   postCard,
   checkCard,
   patchCard,
+  deleteCard,
   deleteLink,
   createCategory,
   fetchCategory,

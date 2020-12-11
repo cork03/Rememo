@@ -140,7 +140,8 @@ export const CreateCardModal = ({
         payload,
       });
     }
-  }, [postCard, newLinks, title, body, count, category]);
+    hideModal();
+  }, [postCard, newLinks, title, body, count, category, hideModal]);
   const categories = Object.values(userCategories);
   return (
     <Container>
