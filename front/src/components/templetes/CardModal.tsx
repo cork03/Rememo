@@ -66,10 +66,15 @@ const NewCategoryArea = styled.div`
 const SubmitArea = styled.div`
   margin-top: 15px;
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
 `;
 const Icon = styled.i`
   margin-right: 5px;
+`;
+
+const SubmitRight = styled.div``;
+const SubmitLeft = styled.div`
+  display: flex;
 `;
 
 export const CardModal = ({
@@ -81,6 +86,7 @@ export const CardModal = ({
   createCategory,
   userCategories,
   fetchCategory,
+  deleteCard,
 }: any) => {
   const categoryId = card.userCategories[0]?.id;
   const [title, setTitle] = useState(card.title);
@@ -152,6 +158,10 @@ export const CardModal = ({
     });
     setForAddCategory("");
   }, [createCategory, forAddCategory, setForAddCategory]);
+  const _deleteCard = useCallback(() => {
+    deleteCard(card.id);
+    hideModal();
+  }, [deleteCard, card, hideModal]);
   useEffect(() => {
     const links = card.cardLinks.reduce((acc: any, item: any) => {
       acc[item.id] = item;
@@ -289,16 +299,24 @@ export const CardModal = ({
           </NewCategoryArea>
         </Options>
         <SubmitArea>
-          <Button type="primary" onClick={patch}>
-            変更を保存
-          </Button>
-          {card.checked ? (
-            <></>
-          ) : (
-            <Button type="danger" onClick={check}>
-              学習完了
+          <SubmitLeft>
+            <Button type="primary" onClick={patch}>
+              変更を保存
             </Button>
-          )}
+
+            {card.checked ? (
+              <></>
+            ) : (
+              <Button type="danger" onClick={check}>
+                学習完了
+              </Button>
+            )}
+          </SubmitLeft>
+          <SubmitRight>
+            <Button type="skyBlue" onClick={_deleteCard}>
+              削除
+            </Button>
+          </SubmitRight>
         </SubmitArea>
       </Width>
     </Container>
