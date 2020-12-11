@@ -151,14 +151,23 @@ export const CreateCardModal = ({
             <i className="fas fa-pen" />
             タイトル
           </Title>
-          <Input type="default" value={title} onChangeText={setTitle} />
+          <Input
+            type="default"
+            value={title}
+            onChangeText={setTitle}
+            placeholder="例：デジタルトランスフォーメーション(DX)"
+          />
         </TitleArea>
         <BodyArea>
           <BodyTitle>
             <i className="fas fa-book-open" />
             内容
           </BodyTitle>
-          <TextArea value={body} onChangeText={setBody} />
+          <TextArea
+            value={body}
+            onChangeText={setBody}
+            placeholder="例：ITの浸透が、人々の生活をあらゆる面でより良い方向に変化させるという概念"
+          />
         </BodyArea>
         <LinksArea>
           <LinksTitle>
