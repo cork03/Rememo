@@ -13,7 +13,6 @@ function* fetchCards(action: any) {
 
 function* post(action: any) {
   try {
-    console.log(action.payload);
     yield call(postCard, { data: action.payload });
     yield put({ type: actions.POST_CARD_SUCCEEDED });
     yield put({ type: actions.FETCH_CARDS_REQUESTED });
