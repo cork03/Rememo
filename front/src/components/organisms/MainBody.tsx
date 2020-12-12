@@ -45,6 +45,18 @@ export const MainBody = ({
       component: <CreateCardModal />,
     });
   }, [showModal, hideModal, postCard]);
+  function compare(a: any, b: any) {
+    const genreA = a.leanCount;
+    const genreB = b.leanCount;
+    let comparison = 0;
+    if (genreA > genreB) {
+      comparison = 1;
+    } else if (genreA < genreB) {
+      comparison = -1;
+    }
+    return comparison;
+  }
+
   return (
     <Container>
       <Width>
