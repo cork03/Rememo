@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { colors } from "../../styles/Variables";
 import { Card } from "./Card";
@@ -24,9 +24,14 @@ const ListArea = styled.div`
   padding: 10px;
   background: ${colors.listBackfround};
 `;
+const ListHeader = styled.div`
+  display: flex;
+`;
 const ListTitle = styled.p`
   font-size: 20px;
 `;
+const Sort = styled.select``;
+
 const Cards = styled.ul``;
 
 export const MainBody = ({
@@ -36,16 +41,15 @@ export const MainBody = ({
   hideModal,
   postCard,
 }: any) => {
-  useEffect(() => {
-    fetchCards();
-  }, [fetchCards]);
-  const cards = Object.values(data);
+  const dataValue = Object.values(data);
+  const [sort, setSort] = useState(0);
+  const [cards, setCards] = useState(dataValue);
   const _showModal = useCallback(() => {
     showModal({
       component: <CreateCardModal />,
     });
   }, [showModal, hideModal, postCard]);
-  function compare(a: any, b: any) {
+  const compare = useCallback((a: any, b: any) => {
     const genreA = a.leanCount;
     const genreB = b.leanCount;
     let comparison = 0;
@@ -55,13 +59,34 @@ export const MainBody = ({
       comparison = -1;
     }
     return comparison;
-  }
-
+  }, []);
+  const changeSortCategory = useCallback(
+    (e) => {
+      setSort(e.target.value);
+    },
+    [setSort]
+  );
+  const sortCategory = [
+    { id: 1, name: "カテゴリ" },
+    { id: 2, name: "learnCount" },
+  ];
+  useEffect(() => {
+    fetchCards();
+  }, [fetchCards]);
   return (
     <Container>
       <Width>
         <ListArea>
-          <ListTitle>今日の学習</ListTitle>
+          <ListHeader>
+            <ListTitle>今日の学習</ListTitle>
+            <Sort value={sort} onChange={changeSortCategory}>
+              <option value="0">ソート</option>
+              {sortCategory.map((item) => {
+                return <option value={item.id}>{item.name}</option>;
+              })}
+            </Sort>
+          </ListHeader>
+
           <Cards>
             {cards.map((card: any) => {
               if (!card.checked) {
