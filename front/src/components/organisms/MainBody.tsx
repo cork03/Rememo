@@ -4,6 +4,7 @@ import { colors } from "../../styles/Variables";
 import { Card } from "./Card";
 import Button from "../atoms/Buttons";
 import CreateCardModal from "../../containers/CreateCardModal";
+import { CardsList } from "./CardsList";
 
 const Container = styled.div`
   height: 100vh;
@@ -11,25 +12,16 @@ const Container = styled.div`
 const Width = styled.div`
   width: 65%;
   margin: 0 auto;
-  display: flex;
   padding-top: 50px;
 `;
 
 const ListArea = styled.div`
-  width: 100%;
-  border: 1px solid black;
-  border-radius: 6px;
-  margin-top: 100px;
-  margin-right: 30px;
-  padding: 10px;
-  background: ${colors.listBackfround};
+  display: flex;
 `;
 const ListHeader = styled.div`
   display: flex;
 `;
-const ListTitle = styled.p`
-  font-size: 20px;
-`;
+
 const Sort = styled.select``;
 
 const Cards = styled.ul``;
@@ -41,14 +33,16 @@ export const MainBody = ({
   hideModal,
   postCard,
 }: any) => {
-  const dataValue = Object.values(data);
+  useEffect(() => {
+    fetchCards();
+  }, [fetchCards]);
+  const cards = Object.values(data);
   const [sort, setSort] = useState(0);
-  const [cards, setCards] = useState(dataValue);
   const _showModal = useCallback(() => {
     showModal({
       component: <CreateCardModal />,
     });
-  }, [showModal, hideModal, postCard]);
+  }, [showModal, hideModal]);
   const compare = useCallback((a: any, b: any) => {
     const genreA = a.leanCount;
     const genreB = b.leanCount;
@@ -70,45 +64,28 @@ export const MainBody = ({
     { id: 1, name: "カテゴリ" },
     { id: 2, name: "learnCount" },
   ];
-  useEffect(() => {
-    fetchCards();
-  }, [fetchCards]);
   return (
     <Container>
       <Width>
+        <Sort value={sort} onChange={changeSortCategory}>
+          <option value="0">ソート</option>
+          {sortCategory.map((item) => {
+            return <option value={item.id}>{item.name}</option>;
+          })}
+        </Sort>
         <ListArea>
-          <ListHeader>
-            <ListTitle>今日の学習</ListTitle>
-            <Sort value={sort} onChange={changeSortCategory}>
-              <option value="0">ソート</option>
-              {sortCategory.map((item) => {
-                return <option value={item.id}>{item.name}</option>;
-              })}
-            </Sort>
-          </ListHeader>
-
-          <Cards>
-            {cards.map((card: any) => {
-              if (!card.checked) {
-                return <Card card={card} showModal={showModal} />;
-              }
-              return <></>;
-            })}
-            <Button type="card" onClick={_showModal}>
-              ＋カードを追加する
-            </Button>
-          </Cards>
-        </ListArea>
-        <ListArea>
-          <ListTitle>完了した学習</ListTitle>
-          <Cards>
-            {cards.map((card: any) => {
-              if (card.checked) {
-                return <Card card={card} showModal={showModal} />;
-              }
-              return <></>;
-            })}
-          </Cards>
+          <CardsList
+            learn={false}
+            cards={cards}
+            showModal={showModal}
+            hideModal={hideModal}
+          />
+          <CardsList
+            learn
+            cards={cards}
+            showModal={showModal}
+            hideModal={hideModal}
+          />
         </ListArea>
       </Width>
     </Container>

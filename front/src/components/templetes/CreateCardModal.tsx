@@ -76,6 +76,9 @@ export const CreateCardModal = ({
   fetchCategory,
   postCard,
 }: any) => {
+  useEffect(() => {
+    fetchCategory();
+  }, [fetchCategory]);
   const [title, setTitle] = useState(null);
   const [body, setBody] = useState(null);
   const [newLinks, setNewLinks] = useState({});
@@ -114,9 +117,6 @@ export const CreateCardModal = ({
     });
     setForAddCategory("");
   }, [createCategory, forAddCategory, setForAddCategory]);
-  useEffect(() => {
-    fetchCategory();
-  }, [fetchCategory]);
   const createCard = useCallback(() => {
     const newLinksValue = Object.values(newLinks);
     const newLinkEl = newLinksValue.reduce((acc: any, item: any) => {
@@ -142,7 +142,9 @@ export const CreateCardModal = ({
     }
     hideModal();
   }, [postCard, newLinks, title, body, count, category, hideModal]);
+  console.log(userCategories);
   const categories = Object.values(userCategories);
+
   return (
     <Container>
       <Width>

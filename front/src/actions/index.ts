@@ -1,3 +1,4 @@
+import { fetchCard } from "../axios/cards";
 import { usersLogin } from "../axios/user";
 
 // modal
@@ -20,8 +21,9 @@ const hideModal = () => {
 export const FETCH_CARDS_REQUESTED = "FETCH_CARDS_REQUESTED";
 export const FETCH_CARDS_SUCCEEDED = "FETCH_CARDS_SUCCEEDED";
 export const FETCH_CARDS_FAILED = "FETCH_CARDS_FAILED";
-const fetchCards = (cards: any) => {
-  return { type: FETCH_CARDS_REQUESTED, payload: cards };
+
+export const fetchCards = () => {
+  return { type: FETCH_CARDS_REQUESTED };
 };
 // 投稿
 export const POST_CARD_REQUESTED = "POST_CARD_REQUESTED";
