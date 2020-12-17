@@ -1,21 +1,23 @@
 import { Route, Redirect } from "react-router-dom";
 import React from "react";
 
-export const AuthenticatedPage = ({ children, user, ...rest }: any) => {
+export const TopAuth = ({ children, ...rest }: any) => {
   const token = localStorage.getItem("token");
   return (
     <>
       <Route
+        exact
+        path="/"
         {...rest}
         render={({ location }) =>
-          user ? (
-            children
-          ) : (
+          token ? (
             <Redirect
               to={{
-                pathname: "/",
+                pathname: "/main",
               }}
             />
+          ) : (
+            children
           )
         }
       />
