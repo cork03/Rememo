@@ -44,10 +44,10 @@ const SmallButtonOrange = styled(ButtonOrange)`
 
 const AddCardButton = styled.a`
   width: 100%;
-  display: block;
   cursor: pointer;
   padding: 5px;
   border-radius: 5px;
+  display: block;
   :hover {
     background: ${colors.cardHover};
   }

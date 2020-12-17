@@ -8,7 +8,7 @@ import {
   postCard,
 } from "../axios/cards";
 
-function* fetchCards(action: any) {
+function* fetch(action: any) {
   try {
     const { cards } = yield call(fetchCard);
     yield put({ type: actions.FETCH_CARDS_SUCCEEDED, payload: cards });
@@ -57,7 +57,7 @@ function* deleteCards(action: any) {
 }
 
 function* cards() {
-  yield takeLatest(actions.FETCH_CARDS_REQUESTED, fetchCards);
+  yield takeLatest(actions.FETCH_CARDS_REQUESTED, fetch);
   yield takeLatest(actions.POST_CARD_REQUESTED, post);
   yield takeLatest(actions.CHECK_CARD_REQUESTED, check);
   yield takeLatest(actions.PATCH_CARD_REQUESTED, patch);

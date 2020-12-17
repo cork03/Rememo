@@ -4,6 +4,7 @@ import { CreateCardModal } from "../components/templetes/CreateCardModal";
 import { actionCreators } from "../actions";
 
 const mapStateToProps = ({ userCategories }: any) => {
+  debugger;
   return {
     userCategories,
   };
