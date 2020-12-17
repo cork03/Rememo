@@ -29,23 +29,23 @@ export const CardsList = ({ data, showModal, hideModal, learn, sort }: any) => {
       setCards(data);
     } else {
       const compare = (a: any, b: any): any => {
+        let _a = null;
+        let _b = null;
         let comparison = 0;
         if (sort === "2") {
-          if (a.leanCount > b.leanCount) {
-            comparison = 1;
-          } else if (a.leanCount < b.leanCount) {
-            comparison = -1;
-          }
-          return comparison;
+          _a = a.leanCount;
+          _b = b.leanCount;
         }
         if (sort === "1") {
-          if (a.userCategories[0].id > b.userCategories[0].id) {
-            comparison = 1;
-          } else if (a.userCategories[0].id < b.userCategories[0].id) {
-            comparison = -1;
-          }
-          return comparison;
+          _a = a.userCategories[0].id;
+          _b = b.userCategories[0].id;
         }
+        if (_a > _b) {
+          comparison = 1;
+        } else if (_a < _b) {
+          comparison = -1;
+        }
+        return comparison;
       };
       const forSortCards = [...data];
       const _cards: any = forSortCards.sort(compare);
