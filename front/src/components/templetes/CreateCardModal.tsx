@@ -142,7 +142,6 @@ export const CreateCardModal = ({
     }
     hideModal();
   }, [postCard, newLinks, title, body, count, category, hideModal]);
-  console.log(userCategories);
   const categories = Object.values(userCategories);
 
   return (
