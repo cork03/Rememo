@@ -1,5 +1,7 @@
-import { Route, Redirect } from "react-router-dom";
-import React from "react";
+import { Redirect, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useMainComponent } from "./test";
+import Main from "../../pages/MainPage";
 
 export const AuthenticatedPage = ({ children, user, ...rest }: any) => {
   const token = localStorage.getItem("token");
@@ -8,7 +10,7 @@ export const AuthenticatedPage = ({ children, user, ...rest }: any) => {
       <Route
         {...rest}
         render={({ location }) =>
-          user ? (
+          token ? (
             children
           ) : (
             <Redirect

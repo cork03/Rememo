@@ -1,11 +1,12 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import * as actions from "../actions";
-import { createUser, fetchUsers } from "../axios/user";
+import { createUser, fetchUser } from "../axios/user";
 
 function* fetch(action: any) {
   try {
-    const user = yield call(fetchUsers);
-    yield put({ type: actions.FETCH_USER_SUCCEEDED, payload: user });
+    yield call(fetchUser);
+    yield put({ type: actions.FETCH_USER_SUCCEEDED });
+    return user;
   } catch (e) {
     yield put({ type: actions.FETCH_USER_FAILED, messagae: e.message });
   }
