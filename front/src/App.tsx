@@ -8,7 +8,6 @@ import Main from "./pages/MainPage";
 import Auth from "./containers/Auth";
 
 const Container = styled.div``;
-
 function App() {
   return (
     <Router basename="/rememo">

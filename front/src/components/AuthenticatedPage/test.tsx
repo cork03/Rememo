@@ -8,10 +8,24 @@ export const useMainComponent = (fetchUser: any) => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
-      const value = fetchUser();
-      if (value) {
-        setComponet(<Main />);
+    const fn = async () => {
+      const value = await fetchUser();
+      return value;
+    };
+    const returnComponent = async () => {
+      if (token) {
+        const _value = await fn();
+        if (_value) {
+          setComponet(<Main />);
+        } else {
+          setComponet(
+            <Redirect
+              to={{
+                pathname: "/",
+              }}
+            />
+          );
+        }
       } else {
         setComponet(
           <Redirect
@@ -21,15 +35,8 @@ export const useMainComponent = (fetchUser: any) => {
           />
         );
       }
-    } else {
-      setComponet(
-        <Redirect
-          to={{
-            pathname: "/",
-          }}
-        />
-      );
-    }
+    };
+    returnComponent();
   }, [fetchUser]);
   return component;
 };

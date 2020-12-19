@@ -1,6 +1,4 @@
-import { fetchCard } from "../axios/cards";
-import { usersLogin } from "../axios/user";
-import cards from "../sagas/cards";
+import { usersLogin, fetchUsers } from "../axios/user";
 
 // modal
 export const SHOW_MODAL = "SHOW_MODAL";
@@ -22,7 +20,17 @@ export const FETCH_USER_REQUESTED = "FETCH_USER_REQUESTED";
 export const FETCH_USER_SUCCEEDED = "FETCH_USER_SUCCEEDED";
 export const FETCH_USER_FAILED = "FETCH_USER_FAILED";
 export const fetchUser = () => {
-  return { type: FETCH_USER_REQUESTED };
+  return async (dispatch: any): Promise<any> => {
+    dispatch({ type: FETCH_USER_REQUESTED });
+    try {
+      const user = await fetchUsers();
+      dispatch({ type: FETCH_USER_SUCCEEDED, payload: user });
+      return user;
+    } catch (e) {
+      dispatch({ type: FETCH_USER_FAILED });
+      return null;
+    }
+  };
 };
 
 // カー

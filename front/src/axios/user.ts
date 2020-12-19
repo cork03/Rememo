@@ -1,8 +1,14 @@
 import axios from "axios";
 import "./setting";
 
-export const fetchUser = async () => {
-  const result = await axios.get("/users");
+const token = () => localStorage.getItem("token");
+
+export const fetchUsers = async () => {
+  const result = await axios.get("/users", {
+    headers: {
+      Authorization: `Bearer ${token()}`,
+    },
+  });
   const { user } = result.data;
   return user;
 };
@@ -21,6 +27,5 @@ export const usersLogin = async ({ data }: any) => {
   const { token } = result.data;
   const user = result.data.user.name;
   localStorage.setItem("token", token);
-  debugger;
   return user;
 };

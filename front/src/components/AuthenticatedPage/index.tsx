@@ -1,26 +1,18 @@
-import { Redirect, Route } from "react-router-dom";
-import React, { useEffect } from "react";
+import { Route } from "react-router-dom";
+import React from "react";
 import { useMainComponent } from "./test";
-import Main from "../../pages/MainPage";
 
-export const AuthenticatedPage = ({ children, user, ...rest }: any) => {
+export const AuthenticatedPage = ({
+  children,
+  user,
+  fetchUser,
+  ...rest
+}: any) => {
   const token = localStorage.getItem("token");
+  const component = useMainComponent(fetchUser);
   return (
     <>
-      <Route
-        {...rest}
-        render={({ location }) =>
-          token ? (
-            children
-          ) : (
-            <Redirect
-              to={{
-                pathname: "/",
-              }}
-            />
-          )
-        }
-      />
+      <Route path="/main" render={() => component} />
     </>
   );
 };
