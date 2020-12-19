@@ -44,9 +44,6 @@ export const Header = ({
   createUser,
   userLogin,
 }: any) => {
-  const clear = useCallback(() => {
-    localStorage.clear();
-  }, []);
   const showLogin = useCallback(() => {
     showModal({
       component: (
@@ -68,9 +65,7 @@ export const Header = ({
     <Container>
       <Width>
         <Logo>
-          <Link to="/" onClick={clear}>
-            Rememo
-          </Link>
+          <Link to="/">Rememo</Link>
         </Logo>
         <Menus>
           <Menu onClick={showSignUp}>新規登録</Menu>

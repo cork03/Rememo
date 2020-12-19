@@ -8,7 +8,6 @@ export const AuthenticatedPage = ({
   fetchUser,
   ...rest
 }: any) => {
-  const token = localStorage.getItem("token");
   const component = useMainComponent(fetchUser);
   return (
     <>

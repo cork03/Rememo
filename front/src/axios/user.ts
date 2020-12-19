@@ -1,14 +1,8 @@
 import axios from "axios";
 import "./setting";
 
-const token = () => localStorage.getItem("token");
-
 export const fetchUsers = async () => {
-  const result = await axios.get("/users", {
-    headers: {
-      Authorization: `Bearer ${token()}`,
-    },
-  });
+  const result = await axios.get("/users", {});
   const { user } = result.data;
   return user;
 };
