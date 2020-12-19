@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useMemo, useEffect, useState } from "react";
 import styled from "styled-components";
 import { CardsList } from "./CardsList";
 
@@ -19,22 +19,63 @@ const ListArea = styled.div`
 
 const Sort = styled.select``;
 
+const sortCategory = {
+  { id: 1, name: "カテゴリ", sort: sortByCategory },
+  { id: 2, name: "learnCount", sort: sortBy('learnCount') },
+};
+
+const sortByCategory = (data: any[]) => {
+  data.sort((a, b) => {
+    if (a.userCategories[0].id > b.userCategories[0].id) {
+      return 1
+    }
+    if (a.userCategories[0].id == b.userCategories[0].id) {
+      return 0
+    }
+    return -1
+  })
+}
+
+const sortBy = (attr: string) => (data: any[]) => {
+  data.sort((a, b) => {
+    if (a[attr] > b[attr]) {
+      return 1
+    }
+    if (a[attr] == b[attr]) {
+      return 0
+    }
+    return -1
+  })
+}
+
+const sortCardList = (data: any[], sortId: number) => {
+  const newData  = [...data]
+  const category = sortCategory.find(item => item.id === sortId)
+  if (!category) {
+    return newData
+  }
+
+  category.sort(newData)
+  return newData
+};
+
 export const MainBody = ({ fetchCards, data, showModal, hideModal }: any) => {
   useEffect(() => {
     fetchCards();
-  }, [fetchCards]);
-  const cards = Object.values(data);
+  }, []);
+
   const [sort, setSort] = useState(0);
+  const cards = useMemo(() => {
+    return sortCardList(Object.values(data), sort)
+  }, [data, sort])
+
   const changeSortCategory = useCallback(
     (e) => {
       setSort(e.target.value);
     },
     [setSort]
   );
-  const sortCategory = [
-    { id: 1, name: "カテゴリ" },
-    { id: 2, name: "learnCount" },
-  ];
+
   return (
     <Container>
       <Width>
@@ -47,18 +88,17 @@ export const MainBody = ({ fetchCards, data, showModal, hideModal }: any) => {
           </Sort>
           <ListArea>
             <CardsList
-              learn={false}
-              data={cards}
+              addable
+              title="未学習"
+              data={cards.filter(card => !card.checked)}
               showModal={showModal}
               hideModal={hideModal}
-              sort={sort}
             />
             <CardsList
-              learn
-              data={cards}
+              title="学習済み"
+              data={cards.filter(card => card.checked)}
               showModal={showModal}
               hideModal={hideModal}
-              sort={sort}
             />
           </ListArea>
         </TopSpace>
