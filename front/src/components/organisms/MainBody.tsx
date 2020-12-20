@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
+import { sortCardList, sortCategories } from "../../modules";
 import { CardsList } from "./CardsList";
 
 const Container = styled.div`
@@ -23,42 +24,39 @@ export const MainBody = ({ fetchCards, data, showModal, hideModal }: any) => {
   useEffect(() => {
     fetchCards();
   }, [fetchCards]);
-  const cards = Object.values(data);
-  const [sort, setSort] = useState(0);
+  const [sort, setSort] = useState<number>(0);
+  const cards = useMemo(() => {
+    return sortCardList(Object.values(data), sort);
+  }, [data, sort]);
   const changeSortCategory = useCallback(
     (e) => {
       setSort(e.target.value);
     },
     [setSort]
   );
-  const sortCategory = [
-    { id: 1, name: "カテゴリ" },
-    { id: 2, name: "learnCount" },
-  ];
   return (
     <Container>
       <Width>
         <TopSpace>
           <Sort value={sort} onChange={changeSortCategory}>
-            <option value="0">ソート</option>
-            {sortCategory.map((item) => {
+            <option value={0}>ソート</option>
+            {sortCategories.map((item) => {
               return <option value={item.id}>{item.name}</option>;
             })}
           </Sort>
           <ListArea>
             <CardsList
-              learn={false}
-              data={cards}
+              title="今日の学習"
+              cards={cards.filter((card: any) => !card.checked)}
               showModal={showModal}
               hideModal={hideModal}
-              sort={sort}
+              addAble
             />
             <CardsList
-              learn
-              data={cards}
+              title="未学習"
+              cards={cards.filter((card: any) => card.checked)}
               showModal={showModal}
               hideModal={hideModal}
-              sort={sort}
             />
           </ListArea>
         </TopSpace>
