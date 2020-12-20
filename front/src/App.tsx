@@ -13,14 +13,7 @@ function App() {
     <Router basename="/rememo">
       <Container>
         <GlobalStyle />
-        <Switch>
-          <Route exact path="/">
-            <HomePage />
-          </Route>
-          <Auth>
-            <Main />
-          </Auth>
-        </Switch>
+        <Auth />
         <Modal />
       </Container>
     </Router>

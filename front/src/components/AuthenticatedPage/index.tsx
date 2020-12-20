@@ -1,6 +1,6 @@
-import { Route } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import React from "react";
-import { useMainComponent } from "./test";
+import { useMainComponent } from "./ReturnMain";
 
 export const AuthenticatedPage = ({
   children,
@@ -8,10 +8,14 @@ export const AuthenticatedPage = ({
   fetchUser,
   ...rest
 }: any) => {
-  const component = useMainComponent(fetchUser);
+  const path = "/main";
+  const component = useMainComponent(fetchUser, path);
   return (
     <>
-      <Route path="/main" render={() => component} />
+      <Switch>
+        <Route exact path="/" render={() => component} />
+        <Route path="/main" render={() => component} />
+      </Switch>
     </>
   );
 };
