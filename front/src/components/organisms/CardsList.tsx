@@ -17,64 +17,32 @@ const ListTitle = styled.p`
   font-size: 20px;
 `;
 const Cards = styled.ul``;
-export const CardsList = ({ data, showModal, hideModal, learn, sort }: any) => {
-  const [cards, setCards] = useState([]);
+export const CardsList = ({
+  cards,
+  showModal,
+  hideModal,
+  title,
+  addAble,
+}: any) => {
   const _showModal = useCallback(() => {
     showModal({
       component: <CreateCardModal />,
     });
   }, [showModal, hideModal]);
-  useEffect(() => {
-    if (sort === 0) {
-      setCards(data);
-    } else {
-      const compare = (a: any, b: any): any => {
-        let _a = null;
-        let _b = null;
-        let comparison = 0;
-        if (sort === "2") {
-          _a = a.leanCount;
-          _b = b.leanCount;
-        }
-        if (sort === "1") {
-          _a = a.userCategories[0].id;
-          _b = b.userCategories[0].id;
-        }
-        if (_a > _b) {
-          comparison = 1;
-        } else if (_a < _b) {
-          comparison = -1;
-        }
-        return comparison;
-      };
-      const forSortCards = [...data];
-      const _cards: any = forSortCards.sort(compare);
-      setCards(_cards);
-    }
-  }, [data, sort]);
+
   return (
     <Container>
-      <ListTitle>{learn ? "学習済み" : "未学習"}</ListTitle>
+      <ListTitle>{title}</ListTitle>
       <Cards>
-        {learn
-          ? cards.map((card: any) => {
-              if (card.checked) {
-                return <Card card={card} showModal={showModal} />;
-              }
-              return <></>;
-            })
-          : cards.map((card: any) => {
-              if (!card.checked) {
-                return <Card card={card} showModal={showModal} />;
-              }
-              return <></>;
-            })}
-        {learn ? (
-          <></>
-        ) : (
+        {cards.map((card: any) => {
+          return <Card card={card} showModal={showModal} />;
+        })}
+        {addAble ? (
           <Button type="card" onClick={_showModal}>
             ＋カードを追加する
           </Button>
+        ) : (
+          <></>
         )}
       </Cards>
     </Container>

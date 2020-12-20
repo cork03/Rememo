@@ -18,3 +18,9 @@ export const usersLogin = async ({ data }: any) => {
   localStorage.setItem("token", token);
   return user;
 };
+
+export const fetchUsers = async () => {
+  const result = await axios.get("/users");
+  const { user } = result.data;
+  return user;
+};

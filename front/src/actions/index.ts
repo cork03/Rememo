@@ -1,5 +1,6 @@
 import { fetchCard } from "../axios/cards";
-import { usersLogin } from "../axios/user";
+import { usersLogin, fetchUsers } from "../axios/user";
+import cards from "../sagas/cards";
 
 // modal
 export const SHOW_MODAL = "SHOW_MODAL";
@@ -16,12 +17,20 @@ const hideModal = () => {
   };
 };
 
+// ユーザーの取得
+
+export const FETCH_USER_REQUESTED = "FETCH_USER_REQUESTED";
+export const FETCH_USER_SUCCEEDED = "FETCH_USER_SUCCEEDED";
+export const FETCH_USER_FAILED = "FETCH_USER_FAILED";
+export const fetchUser = () => {
+  return { type: FETCH_USER_REQUESTED };
+};
+
 // カード
 // 取得
 export const FETCH_CARDS_REQUESTED = "FETCH_CARDS_REQUESTED";
 export const FETCH_CARDS_SUCCEEDED = "FETCH_CARDS_SUCCEEDED";
 export const FETCH_CARDS_FAILED = "FETCH_CARDS_FAILED";
-
 export const fetchCards = () => {
   return { type: FETCH_CARDS_REQUESTED };
 };
@@ -92,15 +101,17 @@ export const USER_LOGIN = "USER_LOGIN";
 export const USER_LOGIN_SUCCEEDED = "USER_LOGIN_SUCCEEDED";
 export const USER_LOGIN_FAILED = "USER_LOGIN_FAILED";
 export const userLogin = ({ payload }: any) => {
-  return async (dispatch: any): Promise<string | undefined> => {
+  return async (dispatch: any): Promise<boolean> => {
     dispatch({ type: USER_LOGIN });
     try {
-      const user = await usersLogin({ data: payload });
-      dispatch({ type: USER_LOGIN_SUCCEEDED, payload: user });
-      return user;
+      await usersLogin({ data: payload });
+      dispatch({ type: USER_LOGIN_SUCCEEDED });
+      const user = await fetchUsers;
+      dispatch({ type: FETCH_USER_SUCCEEDED, payload: user });
+      return true;
     } catch (e) {
       dispatch({ type: USER_LOGIN_FAILED });
-      return undefined;
+      return false;
     }
   };
 };
@@ -118,4 +129,5 @@ export const actionCreators = {
   deleteLink,
   createCategory,
   fetchCategory,
+  fetchUser,
 };

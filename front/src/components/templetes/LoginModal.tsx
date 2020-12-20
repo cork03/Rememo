@@ -86,8 +86,8 @@ export const LoginModal = ({
   const login = useCallback(async () => {
     const noOmission = messageError();
     if (noOmission) {
-      const user = await certify();
-      if (user) {
+      const isSuccess = await certify();
+      if (isSuccess) {
         hideModal();
         history.push("/main");
       }
