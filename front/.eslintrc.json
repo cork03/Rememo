@@ -46,6 +46,7 @@
         "no-debugger": "warn",
         "consistent-return": "off",
         "no-plusplus":"off",
+        "eqeqeq": "warn",
         "import/extensions": [
             "error",
             {
