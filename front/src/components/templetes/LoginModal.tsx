@@ -5,6 +5,7 @@ import { ErrorMessage } from "../atoms/ErrorMessage";
 import { TextInput } from "../atoms/Input";
 import { SignUpModal } from "./SignUpModal";
 import Button from "../atoms/Buttons";
+import { axiosAuthorization } from "../../axios/setting";
 
 const Container = styled.div`
   margin: 0 auto;
@@ -88,6 +89,7 @@ export const LoginModal = ({
     if (noOmission) {
       const isSuccess = await certify();
       if (isSuccess) {
+        axiosAuthorization();
         hideModal();
         history.push("/main");
       }
@@ -96,6 +98,7 @@ export const LoginModal = ({
   }, [certify, hideModal, history, messageError]);
   const gestLogin = useCallback(async () => {
     await gestCertify();
+    axiosAuthorization();
     hideModal();
     history.push("/main");
   }, [gestCertify, hideModal, history]);

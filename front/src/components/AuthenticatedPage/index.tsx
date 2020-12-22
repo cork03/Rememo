@@ -1,24 +1,24 @@
-import { Route, Redirect } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import React from "react";
+import { useIsUser } from "./IsUser";
+import Main from "../../pages/MainPage";
+import TopPage from "../../pages";
 
-export const AuthenticatedPage = ({ children, user, ...rest }: any) => {
-  const token = localStorage.getItem("token");
+export const AuthenticatedPage = ({ children, fetchUser, ...rest }: any) => {
+  const user = useIsUser(fetchUser);
   return (
-    <>
+    <Switch>
       <Route
+        exact
+        path="/"
         {...rest}
-        render={({ location }) =>
-          user ? (
-            children
-          ) : (
-            <Redirect
-              to={{
-                pathname: "/",
-              }}
-            />
-          )
-        }
+        render={() => (user ? <Redirect to="/main" /> : <TopPage />)}
       />
-    </>
+      <Route
+        path="/main"
+        {...rest}
+        render={() => (user ? <Main /> : <Redirect to="/" />)}
+      />
+    </Switch>
   );
 };

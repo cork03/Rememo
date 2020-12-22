@@ -8,20 +8,12 @@ import Main from "./pages/MainPage";
 import Auth from "./containers/Auth";
 
 const Container = styled.div``;
-
 function App() {
   return (
     <Router basename="/rememo">
       <Container>
         <GlobalStyle />
-        <Switch>
-          <Route exact path="/">
-            <HomePage />
-          </Route>
-          <Auth>
-            <Main />
-          </Auth>
-        </Switch>
+        <Auth />
         <Modal />
       </Container>
     </Router>

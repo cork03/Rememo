@@ -1,6 +1,11 @@
 import axios from "axios";
 import "./setting";
 
+export const fetchUsers = async () => {
+  const result = await axios.get("/users", {});
+  const { user } = result.data;
+  return user;
+};
 // ユーザーの作成
 
 export const createUser = async ({ data }: any) => {
@@ -16,11 +21,5 @@ export const usersLogin = async ({ data }: any) => {
   const { token } = result.data;
   const user = result.data.user.name;
   localStorage.setItem("token", token);
-  return user;
-};
-
-export const fetchUsers = async () => {
-  const result = await axios.get("/users");
-  const { user } = result.data;
   return user;
 };

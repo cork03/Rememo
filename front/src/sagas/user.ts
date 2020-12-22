@@ -4,8 +4,9 @@ import { createUser, fetchUsers } from "../axios/user";
 
 function* fetch(action: any) {
   try {
-    const user = yield call(fetchUsers);
-    yield put({ type: actions.FETCH_USER_SUCCEEDED, payload: user });
+    yield call(fetchUsers);
+    yield put({ type: actions.FETCH_USER_SUCCEEDED });
+    return user;
   } catch (e) {
     yield put({ type: actions.FETCH_USER_FAILED, messagae: e.message });
   }
@@ -21,7 +22,6 @@ function* create(action: any) {
 }
 
 function* user() {
-  yield takeLatest(actions.FETCH_USER_REQUESTED, fetch);
   yield takeLatest(actions.CREATE_USER_REQUESTED, create);
 }
 
