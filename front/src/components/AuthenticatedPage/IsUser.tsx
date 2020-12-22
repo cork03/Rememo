@@ -9,10 +9,8 @@ export const useIsUser = (fetchUser: any) => {
   };
   const returnUser = async () => {
     if (token) {
-      debugger;
       const _value = await fn();
       if (_value) {
-        debugger;
         setUser(true);
       } else {
         setUser(false);
@@ -22,10 +20,7 @@ export const useIsUser = (fetchUser: any) => {
     }
   };
   useEffect(() => {
-    debugger;
-
     returnUser();
   }, []);
-  debugger;
   return user;
 };

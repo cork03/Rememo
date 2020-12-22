@@ -6,7 +6,6 @@ import TopPage from "../../pages";
 
 export const AuthenticatedPage = ({ children, fetchUser, ...rest }: any) => {
   const user = useIsUser(fetchUser);
-  debugger;
   return (
     <Switch>
       <Route
