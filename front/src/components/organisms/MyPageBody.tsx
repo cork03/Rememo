@@ -30,6 +30,8 @@ const InfoText = styled.li`
 const SettingAera = styled.div`
   width: 100%;
 `;
+const Settings = styled.ul``;
+const SettingsEl = styled.li``;
 
 export const MyPageBody = ({ fetchUser, user }: any) => {
   const { loginId, name } = user;
@@ -43,12 +45,17 @@ export const MyPageBody = ({ fetchUser, user }: any) => {
           <UserInfo>
             <Title>Information</Title>
             <InfoTexts>
-              <InfoText>UserName:{name}</InfoText>
-              <InfoText>UserID:{loginId}</InfoText>
+              <InfoText>user name: {name}</InfoText>
+              <InfoText>email: {loginId}</InfoText>
             </InfoTexts>
           </UserInfo>
           <SettingAera>
             <Title>Settings</Title>
+            <Settings>
+              <SettingsEl>デフォルトのソート</SettingsEl>
+              <SettingsEl>デフォルトの再表示回数</SettingsEl>
+              <SettingsEl>削除の確認</SettingsEl>
+            </Settings>
           </SettingAera>
         </TopSpace>
       </Width>
