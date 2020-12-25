@@ -9,9 +9,9 @@ const route = express.Router();
 route.get("/", async (req: any, res: Response) => {
   const userId = req.user.id;
   try {
-    const user = await UserSetting.findByPk(userId);
-    res.status(200).json({ user });
-  } catch (e) {
+    const userSettings = await UserSetting.findByPk(userId);
+    res.status(200).json({ userSettings });
+   } catch (e) {
     res.json({ e });
   }
 });
@@ -21,7 +21,7 @@ route.get("/", async (req: any, res: Response) => {
 
 route.patch("/:id", async (req: any, res: Response) => {
   const body = req.body;
-  const id = req.params;
+  const { id } = req.params;
   try {
     await UserSetting.update(body,{where: {id}});
     res.status(200).json({});
