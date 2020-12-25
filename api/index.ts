@@ -9,6 +9,7 @@ import cards from "./src/routers/cards";
 import links from "./src/routers/links";
 import userCategories from "./src/routers/userCategories";
 import users from "./src/routers/users";
+import userSettings from "./src/routers/userSettings";
 
 const app = express();
 const port = 8080;
@@ -34,6 +35,7 @@ const jwtAuthenticated = [
   { path: "/cards", router: cards },
   { path: "/links", router: links },
   { path: "/users", router: users },
+  { path: "/userSettings", router: userSettings },
 ];
 
 jwtAuthenticated.forEach((router) => {

@@ -3,6 +3,7 @@ import passport from "passport";
 import jwt from "jsonwebtoken";
 import { hash } from "../passport/bcrypt";
 import User from "../models/user";
+import UserSetting from "../models/userSetting";
 
 const router = express.Router();
 
@@ -24,6 +25,11 @@ router.post("/signup", async (req: any, res: Response) => {
     user.authorizeToken = hashedPass;
     delete user.password;
     await User.create(user);
+    const _user: any = await User.findOne({
+      where: { loginId: user.loginId },
+    });
+    const userId = _user.id
+    await UserSetting.create({userId: userId})
     res.status(201).json({ massege: "ユーザーが作成されました。" });
   } catch (error) {
     res.json({ error });

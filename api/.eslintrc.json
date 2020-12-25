@@ -38,6 +38,6 @@
         "no-non-null-assertion": "off",
         "prefer-const": "off",
         "consistent-return": "off",
-        "no-var-requires": "off"
+        "no-var-requires": "off",
     }
 }
