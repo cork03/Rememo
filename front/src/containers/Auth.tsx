@@ -3,10 +3,8 @@ import { bindActionCreators } from "redux";
 import { actionCreators } from "../actions";
 import { AuthenticatedPage } from "../components/AuthenticatedPage";
 
-const mapStateToProps = ({ auth }: any) => {
-  return {
-    user: auth.user,
-  };
+const mapStateToProps = () => {
+  return {};
 };
 
 const mapDispatchToProps = (dispatch: any) => {

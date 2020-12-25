@@ -1,16 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-
-import MainBody from "../../containers/MainBody";
-import { Header } from "../organisms/Header";
+import { Header } from "../components/organisms/Header";
+import MyPageBody from "../containers/MyPageBody";
 
 const Container = styled.div``;
 
-export const MainPage = () => {
+export const MyPage = () => {
   return (
     <Container>
       <Header logIn />
-      <MainBody />
+      <MyPageBody />
     </Container>
   );
 };
