@@ -1,10 +1,6 @@
-import Sequelize, { Model, Op } from "sequelize";
-import differenceInHours from "date-fns/differenceInHours";
-import { te } from "date-fns/locale";
-import { sequelize } from ".";
-import CardCategory from "./cardCategories";
-import CardLinks from "./cardLinks";
-import UserCategory from "./userCategories";
+import Sequelize, { Model } from "sequelize";
+ import { sequelize } from ".";
+
 
 class UserSetting extends Model {}
 

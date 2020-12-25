@@ -1,6 +1,6 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return await queryInterface.createTable("users", {
+    return await queryInterface.createTable("userSettings", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -14,14 +14,17 @@ module.exports = {
       defaultSort: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        defaultValue: 0,
       },
       defaultLearnCount: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        defaultValue: 3,
       },
       checkDelete: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
+        defaultValue: 1,
       },
       createdAt: {
         type: Sequelize.DATE,
@@ -35,6 +38,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return await queryInterface.dropTable("users");
+    return await queryInterface.dropTable("userSettings");
   },
 };
