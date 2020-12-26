@@ -33,7 +33,15 @@ export const fetchUser = () => {
   };
 };
 
-// カー
+// ユーザー設定の取得
+export const FETCH_USERSETTINGS_REQUESTED = "FETCH_USERSETTINGS_REQUESTED";
+export const FETCH_USERSETTINGS_SUCCEEDED = "FETCH_USERSETTINGS_SUCCEEDED";
+export const FETCH_USERSETTINGS_FAILED = "FETCH_USERSETTINGS_FAILED";
+export const fetchUserSettings = () => {
+  return { type: FETCH_USERSETTINGS_REQUESTED };
+};
+
+// カード
 // 取得
 export const FETCH_CARDS_REQUESTED = "FETCH_CARDS_REQUESTED";
 export const FETCH_CARDS_SUCCEEDED = "FETCH_CARDS_SUCCEEDED";
@@ -135,4 +143,5 @@ export const actionCreators = {
   createCategory,
   fetchCategory,
   fetchUser,
+  fetchUserSettings,
 };
