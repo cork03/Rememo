@@ -1,9 +1,10 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { LoginModal } from "../templetes/LoginModal";
 import { SignUpModal } from "../templetes/SignUpModal";
 import { colors } from "../../styles/Variables";
+import { DropDown } from "./DropDown";
 
 const Container = styled.div`
   width: 100%;
@@ -43,6 +44,7 @@ export const Header = ({
   hideModal,
   createUser,
   userLogin,
+  logIn,
 }: any) => {
   const showLogin = useCallback(() => {
     showModal({
@@ -67,10 +69,14 @@ export const Header = ({
         <Logo>
           <Link to="/">Rememo</Link>
         </Logo>
-        <Menus>
-          <Menu onClick={showSignUp}>新規登録</Menu>
-          <Menu onClick={showLogin}>ログイン</Menu>
-        </Menus>
+        {logIn ? (
+          <DropDown />
+        ) : (
+          <Menus>
+            <Menu onClick={showSignUp}>新規登録</Menu>
+            <Menu onClick={showLogin}>ログイン</Menu>
+          </Menus>
+        )}
       </Width>
     </Container>
   );

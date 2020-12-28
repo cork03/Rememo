@@ -4,6 +4,7 @@ import { colors } from "../../styles/Variables";
 import Button from "../atoms/Buttons";
 import Input from "../atoms/Input";
 import { TextArea } from "../atoms/TextArea";
+import { counts } from "../../utils";
 
 const Container = styled.div`
   margin: 10px;
@@ -87,6 +88,7 @@ export const CardModal = ({
   userCategories,
   fetchCategory,
   deleteCard,
+  checkDelete,
 }: any) => {
   const categoryId = card.userCategories[0]?.id;
   const [title, setTitle] = useState(card.title);
@@ -98,7 +100,6 @@ export const CardModal = ({
   const [id, setId] = useState(0);
   const [category, setCategory] = useState(categoryId || 0);
   const [forAddCategory, setForAddCategory] = useState("");
-  const counts = [2, 3, 4];
   const changeCount = useCallback(
     (e) => {
       setCount(e.target.value);

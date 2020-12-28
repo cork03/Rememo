@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
-import { sortCardList, sortCategories } from "../../modules";
+import { sortCardList, sortCategories } from "../../utils";
 import { CardsList } from "./CardsList";
 
 const Container = styled.div`
@@ -20,10 +20,24 @@ const ListArea = styled.div`
 
 const Sort = styled.select``;
 
-export const MainBody = ({ fetchCards, data, showModal, hideModal }: any) => {
+export const MainBody = ({
+  fetchCards,
+  data,
+  showModal,
+  hideModal,
+  fetchUserSetting,
+  userSettings,
+}: any) => {
   useEffect(() => {
     fetchCards();
-  }, [fetchCards]);
+    const fn = async () => {
+      const _userSettings = await fetchUserSetting();
+      const { defaultSort } = _userSettings;
+      setSort(defaultSort);
+    };
+    fn();
+  }, []);
+
   const [sort, setSort] = useState<number>(0);
   const cards = useMemo(() => {
     return sortCardList(Object.values(data), sort);
@@ -34,6 +48,9 @@ export const MainBody = ({ fetchCards, data, showModal, hideModal }: any) => {
     },
     [setSort]
   );
+  if (!userSettings) {
+    return null;
+  }
   return (
     <Container>
       <Width>
@@ -50,6 +67,7 @@ export const MainBody = ({ fetchCards, data, showModal, hideModal }: any) => {
               cards={cards.filter((card: any) => !card.checked)}
               showModal={showModal}
               hideModal={hideModal}
+              settings={userSettings}
               addAble
             />
             <CardsList
@@ -57,6 +75,7 @@ export const MainBody = ({ fetchCards, data, showModal, hideModal }: any) => {
               cards={cards.filter((card: any) => card.checked)}
               showModal={showModal}
               hideModal={hideModal}
+              settings={userSettings}
             />
           </ListArea>
         </TopSpace>

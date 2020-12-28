@@ -4,6 +4,7 @@ import { colors } from "../../styles/Variables";
 import Button from "../atoms/Buttons";
 import Input from "../atoms/Input";
 import { TextArea } from "../atoms/TextArea";
+import { counts } from "../../utils";
 
 const Container = styled.div`
   margin: 10px;
@@ -75,6 +76,7 @@ export const CreateCardModal = ({
   userCategories,
   fetchCategory,
   postCard,
+  defaultLearnCount,
 }: any) => {
   useEffect(() => {
     fetchCategory();
@@ -83,11 +85,11 @@ export const CreateCardModal = ({
   const [body, setBody] = useState(null);
   const [newLinks, setNewLinks] = useState({});
   const [forAddLink, setForAddLink] = useState("");
-  const [count, setCount] = useState(3);
+  const [count, setCount] = useState(defaultLearnCount);
   const [id, setId] = useState(0);
   const [category, setCategory] = useState(0);
   const [forAddCategory, setForAddCategory] = useState("");
-  const counts = [2, 3, 4];
+
   const changeCount = useCallback(
     (e) => {
       setCount(e.target.value);

@@ -1,4 +1,5 @@
 import { usersLogin, fetchUsers } from "../axios/user";
+import { fetchUserSettings } from "../axios/userSettings";
 
 // modal
 export const SHOW_MODAL = "SHOW_MODAL";
@@ -33,7 +34,33 @@ export const fetchUser = () => {
   };
 };
 
-// カー
+// ユーザー設定
+// 取得
+export const FETCH_USERSETTINGS_REQUESTED = "FETCH_USERSETTINGS_REQUESTED";
+export const FETCH_USERSETTINGS_SUCCEEDED = "FETCH_USERSETTINGS_SUCCEEDED";
+export const FETCH_USERSETTINGS_FAILED = "FETCH_USERSETTINGS_FAILED";
+export const fetchUserSetting = () => {
+  return async (dispatch: any): Promise<any> => {
+    dispatch({ type: FETCH_USERSETTINGS_REQUESTED });
+    try {
+      const userSettings = await fetchUserSettings();
+      dispatch({ type: FETCH_USERSETTINGS_SUCCEEDED, payload: userSettings });
+      return userSettings;
+    } catch (e) {
+      dispatch({ type: FETCH_USERSETTINGS_FAILED });
+      return null;
+    }
+  };
+};
+// 編集
+export const PATCH_USERSETTINGS_REQUESTED = "PATCH_USERSETTINGS_REQUESTED";
+export const PATCH_USERSETTINGS_SUCCEEDED = "PATCH_USERSETTINGS_SUCCEEDED";
+export const PATCH_USERSETTINGS_FAILED = "PATCH_USERSETTINGS_FAILED";
+export const patchUserSettings = (payload: any, id: number) => {
+  return { type: PATCH_USERSETTINGS_REQUESTED, payload, id };
+};
+
+// カード
 // 取得
 export const FETCH_CARDS_REQUESTED = "FETCH_CARDS_REQUESTED";
 export const FETCH_CARDS_SUCCEEDED = "FETCH_CARDS_SUCCEEDED";
@@ -135,4 +162,6 @@ export const actionCreators = {
   createCategory,
   fetchCategory,
   fetchUser,
+  fetchUserSetting,
+  patchUserSettings,
 };
