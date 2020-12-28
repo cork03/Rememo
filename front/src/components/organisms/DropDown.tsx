@@ -48,7 +48,7 @@ const OrangeMenuList = styled.li`
   }
 `;
 
-export const DropDown = () => {
+export const DropDown = ({ returnUser }: any) => {
   const history = useHistory();
   const [show, setShow] = useState(false);
   const onHide = useCallback(() => {
@@ -61,9 +61,9 @@ export const DropDown = () => {
     const root: any = document.querySelector("#root");
     root.addEventListener("click", onHide);
   }, [onHide]);
-  const logOut = useCallback(() => {
+  const logOut = useCallback(async () => {
     localStorage.removeItem("token");
-    history.push("/");
+    returnUser();
   }, [history]);
   const toMyPage = useCallback(() => {
     history.push("/main/myPage");
