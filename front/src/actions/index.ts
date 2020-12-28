@@ -34,7 +34,8 @@ export const fetchUser = () => {
   };
 };
 
-// ユーザー設定の取得
+// ユーザー設定
+// 取得
 export const FETCH_USERSETTINGS_REQUESTED = "FETCH_USERSETTINGS_REQUESTED";
 export const FETCH_USERSETTINGS_SUCCEEDED = "FETCH_USERSETTINGS_SUCCEEDED";
 export const FETCH_USERSETTINGS_FAILED = "FETCH_USERSETTINGS_FAILED";
@@ -50,6 +51,13 @@ export const fetchUserSetting = () => {
       return null;
     }
   };
+};
+// 編集
+export const PATCH_USERSETTINGS_REQUESTED = "PATCH_USERSETTINGS_REQUESTED";
+export const PATCH_USERSETTINGS_SUCCEEDED = "PATCH_USERSETTINGS_SUCCEEDED";
+export const PATCH_USERSETTINGS_FAILED = "PATCH_USERSETTINGS_FAILED";
+export const patchUserSettings = (payload: any, id: number) => {
+  return { type: PATCH_USERSETTINGS_REQUESTED, payload, id };
 };
 
 // カード
@@ -155,4 +163,5 @@ export const actionCreators = {
   fetchCategory,
   fetchUser,
   fetchUserSetting,
+  patchUserSettings,
 };

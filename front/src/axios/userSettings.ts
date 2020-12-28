@@ -6,3 +6,7 @@ export const fetchUserSettings = async () => {
   const { userSettings } = result.data;
   return userSettings;
 };
+
+export const patchUserSettings = async (data: any, id: number) => {
+  await axios.patch(`/userSettings/${id}`, data, {});
+};

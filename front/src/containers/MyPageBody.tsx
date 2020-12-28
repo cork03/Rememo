@@ -11,11 +11,12 @@ const mapStateToProps = ({ auth, userSettings }: any) => {
 };
 
 const mapDispatchToProps = (dispatch: any) => {
-  const { fetchUser, fetchUserSetting } = actionCreators;
+  const { fetchUser, fetchUserSetting, patchUserSettings } = actionCreators;
   return bindActionCreators(
     {
       fetchUser,
       fetchUserSetting,
+      patchUserSettings,
     },
     dispatch
   );

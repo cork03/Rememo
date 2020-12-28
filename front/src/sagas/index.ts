@@ -3,7 +3,7 @@ import user from "./user";
 import cards from "./cards";
 import links from "./links";
 import categories from "./categories";
-import userSettings from "./fetchUserSettings";
+import userSettings from "./userSettings";
 
 function* rootSaga() {
   yield all([user(), cards(), links(), categories(), userSettings()]);

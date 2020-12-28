@@ -40,3 +40,7 @@ export const sortCardList = (data: any[], sortId: number) => {
   category.sort(newData);
   return newData;
 };
+
+// カウント変数
+
+export const counts = [2, 3, 4];

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
-import { sortCardList, sortCategories } from "../../modules";
+import { sortCardList, sortCategories } from "../../utils";
 import { CardsList } from "./CardsList";
 
 const Container = styled.div`
