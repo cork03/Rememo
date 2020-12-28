@@ -87,6 +87,7 @@ export const CardModal = ({
   userCategories,
   fetchCategory,
   deleteCard,
+  checkDelete,
 }: any) => {
   const categoryId = card.userCategories[0]?.id;
   const [title, setTitle] = useState(card.title);

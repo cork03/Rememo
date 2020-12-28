@@ -11,10 +11,10 @@ const Content = styled.li`
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.5);
 `;
 
-export const Card = ({ card, showModal }: any) => {
+export const Card = ({ card, showModal, checkDelete }: any) => {
   const showCard = useCallback(() => {
     showModal({
-      component: <CardModal card={card} />,
+      component: <CardModal card={card} checkDelete={checkDelete} />,
     });
   }, [card]);
   return <Content onClick={showCard}>{card.title}</Content>;

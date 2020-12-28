@@ -30,13 +30,25 @@ const InfoText = styled.li`
 const SettingAera = styled.div`
   width: 100%;
 `;
-const Settings = styled.ul``;
-const SettingsEl = styled.li``;
+const Settings = styled.ul`
+  margin-left: 20px;
+  margin-top: 20px;
+  font-size: 20px;
+`;
+const SettingsEl = styled.li`
+  margin-bottom: 10px;
+`;
 
-export const MyPageBody = ({ fetchUser, user }: any) => {
+export const MyPageBody = ({
+  fetchUser,
+  user,
+  fetchUserSetting,
+  userSettings,
+}: any) => {
   const { loginId, name } = user;
   useEffect(() => {
     fetchUser();
+    fetchUserSetting();
   }, []);
   return (
     <Container>
@@ -52,8 +64,18 @@ export const MyPageBody = ({ fetchUser, user }: any) => {
           <SettingAera>
             <Title>Settings</Title>
             <Settings>
-              <SettingsEl>デフォルトのソート</SettingsEl>
-              <SettingsEl>デフォルトの再表示回数</SettingsEl>
+              <SettingsEl>
+                デフォルトのソート:
+                <select>
+                  <option value="0">なし</option>
+                </select>
+              </SettingsEl>
+              <SettingsEl>
+                デフォルトの再表示回数:
+                <select>
+                  <option value="0">なし</option>
+                </select>
+              </SettingsEl>
               <SettingsEl>削除の確認</SettingsEl>
             </Settings>
           </SettingAera>

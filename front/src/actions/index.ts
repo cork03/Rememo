@@ -1,4 +1,5 @@
 import { usersLogin, fetchUsers } from "../axios/user";
+import { fetchUserSettings } from "../axios/userSettings";
 
 // modal
 export const SHOW_MODAL = "SHOW_MODAL";
@@ -37,8 +38,18 @@ export const fetchUser = () => {
 export const FETCH_USERSETTINGS_REQUESTED = "FETCH_USERSETTINGS_REQUESTED";
 export const FETCH_USERSETTINGS_SUCCEEDED = "FETCH_USERSETTINGS_SUCCEEDED";
 export const FETCH_USERSETTINGS_FAILED = "FETCH_USERSETTINGS_FAILED";
-export const fetchUserSettings = () => {
-  return { type: FETCH_USERSETTINGS_REQUESTED };
+export const fetchUserSetting = () => {
+  return async (dispatch: any): Promise<any> => {
+    dispatch({ type: FETCH_USERSETTINGS_REQUESTED });
+    try {
+      const userSettings = await fetchUserSettings();
+      dispatch({ type: FETCH_USERSETTINGS_SUCCEEDED, payload: userSettings });
+      return userSettings;
+    } catch (e) {
+      dispatch({ type: FETCH_USERSETTINGS_FAILED });
+      return null;
+    }
+  };
 };
 
 // カード
@@ -143,5 +154,5 @@ export const actionCreators = {
   createCategory,
   fetchCategory,
   fetchUser,
-  fetchUserSettings,
+  fetchUserSetting,
 };
