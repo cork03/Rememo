@@ -46,6 +46,7 @@ export const Header = ({
   createUser,
   userLogin,
   logIn,
+  isMain,
 }: any) => {
   const returnUser = useContext(UserContext);
   const showLogin = useCallback(() => {
@@ -73,7 +74,7 @@ export const Header = ({
           <Link to="/">Rememo</Link>
         </Logo>
         {logIn ? (
-          <DropDown returnUser={returnUser} />
+          <DropDown returnUser={returnUser} isMain={isMain} />
         ) : (
           <Menus>
             <Menu onClick={showSignUp}>新規登録</Menu>

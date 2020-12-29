@@ -48,7 +48,7 @@ const OrangeMenuList = styled.li`
   }
 `;
 
-export const DropDown = ({ returnUser }: any) => {
+export const DropDown = ({ returnUser, isMain }: any) => {
   const history = useHistory();
   const [show, setShow] = useState(false);
   const onHide = useCallback(() => {
@@ -65,19 +65,31 @@ export const DropDown = ({ returnUser }: any) => {
     localStorage.removeItem("token");
     returnUser();
   }, [history]);
+  const toMain = useCallback(() => {
+    history.push("/main");
+  }, [history]);
   const toMyPage = useCallback(() => {
     history.push("/main/myPage");
   }, [history]);
+
   return (
     <>
       <TopIcon className="fas fa-user" onClick={showMenu} />
       {show && (
         <DropDownMenu>
           <MenuLists>
-            <BlueMenuList onClick={toMyPage}>
-              <Icon className="fas fa-user" />
-              マイページ
-            </BlueMenuList>
+            {isMain ? (
+              <BlueMenuList onClick={toMyPage}>
+                <Icon className="fas fa-user" />
+                マイページ
+              </BlueMenuList>
+            ) : (
+              <BlueMenuList onClick={toMain}>
+                <Icon className="fas fa-home" />
+                メインページ
+              </BlueMenuList>
+            )}
+
             <OrangeMenuList onClick={logOut}>
               <Icon className="fas fa-sign-out-alt" />
               ログアウト
