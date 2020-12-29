@@ -1,10 +1,11 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useContext, useMemo } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { LoginModal } from "../templetes/LoginModal";
 import { SignUpModal } from "../templetes/SignUpModal";
 import { colors } from "../../styles/Variables";
 import { DropDown } from "./DropDown";
+import { UserContext } from "../AuthenticatedPage";
 
 const Container = styled.div`
   width: 100%;
@@ -45,7 +46,9 @@ export const Header = ({
   createUser,
   userLogin,
   logIn,
+  isMain,
 }: any) => {
+  const returnUser = useContext(UserContext);
   const showLogin = useCallback(() => {
     showModal({
       component: (
@@ -54,6 +57,7 @@ export const Header = ({
           userLogin={userLogin}
           showModal={showModal}
           createUser={createUser}
+          returnUser={returnUser}
         />
       ),
     });
@@ -70,7 +74,7 @@ export const Header = ({
           <Link to="/">Rememo</Link>
         </Logo>
         {logIn ? (
-          <DropDown />
+          <DropDown returnUser={returnUser} isMain={isMain} />
         ) : (
           <Menus>
             <Menu onClick={showSignUp}>新規登録</Menu>

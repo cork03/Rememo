@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { ErrorMessage } from "../atoms/ErrorMessage";
@@ -47,27 +47,12 @@ export const LoginModal = ({
   userLogin,
   showModal,
   createUser,
+  returnUser,
 }: any) => {
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const history = useHistory();
-  const certify = useCallback(async () => {
-    return await userLogin({
-      payload: {
-        loginId: mail,
-        password,
-      },
-    });
-  }, [userLogin, mail, password]);
-  const gestCertify = useCallback(async () => {
-    return await userLogin({
-      payload: {
-        loginId: "tsubasa",
-        password: "tsubasa",
-      },
-    });
-  }, [userLogin]);
   const messageError = useCallback(() => {
     if (!mail) {
       setErrorMessage("メールアドレスを入力してください。");
@@ -87,21 +72,31 @@ export const LoginModal = ({
   const login = useCallback(async () => {
     const noOmission = messageError();
     if (noOmission) {
-      const isSuccess = await certify();
+      const isSuccess = await userLogin({
+        payload: {
+          loginId: mail,
+          password,
+        },
+      });
       if (isSuccess) {
         axiosAuthorization();
         hideModal();
-        history.push("/main");
+        returnUser();
       }
       unAuthorizedError();
     }
-  }, [certify, hideModal, history, messageError]);
+  }, [userLogin, hideModal, history, messageError]);
   const gestLogin = useCallback(async () => {
-    await gestCertify();
+    await userLogin({
+      payload: {
+        loginId: "tsubasa",
+        password: "tsubasa",
+      },
+    });
     axiosAuthorization();
     hideModal();
-    history.push("/main");
-  }, [gestCertify, hideModal, history]);
+    returnUser();
+  }, [login, hideModal, history]);
   const forSignUP = useCallback(() => {
     hideModal();
     showModal({

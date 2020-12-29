@@ -9,7 +9,7 @@ const Container = styled.div``;
 export const MainPage = () => {
   return (
     <Container>
-      <Header logIn />
+      <Header logIn isMain />
       <MainBody />
     </Container>
   );

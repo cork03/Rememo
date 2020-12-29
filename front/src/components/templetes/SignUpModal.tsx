@@ -7,13 +7,6 @@ import { TextInput } from "../atoms/Input";
 const Container = styled.div`
   position: relative;
 `;
-const CloseButton = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  font-size: 30px;
-  cursor: pointer;
-`;
 const Width = styled.div`
   margin: 30px auto;
   width: 70%;

@@ -1,3 +1,5 @@
+import { useHistory } from "react-router-dom";
+
 const sortByCategory = (data: any[]) => {
   data.sort((a, b): any => {
     if (a.userCategories[0].id > b.userCategories[0].id) {
