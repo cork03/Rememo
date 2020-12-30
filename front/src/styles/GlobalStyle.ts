@@ -46,4 +46,12 @@ body{
       left: 0 !important;
     }
   }
+  .toast-success {
+    background: ${colors.baseBlue};
+    color: white;
+  }
+  .toast-error {
+    background: ${colors.baseOrange};
+    color: white;
+  }
 `;

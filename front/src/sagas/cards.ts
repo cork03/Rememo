@@ -7,6 +7,7 @@ import {
   patchCard,
   postCard,
 } from "../axios/cards";
+import { errorToast, successToast } from "../utils";
 
 function* fetch(action: any) {
   try {
@@ -22,7 +23,9 @@ function* post(action: any) {
     yield call(postCard, { data: action.payload });
     yield put({ type: actions.POST_CARD_SUCCEEDED });
     yield put({ type: actions.FETCH_CARDS_REQUESTED });
+    successToast("新しいカードを作成しました");
   } catch (e) {
+    errorToast("カードの作成に失敗しました");
     yield put({ type: actions.POST_CARD_FAILED, messagae: e.message });
   }
 }
@@ -32,7 +35,9 @@ function* patch(action: any) {
     yield call(patchCard, { data: action.payload }, action.id);
     yield put({ type: actions.PATCH_CARD_SUCCEEDED });
     yield put({ type: actions.FETCH_CARDS_REQUESTED });
+    successToast("変更を保存しました");
   } catch (e) {
+    errorToast("変更できませんでした");
     yield put({ type: actions.POST_CARD_FAILED, messagae: e.message });
   }
 }
@@ -51,6 +56,7 @@ function* deleteCards(action: any) {
     yield call(deleteCard, action.id);
     yield put({ type: actions.DELETE_CARD_SUCCEEDED });
     yield put({ type: actions.FETCH_CARDS_REQUESTED });
+    errorToast("カードを削除しました");
   } catch (e) {
     yield put({ type: actions.DELETE_CARD_FAILED, messagae: e.message });
   }

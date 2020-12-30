@@ -1,4 +1,4 @@
-import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const sortByCategory = (data: any[]) => {
   data.sort((a, b): any => {
@@ -46,3 +46,23 @@ export const sortCardList = (data: any[], sortId: number) => {
 // カウント変数
 
 export const counts = [2, 3, 4];
+
+// トースト
+export const successToast = (message: string) => {
+  toast(message, {
+    className: "toast-success",
+    position: "bottom-right",
+    autoClose: 2000,
+    hideProgressBar: true,
+    closeButton: false,
+  });
+};
+export const errorToast = (message: string) => {
+  toast(message, {
+    className: "toast-error",
+    position: "bottom-right",
+    autoClose: 2000,
+    hideProgressBar: true,
+    closeButton: false,
+  });
+};

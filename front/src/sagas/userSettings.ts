@@ -1,6 +1,7 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import * as actions from "../actions";
 import { patchUserSettings, fetchUserSettings } from "../axios/userSettings";
+import { errorToast, successToast } from "../utils";
 
 function* fetch(action: any) {
   try {
@@ -27,7 +28,9 @@ function* patch(action: any) {
     yield put({
       type: actions.FETCH_USERSETTINGS_REQUESTED,
     });
+    successToast("変更を保存しました");
   } catch (e) {
+    errorToast("変更を保存できませんでした");
     yield put({
       type: actions.PATCH_USERSETTINGS_FAILED,
       messagae: e.message,
