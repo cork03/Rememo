@@ -26,9 +26,10 @@ export const CardsList = ({
   settings,
 }: any) => {
   const { defaultLearnCount, checkDelete } = settings;
+  console.log(defaultLearnCount);
   const _showModal = useCallback(() => {
     showModal({
-      component: <CreateCardModal defalutLearnCount={defaultLearnCount} />,
+      component: <CreateCardModal defaultLearnCount={defaultLearnCount} />,
     });
   }, [showModal, hideModal]);
 
