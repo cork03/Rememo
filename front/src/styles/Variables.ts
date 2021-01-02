@@ -19,6 +19,7 @@ export const colors = {
   modalBackground: "#f5f5f5",
   modalHover: "#dcdcdc",
   listBackfround: "#dcdcdc",
+  checkToastBackfround: "#dcdcdc",
   cardBackground: "white",
   cardHover: "white",
   card: "white",
