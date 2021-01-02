@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 export const useIsUser = (fetchUser: any) => {
   const [user, setUser] = useState<any>(null);
   const [ready, setReady] = useState<any>(false);
-
   const fn = async () => {
     const value = await fetchUser();
     return value;

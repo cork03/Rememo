@@ -6,6 +6,7 @@ import Input from "../atoms/Input";
 import { TextArea } from "../atoms/TextArea";
 import { checkingToast, counts, successToast } from "../../utils";
 import { CheckToast } from "../organisms/CheckToast";
+import { ErrorMessage } from "../atoms/ErrorMessage";
 
 const Container = styled.div`
   margin: 10px;
@@ -101,6 +102,22 @@ export const CardModal = ({
   const [id, setId] = useState(0);
   const [category, setCategory] = useState(categoryId || 0);
   const [forAddCategory, setForAddCategory] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const messageError = useCallback(() => {
+    if (!title) {
+      setErrorMessage("タイトルを入力してください");
+      return;
+    }
+    if (!body) {
+      setErrorMessage("内容を入力してください");
+      return;
+    }
+    if (category == 0) {
+      setErrorMessage("カテゴリを選択してください");
+      return;
+    }
+    return true;
+  }, [setErrorMessage, title, body, category]);
   const changeCount = useCallback(
     (e) => {
       setCount(e.target.value);
@@ -118,30 +135,33 @@ export const CardModal = ({
     hideModal();
   }, [checkCard, hideModal]);
   const patch = useCallback(() => {
-    const linksValue = Object.values(links);
-    const linkEl = linksValue.reduce((acc: any, item: any) => {
-      acc.push({ id: item.id, string: item.string });
-      return acc;
-    }, []);
-    const newLinksValue = Object.values(newLinks);
-    const newLinkEl = newLinksValue.reduce((acc: any, item: any) => {
-      acc.push(item.string);
-      return acc;
-    }, []);
-    patchCard(
-      {
-        payload: {
-          title,
-          body,
-          totalCount: count,
-          categoryIds: [category],
-          links: linkEl,
-          newLinks: newLinkEl,
+    const noOmission = messageError();
+    if (noOmission) {
+      const linksValue = Object.values(links);
+      const linkEl = linksValue.reduce((acc: any, item: any) => {
+        acc.push({ id: item.id, string: item.string });
+        return acc;
+      }, []);
+      const newLinksValue = Object.values(newLinks);
+      const newLinkEl = newLinksValue.reduce((acc: any, item: any) => {
+        acc.push(item.string);
+        return acc;
+      }, []);
+      patchCard(
+        {
+          payload: {
+            title,
+            body,
+            totalCount: count,
+            categoryIds: [category],
+            links: linkEl,
+            newLinks: newLinkEl,
+          },
         },
-      },
-      card.id
-    );
-    hideModal();
+        card.id
+      );
+      hideModal();
+    }
   }, [patchCard, hideModal, title, body, count, category, links, newLinks]);
   const addLink = useCallback(() => {
     let test = newLinks;
@@ -310,6 +330,7 @@ export const CardModal = ({
             </Button>
           </NewCategoryArea>
         </Options>
+        <ErrorMessage errorMessage={errorMessage} />
         <SubmitArea>
           <SubmitLeft>
             <Button type="primary" onClick={patch}>

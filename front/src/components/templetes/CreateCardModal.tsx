@@ -5,6 +5,7 @@ import Button from "../atoms/Buttons";
 import Input from "../atoms/Input";
 import { TextArea } from "../atoms/TextArea";
 import { counts } from "../../utils";
+import { ErrorMessage } from "../atoms/ErrorMessage";
 
 const Container = styled.div`
   margin: 10px;
@@ -89,7 +90,22 @@ export const CreateCardModal = ({
   const [id, setId] = useState(0);
   const [category, setCategory] = useState(0);
   const [forAddCategory, setForAddCategory] = useState("");
-
+  const [errorMessage, setErrorMessage] = useState("");
+  const messageError = useCallback(() => {
+    if (!title) {
+      setErrorMessage("タイトルを入力してください");
+      return;
+    }
+    if (!body) {
+      setErrorMessage("内容を入力してください");
+      return;
+    }
+    if (category == 0) {
+      setErrorMessage("カテゴリを選択してください");
+      return;
+    }
+    return true;
+  }, [setErrorMessage, title, body, category]);
   const changeCount = useCallback(
     (e) => {
       setCount(e.target.value);
@@ -120,29 +136,32 @@ export const CreateCardModal = ({
     setForAddCategory("");
   }, [createCategory, forAddCategory, setForAddCategory]);
   const createCard = useCallback(() => {
-    const newLinksValue = Object.values(newLinks);
-    const newLinkEl = newLinksValue.reduce((acc: any, item: any) => {
-      acc.push(item.string);
-      return acc;
-    }, []);
-    const payload: any = {
-      title,
-      body,
-      totalCount: count,
-      categoryIds: [category],
-      checked: 1,
-    };
-    if (newLinksValue.length === 0) {
-      postCard({
-        payload,
-      });
-    } else {
-      payload.links = newLinkEl;
-      postCard({
-        payload,
-      });
+    const noOmission = messageError();
+    if (noOmission) {
+      const newLinksValue = Object.values(newLinks);
+      const newLinkEl = newLinksValue.reduce((acc: any, item: any) => {
+        acc.push(item.string);
+        return acc;
+      }, []);
+      const payload: any = {
+        title,
+        body,
+        totalCount: count,
+        categoryIds: [category],
+        checked: 1,
+      };
+      if (newLinksValue.length === 0) {
+        postCard({
+          payload,
+        });
+      } else {
+        payload.links = newLinkEl;
+        postCard({
+          payload,
+        });
+      }
+      hideModal();
     }
-    hideModal();
   }, [postCard, newLinks, title, body, count, category, hideModal]);
   const categories = Object.values(userCategories);
 
@@ -250,6 +269,7 @@ export const CreateCardModal = ({
             </Button>
           </NewCategoryArea>
         </Options>
+        <ErrorMessage errorMessage={errorMessage} />
         <SubmitArea>
           <Button type="primary" onClick={createCard}>
             作成
