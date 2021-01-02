@@ -4,7 +4,8 @@ import { colors } from "../../styles/Variables";
 import Button from "../atoms/Buttons";
 import Input from "../atoms/Input";
 import { TextArea } from "../atoms/TextArea";
-import { counts } from "../../utils";
+import { checkingToast, counts, successToast } from "../../utils";
+import { CheckToast } from "../organisms/CheckToast";
 
 const Container = styled.div`
   margin: 10px;
@@ -160,8 +161,18 @@ export const CardModal = ({
     setForAddCategory("");
   }, [createCategory, forAddCategory, setForAddCategory]);
   const _deleteCard = useCallback(() => {
-    deleteCard(card.id);
-    hideModal();
+    if (checkDelete) {
+      checkingToast(
+        <CheckToast
+          deleteCard={deleteCard}
+          hideModal={hideModal}
+          id={card.id}
+        />
+      );
+    } else {
+      deleteCard(card.id);
+      hideModal();
+    }
   }, [deleteCard, card, hideModal]);
   useEffect(() => {
     const links = card.cardLinks.reduce((acc: any, item: any) => {

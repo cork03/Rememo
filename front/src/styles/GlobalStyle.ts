@@ -54,4 +54,8 @@ body{
     background: ${colors.baseOrange};
     color: white;
   }
+  .toast-check {
+    background: ${colors.checkToastBackfround};
+    color: ${colors.baseColor};
+  }
 `;
