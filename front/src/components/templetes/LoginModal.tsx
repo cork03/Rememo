@@ -2,7 +2,7 @@ import React, { useState, useCallback, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { ErrorMessage } from "../atoms/ErrorMessage";
-import { TextInput } from "../atoms/Input";
+import { PassWordInput, TextInput } from "../atoms/Input";
 import { SignUpModal } from "./SignUpModal";
 import Button from "../atoms/Buttons";
 import { axiosAuthorization } from "../../axios/setting";
@@ -116,7 +116,7 @@ export const LoginModal = ({
       </InputArea>
       <InputArea>
         <Text>パスワード：</Text>
-        <TextInput
+        <PassWordInput
           value={password}
           onChangeText={setPassword}
           placeholder="6文字以上入力してください"

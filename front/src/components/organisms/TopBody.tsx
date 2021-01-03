@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useCallback, useContext } from "react";
 import styled from "styled-components";
 import thinkImage from "../../images/think.jpg";
 import Button from "../atoms/Buttons";
+import { LoginModal } from "../templetes/LoginModal";
+import { UserContext } from "../AuthenticatedPage";
+import { SignUpModal } from "../templetes/SignUpModal";
 
 const Container = styled.div`
   height: 100vh;
@@ -34,7 +37,38 @@ const Guides = styled.div`
   display: flex;
 `;
 
-export const TopBody = () => {
+export const TopBody = ({
+  showModal,
+  hideModal,
+  createUser,
+  userLogin,
+}: any) => {
+  const returnUser = useContext(UserContext);
+  const showLogin = useCallback(() => {
+    showModal({
+      component: (
+        <LoginModal
+          hideModal={hideModal}
+          userLogin={userLogin}
+          showModal={showModal}
+          createUser={createUser}
+          returnUser={returnUser}
+        />
+      ),
+    });
+  }, [showModal, hideModal, userLogin]);
+  const showSignUp = useCallback(() => {
+    showModal({
+      component: (
+        <SignUpModal
+          hideModal={hideModal}
+          createUser={createUser}
+          userLogin={userLogin}
+          returnUser={returnUser}
+        />
+      ),
+    });
+  }, [showModal, createUser, hideModal]);
   return (
     <Container>
       <Width>
@@ -56,8 +90,12 @@ export const TopBody = () => {
             </p>
           </Explanation>
           <Guides>
-            <Button type="primary">新規登録</Button>
-            <Button type="skyBlue">ログイン</Button>
+            <Button type="primary" onClick={showSignUp}>
+              新規登録
+            </Button>
+            <Button type="skyBlue" onClick={showLogin}>
+              ログイン
+            </Button>
           </Guides>
         </Descriptions>
       </Width>

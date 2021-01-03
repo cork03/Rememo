@@ -1,4 +1,4 @@
-import { usersLogin, fetchUsers } from "../axios/user";
+import { usersLogin, fetchUsers, createUsers } from "../axios/user";
 import { fetchUserSettings } from "../axios/userSettings";
 
 // modal
@@ -128,8 +128,19 @@ export const CREATE_USER_REQUESTED = "CREATE_USER_REQUESTED";
 export const CREATE_USER_SUCCEEDED = "CREATE_USER_SUCCEEDED";
 export const CREATE_USER_FAILED = "CREATE_USER_FAILED";
 export const createUser = ({ payload }: any) => {
-  return { type: CREATE_USER_REQUESTED, payload };
+  return async (dispatch: any): Promise<boolean> => {
+    dispatch({ type: CREATE_USER_REQUESTED });
+    try {
+      await createUsers({ data: payload });
+      dispatch({ type: CREATE_USER_SUCCEEDED });
+      return true;
+    } catch (e) {
+      dispatch({ type: CREATE_USER_FAILED });
+      return false;
+    }
+  };
 };
+
 // ログイン
 export const USER_LOGIN = "USER_LOGIN";
 export const USER_LOGIN_SUCCEEDED = "USER_LOGIN_SUCCEEDED";

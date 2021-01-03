@@ -62,6 +62,24 @@ export const TextInput = ({ value, onChangeText, placeholder }: any) => {
     </>
   );
 };
+export const PassWordInput = ({ value, onChangeText, placeholder }: any) => {
+  const onChange = useCallback(
+    (e: any) => {
+      onChangeText(e.target.value);
+    },
+    [onChangeText]
+  );
+  return (
+    <>
+      <Input
+        type="password"
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+      />
+    </>
+  );
+};
 
 const map: any = {
   default: Input,
