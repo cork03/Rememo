@@ -1,39 +1,46 @@
 import React, { useCallback, useContext } from "react";
 import styled from "styled-components";
 import thinkImage from "../../images/think.jpg";
-import Button from "../atoms/Buttons";
 import { LoginModal } from "../templetes/LoginModal";
 import { UserContext } from "../AuthenticatedPage";
 import { SignUpModal } from "../templetes/SignUpModal";
+import { TopBodyParts } from "./TopBodyParts";
+import Button from "../atoms/Buttons";
 
-const Container = styled.div`
-  height: 100vh;
-`;
+const Container = styled.div``;
 const Width = styled.div`
   width: 65%;
   margin: auto;
+`;
+const Summary = styled.div`
+  height: 100vh;
+  padding-top: 170px;
   display: flex;
 `;
-const Descriptions = styled.div`
-  margin-top: 150px;
-  width: 50%;
+const Parts = styled.div`
+  width: 100%;
 `;
 const Image = styled.img`
   height: 400px;
   width: auto;
   border-radius: 10px;
 `;
-const ProblemPresentation = styled.h1`
-  margin-top: 30px;
+const SummaryTitle = styled.h1`
+  padding-top: 40px;
+  font-size: 25px;
+  font-weight: 500;
 `;
+
 const Explanation = styled.div`
-  margin-top: 20px;
+  margin-top: 50px;
   p {
-    font-size: 25px;
+    font-size: 20px;
     margin-bottom: 10px;
   }
 `;
 const Guides = styled.div`
+  width: 40%;
+  padding-top: 30px;
   display: flex;
 `;
 
@@ -72,33 +79,28 @@ export const TopBody = ({
   return (
     <Container>
       <Width>
-        <Descriptions>
-          <Image src={thinkImage} alt="" />
-        </Descriptions>
-        <Descriptions>
-          <ProblemPresentation>効率的な記憶定着を！</ProblemPresentation>
-          <Explanation>
-            <p>
-              Rememoでは<span>忘却曲線</span>に合わせた
-            </p>
-            <p>
-              <span>想起学習</span>
-              を行うことで記憶定着を
-              <p />
-              <p />
-              効率化しています。
-            </p>
-          </Explanation>
-          <Guides>
-            <Button type="primary" onClick={showSignUp}>
-              新規登録
-            </Button>
-            <Button type="skyBlue" onClick={showLogin}>
-              ログイン
-            </Button>
-          </Guides>
-        </Descriptions>
+        <Summary>
+          <Parts>
+            <Image src={thinkImage} alt="" />
+          </Parts>
+          <Parts>
+            <SummaryTitle>忘却曲線に沿って復習する学習サービス</SummaryTitle>
+            <Explanation>
+              <p>Rememoでは、忘却曲線に合わせた学習を</p>
+              <p>行うことで記憶定着を効率化します。</p>
+            </Explanation>
+            <Guides>
+              <Button type="primary" onClick={showSignUp}>
+                新規登録
+              </Button>
+              <Button type="skyBlue" onClick={showLogin}>
+                ログイン
+              </Button>
+            </Guides>
+          </Parts>
+        </Summary>
       </Width>
+      <TopBodyParts />
     </Container>
   );
 };
