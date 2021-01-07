@@ -75,7 +75,9 @@ const Icon = styled.i`
   margin-right: 5px;
 `;
 
-const SubmitRight = styled.div``;
+const SubmitRight = styled.div`
+  display: flex;
+`;
 const SubmitLeft = styled.div`
   display: flex;
 `;
@@ -333,22 +335,21 @@ export const CardModal = ({
         <ErrorMessage errorMessage={errorMessage} />
         <SubmitArea>
           <SubmitLeft>
-            <Button type="primary" onClick={patch}>
+            <Button type="skyBlue" onClick={patch}>
               変更を保存
             </Button>
-
+          </SubmitLeft>
+          <SubmitRight>
+            <Button type="danger" onClick={_deleteCard}>
+              カードを削除
+            </Button>
             {card.checked ? (
               <></>
             ) : (
-              <Button type="danger" onClick={check}>
+              <Button type="primary" onClick={check}>
                 学習完了
               </Button>
             )}
-          </SubmitLeft>
-          <SubmitRight>
-            <Button type="skyBlue" onClick={_deleteCard}>
-              削除
-            </Button>
           </SubmitRight>
         </SubmitArea>
       </Width>

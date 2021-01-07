@@ -26,11 +26,11 @@ export const CheckToast = ({ closeToast, deleteCard, hideModal, id }: any) => {
       <Container>
         <Verification>本当に削除しますか？</Verification>
         <Actions>
-          <Button type="primary" onClick={deleting}>
-            OK
+          <Button type="danger" onClick={deleting}>
+            カードを削除
           </Button>
-          <Button type="danger" onClick={cancel}>
-            キャンセル
+          <Button type="primary" onClick={cancel}>
+            削除しない
           </Button>
         </Actions>
       </Container>

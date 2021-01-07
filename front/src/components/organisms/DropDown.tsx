@@ -85,8 +85,8 @@ export const DropDown = ({ returnUser, isMain }: any) => {
               </BlueMenuList>
             ) : (
               <BlueMenuList onClick={toMain}>
-                <Icon className="fas fa-home" />
-                メインページ
+                <Icon className="fas fa-list-alt" />
+                カードリスト
               </BlueMenuList>
             )}
 

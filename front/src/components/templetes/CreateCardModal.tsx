@@ -68,7 +68,8 @@ const NewCategoryArea = styled.div`
 const SubmitArea = styled.div`
   margin-top: 15px;
   display: flex;
-  justify-content: start;
+  text-align: right;
+  justify-content: flex-end;
 `;
 
 export const CreateCardModal = ({
@@ -272,7 +273,7 @@ export const CreateCardModal = ({
         <ErrorMessage errorMessage={errorMessage} />
         <SubmitArea>
           <Button type="primary" onClick={createCard}>
-            作成
+            カードを作成
           </Button>
         </SubmitArea>
       </Width>
