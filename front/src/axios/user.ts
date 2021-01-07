@@ -8,7 +8,7 @@ export const fetchUsers = async () => {
 };
 // ユーザーの作成
 
-export const createUser = async ({ data }: any) => {
+export const createUsers = async ({ data }: any) => {
   const user = { user: data };
   const result = await axios.post("/auth/signUp", user);
   return result;

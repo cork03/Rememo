@@ -1,8 +1,9 @@
 import React, { useCallback, useState } from "react";
 import styled from "styled-components";
+import { axiosAuthorization } from "../../axios/setting";
 import { colors } from "../../styles/Variables";
 import { ErrorMessage } from "../atoms/ErrorMessage";
-import { TextInput } from "../atoms/Input";
+import { PassWordInput, TextInput } from "../atoms/Input";
 
 const Container = styled.div`
   position: relative;
@@ -46,7 +47,12 @@ const LoginButton = styled.a`
   }
 `;
 
-export const SignUpModal = ({ createUser, hideModal }: any) => {
+export const SignUpModal = ({
+  createUser,
+  hideModal,
+  userLogin,
+  returnUser,
+}: any) => {
   const [userName, setUserName] = useState("");
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
@@ -66,17 +72,29 @@ export const SignUpModal = ({ createUser, hideModal }: any) => {
     }
     return true;
   }, [setErrorMessage, userName, mail, password, setMail, setPassword]);
-  const onSubmit = useCallback(() => {
+  const onSubmit = useCallback(async () => {
     const noOmission = messageError();
     if (noOmission) {
-      createUser({
+      await createUser({
         payload: {
           loginId: mail,
           name: userName,
           password,
         },
       });
+      const isSuccess = await userLogin({
+        payload: {
+          loginId: mail,
+          password,
+        },
+      });
+      if (isSuccess) {
+        axiosAuthorization();
+        hideModal();
+        returnUser();
+      }
     }
+    hideModal();
   }, [createUser, userName, mail, password]);
   return (
     <Container>
@@ -100,7 +118,7 @@ export const SignUpModal = ({ createUser, hideModal }: any) => {
         </InputArea>
         <InputArea>
           <Text>パスワード：</Text>
-          <TextInput
+          <PassWordInput
             value={password}
             onChangeText={setPassword}
             placeholder="6文字以上入力してください"
