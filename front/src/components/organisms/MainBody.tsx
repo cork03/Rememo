@@ -12,7 +12,7 @@ const Width = styled.div`
   padding-top: 50px;
 `;
 const TopSpace = styled.div`
-  margin-top: 100px;
+  margin-top: 50px;
 `;
 const ListArea = styled.div`
   display: flex;
@@ -68,6 +68,7 @@ export const MainBody = ({
               showModal={showModal}
               hideModal={hideModal}
               settings={userSettings}
+              frameColor="blue"
             />
             <CardsList
               title="学習済み"
@@ -76,6 +77,7 @@ export const MainBody = ({
               hideModal={hideModal}
               settings={userSettings}
               learned
+              frameColor="orange"
             />
           </ListArea>
         </TopSpace>

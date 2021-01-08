@@ -6,14 +6,18 @@ import { colors } from "../../styles/Variables";
 const Container = styled.li`
   background-color: ${colors.card};
   margin-bottom: 10px;
-
   border-radius: 5px;
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.5);
   display: flex;
+  cursor: pointer;
 `;
-const Line = styled.div`
+const LineBlue = styled.div`
   width: 10px;
-  background-color: ${colors.baseBlue};
+  background-color: ${colors.gree};
+`;
+const LineOrange = styled.div`
+  width: 10px;
+  background-color: ${colors.gree};
 `;
 
 const Info = styled.div`
@@ -50,7 +54,8 @@ export const Card = ({ card, showModal, checkDelete, learned }: any) => {
   }, [card]);
   return (
     <Container onClick={showCard}>
-      <Line />
+      {learned ? <LineOrange /> : <LineBlue />}
+
       <Info>
         {card.title}
         <Options>
