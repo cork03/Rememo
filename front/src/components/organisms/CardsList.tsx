@@ -22,11 +22,10 @@ export const CardsList = ({
   showModal,
   hideModal,
   title,
-  addAble,
+  learned,
   settings,
 }: any) => {
   const { defaultLearnCount, checkDelete } = settings;
-  console.log(defaultLearnCount);
   const _showModal = useCallback(() => {
     showModal({
       component: <CreateCardModal defaultLearnCount={defaultLearnCount} />,
@@ -39,15 +38,20 @@ export const CardsList = ({
       <Cards>
         {cards.map((card: any) => {
           return (
-            <Card card={card} showModal={showModal} checkDelete={checkDelete} />
+            <Card
+              card={card}
+              showModal={showModal}
+              checkDelete={checkDelete}
+              learned={learned}
+            />
           );
         })}
-        {addAble ? (
+        {learned ? (
+          <></>
+        ) : (
           <Button type="card" onClick={_showModal}>
             ＋カードを追加する
           </Button>
-        ) : (
-          <></>
         )}
       </Cards>
     </Container>

@@ -68,14 +68,14 @@ export const MainBody = ({
               showModal={showModal}
               hideModal={hideModal}
               settings={userSettings}
-              addAble
             />
             <CardsList
-              title="未学習"
+              title="学習済み"
               cards={cards.filter((card: any) => card.checked)}
               showModal={showModal}
               hideModal={hideModal}
               settings={userSettings}
+              learned
             />
           </ListArea>
         </TopSpace>
