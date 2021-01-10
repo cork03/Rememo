@@ -26,4 +26,5 @@ export const colors = {
   cardHover: "white",
   card: "white",
   cardBorder: "#666666",
+  icon: "#b7b6b6",
 };

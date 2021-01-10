@@ -35,6 +35,7 @@ const OptionParts = styled.div`
 `;
 const Icon = styled.i`
   margin-right: 1px;
+  color: ${colors.icon};
 `;
 
 export const Card = ({ card, showModal, checkDelete, learned }: any) => {
