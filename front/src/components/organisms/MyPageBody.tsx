@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-import { isPartiallyEmittedExpression } from "typescript";
+
 import { counts, sortCategories } from "../../utils";
 import Button from "../atoms/Buttons";
 
@@ -38,6 +38,11 @@ const Settings = styled.ul`
 `;
 const SettingsEl = styled.li`
   margin-bottom: 10px;
+  align-items: center;
+  display: flex;
+`;
+const ButtonArea = styled.div`
+  margin-left: 20px;
 `;
 
 export const MyPageBody = ({
@@ -135,9 +140,11 @@ export const MyPageBody = ({
                 </select>
               </SettingsEl>
             </Settings>
-            <Button type="primary" onClick={_patchUserSettings}>
-              変更を保存
-            </Button>
+            <ButtonArea>
+              <Button type="primary" onClick={_patchUserSettings}>
+                変更を保存
+              </Button>
+            </ButtonArea>
           </SettingAera>
         </TopSpace>
       </Width>

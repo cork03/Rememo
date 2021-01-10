@@ -1,15 +1,17 @@
 import React, { useCallback, useState, useEffect } from "react";
 import styled from "styled-components";
 import { colors } from "../../styles/Variables";
-import Button from "../atoms/Buttons";
+import Button, { LinkButton } from "../atoms/Buttons";
 import Input from "../atoms/Input";
 import { TextArea } from "../atoms/TextArea";
-import { checkingToast, counts, successToast } from "../../utils";
+import { checkingToast, counts } from "../../utils";
 import { CheckToast } from "../organisms/CheckToast";
 import { ErrorMessage } from "../atoms/ErrorMessage";
 
 const Container = styled.div`
   margin: 10px;
+  overflow-y: auto;
+  max-height: calc(100vh - 150px);
 `;
 
 const Width = styled.div`
@@ -32,20 +34,7 @@ const LinkArea = styled.div`
 `;
 
 const LinksTitle = styled.label``;
-const LinkButton = styled.a`
-  min-width: 50px;
-  text-align: center;
-  color: white;
-  padding: 4px 0;
-  margin: 4px;
-  border-radius: 6px;
-  cursor: pointer;
-  background: ${colors.skyBlue};
-  border-bottom: 2px solid ${colors.darkSkyBlue};
-  &:hover {
-    background: ${colors.darkSkyBlue};
-  }
-`;
+
 const Options = styled.div`
   margin-top: 20px;
   display: flex;
@@ -75,7 +64,9 @@ const Icon = styled.i`
   margin-right: 5px;
 `;
 
-const SubmitRight = styled.div``;
+const SubmitRight = styled.div`
+  display: flex;
+`;
 const SubmitLeft = styled.div`
   display: flex;
 `;
@@ -218,7 +209,7 @@ export const CardModal = ({
             <Icon className="fas fa-book-open" />
             内容
           </BodyTitle>
-          <TextArea value={body} onChangeText={setBody} />
+          <TextArea value={body} onChangeText={setBody} rows="10" />
         </BodyArea>
         <LinksArea>
           <LinksTitle>
@@ -312,7 +303,7 @@ export const CardModal = ({
           <CategoryArea>
             <CategoryTitle>カテゴリー</CategoryTitle>
             <select value={category} onChange={changeCategory}>
-              <option value="0">なし</option>
+              <option value="0">選択</option>
               {categories.map((category: any) => {
                 return <option value={category.id}>{category.name}</option>;
               })}
@@ -333,22 +324,21 @@ export const CardModal = ({
         <ErrorMessage errorMessage={errorMessage} />
         <SubmitArea>
           <SubmitLeft>
-            <Button type="primary" onClick={patch}>
+            <Button type="skyBlue" onClick={patch}>
               変更を保存
             </Button>
-
+          </SubmitLeft>
+          <SubmitRight>
+            <Button type="danger" onClick={_deleteCard}>
+              カードを削除
+            </Button>
             {card.checked ? (
               <></>
             ) : (
-              <Button type="danger" onClick={check}>
+              <Button type="primary" onClick={check}>
                 学習完了
               </Button>
             )}
-          </SubmitLeft>
-          <SubmitRight>
-            <Button type="skyBlue" onClick={_deleteCard}>
-              削除
-            </Button>
           </SubmitRight>
         </SubmitArea>
       </Width>

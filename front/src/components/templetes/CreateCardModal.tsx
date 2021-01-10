@@ -1,7 +1,7 @@
 import React, { useCallback, useState, useEffect } from "react";
 import styled from "styled-components";
 import { colors } from "../../styles/Variables";
-import Button from "../atoms/Buttons";
+import Button, { LinkButton } from "../atoms/Buttons";
 import Input from "../atoms/Input";
 import { TextArea } from "../atoms/TextArea";
 import { counts } from "../../utils";
@@ -31,20 +31,7 @@ const LinkArea = styled.div`
 `;
 
 const LinksTitle = styled.label``;
-const LinkButton = styled.a`
-  min-width: 50px;
-  text-align: center;
-  color: white;
-  padding: 4px 0;
-  margin: 4px;
-  border-radius: 6px;
-  cursor: pointer;
-  background: ${colors.skyBlue};
-  border-bottom: 2px solid ${colors.darkSkyBlue};
-  &:hover {
-    background: ${colors.darkSkyBlue};
-  }
-`;
+
 const Options = styled.div`
   margin-top: 20px;
   display: flex;
@@ -68,7 +55,8 @@ const NewCategoryArea = styled.div`
 const SubmitArea = styled.div`
   margin-top: 15px;
   display: flex;
-  justify-content: start;
+  text-align: right;
+  justify-content: flex-end;
 `;
 
 export const CreateCardModal = ({
@@ -251,7 +239,7 @@ export const CreateCardModal = ({
           <CategoryArea>
             <CategoryTitle>カテゴリー</CategoryTitle>
             <select value={category} onChange={changeCategory}>
-              <option value="0">なし</option>
+              <option value="0">選択</option>
               {categories.map((category: any) => {
                 return <option value={category.id}>{category.name}</option>;
               })}
@@ -272,7 +260,7 @@ export const CreateCardModal = ({
         <ErrorMessage errorMessage={errorMessage} />
         <SubmitArea>
           <Button type="primary" onClick={createCard}>
-            作成
+            カードを作成
           </Button>
         </SubmitArea>
       </Width>

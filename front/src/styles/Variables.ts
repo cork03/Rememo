@@ -9,8 +9,8 @@ export const colors = {
   darkSkyBlue: "rgba(0, 166, 211, 1)",
   baseOrange: "rgba(226, 109, 0, 1)",
   darkOrange: "rgba(185, 111, 0, 1)",
-  gree: "#586069",
-  menuBackground: "#0366d6",
+  gree: "#dcdcdc",
+  menuBackground: "F4F7F8",
   buttonGreen: "#42c360",
   error: "#c2302a",
   border: "#e1e4e8",
@@ -18,14 +18,13 @@ export const colors = {
   headerBackground: "black",
   modalBackground: "#f5f5f5",
   modalHover: "#dcdcdc",
-  listBackfround: "#dcdcdc",
+  listBackfround: "#f5f5f5",
+  listBorder: "#efefef",
+  cardHarfLine: "#efefef",
   checkToastBackfround: "#dcdcdc",
   cardBackground: "white",
   cardHover: "white",
   card: "white",
   cardBorder: "#666666",
-};
-
-export const font = {
-  base: "Courier New",
+  icon: "#b7b6b6",
 };

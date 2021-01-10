@@ -8,48 +8,76 @@ export const Button = styled.a`
   color: ${colors.white};
   padding: 4px 0;
   margin: 4px;
-  display: block;
+  display: inline-block;
   border-radius: 6px;
   cursor: pointer;
+  transition: 0.4s;
+  :hover {
+  }
 `;
 
 const ButtonBlue = styled(Button)`
-  background: ${colors.baseBlue};
-  border-bottom: 2px solid ${colors.darkBlue};
-  &:hover {
-    background: ${colors.darkBlue};
+  color: ${colors.baseBlue};
+  border: 2px solid ${colors.baseBlue};
+  :hover {
+    background-color: ${colors.baseBlue};
+    border-color: ${colors.baseBlue};
+    color: #fff;
   }
 `;
 const SmallButtonBlue = styled(ButtonBlue)`
   min-width: 50px;
 `;
 const ButtonSkyBlue = styled(Button)`
-  background: ${colors.skyBlue};
-  border-bottom: 2px solid ${colors.darkSkyBlue};
-  &:hover {
-    background: ${colors.darkSkyBlue};
+  color: ${colors.skyBlue};
+  border: 2px solid ${colors.skyBlue};
+  :hover {
+    background-color: ${colors.skyBlue};
+    border-color: ${colors.skyBlue};
+    color: #fff;
   }
 `;
 
 const ButtonOrange = styled(Button)`
-  background: ${colors.baseOrange};
-  border-bottom: 2px solid ${colors.darkOrange};
+  color: ${colors.baseOrange};
+  border: 2px solid ${colors.baseOrange};
   :hover {
-    background: ${colors.darkOrange};
+    background-color: ${colors.baseOrange};
+    border-color: ${colors.baseOrange};
+    color: #fff;
   }
 `;
 const SmallButtonOrange = styled(ButtonOrange)`
   min-width: 50px;
 `;
+export const LinkButton = styled.a`
+  min-width: 50px;
+  text-align: center;
+  padding: 4px 1px 5px 6px;
+  margin: 4px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: ${colors.skyBlue};
+  border: 2px solid ${colors.skyBlue};
+  :hover {
+    background-color: ${colors.skyBlue};
+    border-color: ${colors.skyBlue};
+    color: #fff;
+  }
+`;
 
 const AddCardButton = styled.a`
-  width: 100%;
   cursor: pointer;
-  padding: 5px;
+  padding: 4px 12px;
   border-radius: 5px;
-  display: block;
+  color: ${colors.baseBlue};
+  border: 2px solid ${colors.baseBlue};
+  transition: 0.4s;
+  font-size: 12px;
   :hover {
-    background: ${colors.cardHover};
+    background-color: ${colors.baseBlue};
+    border-color: ${colors.baseBlue};
+    color: #fff;
   }
 `;
 
@@ -62,20 +90,25 @@ const ButtonLoginModal = styled.a`
   display: block;
   min-width: 140px;
   margin: 0 auto;
+  transition: 0.4s;
 `;
 
 const LoginModalPrimary = styled(ButtonLoginModal)`
-  background: ${colors.baseBlue};
-  border-bottom: 2px solid ${colors.darkBlue};
+  color: ${colors.baseBlue};
+  border: 2px solid ${colors.baseBlue};
   :hover {
-    background: ${colors.darkBlue};
+    background-color: ${colors.baseBlue};
+    border-color: ${colors.baseBlue};
+    color: #fff;
   }
 `;
 const LoginModalSkyBlue = styled(ButtonLoginModal)`
-  background: ${colors.skyBlue};
-  border-bottom: 2px solid ${colors.darkSkyBlue};
-  &:hover {
-    background: ${colors.darkSkyBlue};
+  color: ${colors.skyBlue};
+  border: 2px solid ${colors.skyBlue};
+  :hover {
+    background-color: ${colors.skyBlue};
+    border-color: ${colors.skyBlue};
+    color: #fff;
   }
 `;
 

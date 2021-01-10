@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
+import { colors } from "../../styles/Variables";
 import { sortCardList, sortCategories } from "../../utils";
 import { CardsList } from "./CardsList";
 
@@ -12,13 +13,17 @@ const Width = styled.div`
   padding-top: 50px;
 `;
 const TopSpace = styled.div`
-  margin-top: 100px;
+  margin-top: 50px;
 `;
 const ListArea = styled.div`
   display: flex;
 `;
 
-const Sort = styled.select``;
+const Sort = styled.select`
+  border-radius: 3px;
+  margin-bottom: 5px;
+  padding: 3px;
+`;
 
 export const MainBody = ({
   fetchCards,
@@ -68,14 +73,16 @@ export const MainBody = ({
               showModal={showModal}
               hideModal={hideModal}
               settings={userSettings}
-              addAble
+              frameColor="blue"
             />
             <CardsList
-              title="未学習"
+              title="学習済み"
               cards={cards.filter((card: any) => card.checked)}
               showModal={showModal}
               hideModal={hideModal}
               settings={userSettings}
+              learned
+              frameColor="orange"
             />
           </ListArea>
         </TopSpace>

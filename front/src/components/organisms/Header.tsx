@@ -36,6 +36,7 @@ const Menu = styled.li`
   padding: 5px;
   margin-right: 20px;
   cursor: pointer;
+  transition: 0.4s;
   :hover {
     color: ${colors.baseBlue};
   }
