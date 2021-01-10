@@ -8,7 +8,7 @@ import { ListFrameComponent } from "../atoms/ListFrame";
 
 const Container = styled.div`
   width: 100%;
-  border: 1px solid black;
+  border: 1px solid ${colors.listBorder};
   border-radius: 6px;
   margin-right: 30px;
   background: ${colors.listBackfround};
@@ -16,7 +16,7 @@ const Container = styled.div`
   overflow: hidden;
 `;
 const ListTop = styled.div`
-  margin: 10px 5px 10px 5px;
+  margin: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -26,8 +26,11 @@ const ListTitle = styled.p`
 `;
 const Cards = styled.ul`
   height: 408px;
-  margin: 0 5px 0 5px;
-  overflow: scroll;
+  margin: 0 10px 0 10px;
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 export const CardsList = ({
   cards,

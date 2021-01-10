@@ -11,23 +11,24 @@ const Container = styled.li`
   display: flex;
   cursor: pointer;
 `;
-const LineBlue = styled.div`
-  width: 10px;
-  background-color: ${colors.gree};
-`;
-const LineOrange = styled.div`
+const Line = styled.div`
   width: 10px;
   background-color: ${colors.gree};
 `;
 
 const Info = styled.div`
   width: 100%;
-  padding: 5px;
+  padding: 0 5px;
 `;
 const Options = styled.div`
   display: flex;
-  border-top: 1px solid black;
-  font-size: 13px;
+  border-top: 1px solid ${colors.gree};
+  font-size: 12px;
+  padding: 5px;
+`;
+const Title = styled.p`
+  padding: 5px;
+  font-weight: bold;
 `;
 const OptionParts = styled.div`
   margin-right: 10px;
@@ -54,10 +55,9 @@ export const Card = ({ card, showModal, checkDelete, learned }: any) => {
   }, [card]);
   return (
     <Container onClick={showCard}>
-      {learned ? <LineOrange /> : <LineBlue />}
-
+      <Line />
       <Info>
-        {card.title}
+        <Title>{card.title}</Title>
         <Options>
           <OptionParts>
             <Icon className="fas fa-tag" />

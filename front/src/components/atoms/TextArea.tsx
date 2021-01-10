@@ -17,9 +17,15 @@ export const TextArea = ({ value, onChangeText, placeholder }: any) => {
     },
     [onChangeText]
   );
+  const _rows = value.split("\n").length;
   return (
     <>
-      <Input placeholder={placeholder} value={value} onChange={onChange} />
+      <Input
+        placeholder={placeholder}
+        value={value}
+        rows={_rows}
+        onChange={onChange}
+      />
     </>
   );
 };

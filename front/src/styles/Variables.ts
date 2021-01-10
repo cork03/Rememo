@@ -19,13 +19,11 @@ export const colors = {
   modalBackground: "#f5f5f5",
   modalHover: "#dcdcdc",
   listBackfround: "#f5f5f5",
+  listBorder: "#efefef",
+  cardHarfLine: "#efefef",
   checkToastBackfround: "#dcdcdc",
   cardBackground: "white",
   cardHover: "white",
   card: "white",
   cardBorder: "#666666",
-};
-
-export const font = {
-  base: "Courier New",
 };

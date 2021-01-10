@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
+import { colors } from "../../styles/Variables";
 import { sortCardList, sortCategories } from "../../utils";
 import { CardsList } from "./CardsList";
 
@@ -18,7 +19,11 @@ const ListArea = styled.div`
   display: flex;
 `;
 
-const Sort = styled.select``;
+const Sort = styled.select`
+  border-radius: 3px;
+  margin-bottom: 5px;
+  padding: 3px;
+`;
 
 export const MainBody = ({
   fetchCards,

@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import CardModal from "../../containers/CardModal";
 import { colors } from "../../styles/Variables";
 
 const TopIcon = styled.i`
@@ -36,6 +35,7 @@ const MenuLists = styled.ul`
 const BlueMenuList = styled.li`
   cursor: pointer;
   margin-bottom: 5px;
+  transition: 0.4s;
   :hover {
     color: ${colors.skyBlue};
   }
@@ -43,6 +43,7 @@ const BlueMenuList = styled.li`
 const OrangeMenuList = styled.li`
   cursor: pointer;
   margin-bottom: 5px;
+  transition: 0.4s;
   :hover {
     color: ${colors.baseOrange};
   }

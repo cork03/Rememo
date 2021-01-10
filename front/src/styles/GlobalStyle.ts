@@ -36,10 +36,11 @@ body{
   .ReactModal__Content {
     background: ${colors.modalBackground};
     border-radius: 10px;
-    margin: 100px auto;
+    margin: 50px auto;
     border: 1px solid lightgray;
-    max-width: 600px;
+    max-width: 800px;
     outline: none;
+    overflow: hidden;
     bottom: auto !important;
     top: 200px !important;
     @media (max-width: 576px) {
@@ -48,6 +49,9 @@ body{
       left: 0 !important;
     }
   }
+  .ReactModal__Body--open {
+  position: fixed;
+}
   .toast-success {
     background: ${colors.baseBlue};
     color: white;
