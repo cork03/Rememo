@@ -17,13 +17,21 @@ export const TextArea = ({ value, onChangeText, placeholder }: any) => {
     },
     [onChangeText]
   );
-  const _rows = value.split("\n").length;
+  const returnRows = useCallback(() => {
+    if (value) {
+      const rows = value.split("\n").length;
+      return rows;
+    }
+    const rows = 1;
+    return rows;
+  }, [value]);
+
   return (
     <>
       <Input
         placeholder={placeholder}
         value={value}
-        rows={_rows}
+        rows={returnRows()}
         onChange={onChange}
       />
     </>

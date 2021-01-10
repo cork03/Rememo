@@ -6,7 +6,7 @@ import { ErrorMessage } from "../atoms/ErrorMessage";
 import { PassWordInput, TextInput } from "../atoms/Input";
 
 const Container = styled.div`
-  position: relative;
+  margin: 0 0 60px 0;
 `;
 const Width = styled.div`
   margin: 30px auto;

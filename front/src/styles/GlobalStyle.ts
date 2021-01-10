@@ -38,7 +38,7 @@ body{
     border-radius: 10px;
     margin: 50px auto;
     border: 1px solid lightgray;
-    max-width: 800px;
+    max-width: 700px;
     outline: none;
     overflow: hidden;
     bottom: auto !important;
@@ -49,9 +49,19 @@ body{
       left: 0 !important;
     }
   }
-  .ReactModal__Body--open {
-  position: fixed;
-}
+  .ReactModal__Overlay {
+    opacity: 0;
+    transition: opacity 500ms ease-in-out;
+  }
+  .ReactModal__Overlay--after-open{
+    opacity: 1;
+
+  }
+
+  .ReactModal__Overlay--before-close{
+    opacity: 0;
+  }
+
   .toast-success {
     background: ${colors.baseBlue};
     color: white;

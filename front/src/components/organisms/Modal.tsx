@@ -17,7 +17,11 @@ const ModalContainer = ({ show, component, hideModal }: any) => {
     return <></>;
   }
   return (
-    <Modal className="ReactModal__Content__modal" isOpen={show}>
+    <Modal
+      className="ReactModal__Content__modal"
+      isOpen={show}
+      closeTimeoutMS={2000}
+    >
       <CloseButtonArea>
         <CloseButton onClick={hideModal}>✖️</CloseButton>
       </CloseButtonArea>

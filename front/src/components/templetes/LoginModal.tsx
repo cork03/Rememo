@@ -8,7 +8,7 @@ import Button from "../atoms/Buttons";
 import { axiosAuthorization } from "../../axios/setting";
 
 const Container = styled.div`
-  margin: 0 auto;
+  margin: 0 auto 60px auto;
   width: 70%;
 `;
 

@@ -38,6 +38,8 @@ const Settings = styled.ul`
 `;
 const SettingsEl = styled.li`
   margin-bottom: 10px;
+  align-items: center;
+  display: flex;
 `;
 const ButtonArea = styled.div`
   margin-left: 20px;
