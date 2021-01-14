@@ -93,7 +93,6 @@ export const LoginModal = ({
         password: "tsubasa",
       },
     });
-    debugger;
     axiosAuthorization();
     hideModal();
     returnUser();
