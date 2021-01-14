@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.js": "/rememo/static/js/main.9815ee1e.chunk.js",
-    "main.js.map": "/rememo/static/js/main.9815ee1e.chunk.js.map",
+    "main.js": "/rememo/static/js/main.95ed347e.chunk.js",
+    "main.js.map": "/rememo/static/js/main.95ed347e.chunk.js.map",
     "runtime-main.js": "/rememo/static/js/runtime-main.67772cdb.js",
     "runtime-main.js.map": "/rememo/static/js/runtime-main.67772cdb.js.map",
     "static/css/2.ccc6f86f.chunk.css": "/rememo/static/css/2.ccc6f86f.chunk.css",
-    "static/js/2.40cbbc79.chunk.js": "/rememo/static/js/2.40cbbc79.chunk.js",
-    "static/js/2.40cbbc79.chunk.js.map": "/rememo/static/js/2.40cbbc79.chunk.js.map",
+    "static/js/2.40aa89ea.chunk.js": "/rememo/static/js/2.40aa89ea.chunk.js",
+    "static/js/2.40aa89ea.chunk.js.map": "/rememo/static/js/2.40aa89ea.chunk.js.map",
     "static/js/3.181baebe.chunk.js": "/rememo/static/js/3.181baebe.chunk.js",
     "static/js/3.181baebe.chunk.js.map": "/rememo/static/js/3.181baebe.chunk.js.map",
     "index.html": "/rememo/index.html",
     "static/css/2.ccc6f86f.chunk.css.map": "/rememo/static/css/2.ccc6f86f.chunk.css.map",
-    "static/js/2.40cbbc79.chunk.js.LICENSE.txt": "/rememo/static/js/2.40cbbc79.chunk.js.LICENSE.txt",
+    "static/js/2.40aa89ea.chunk.js.LICENSE.txt": "/rememo/static/js/2.40aa89ea.chunk.js.LICENSE.txt",
     "static/media/curve.dd3a6410.jpg": "/rememo/static/media/curve.dd3a6410.jpg",
     "static/media/think.228d4dcd.jpg": "/rememo/static/media/think.228d4dcd.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.67772cdb.js",
     "static/css/2.ccc6f86f.chunk.css",
-    "static/js/2.40cbbc79.chunk.js",
-    "static/js/main.9815ee1e.chunk.js"
+    "static/js/2.40aa89ea.chunk.js",
+    "static/js/main.95ed347e.chunk.js"
   ]
 }
