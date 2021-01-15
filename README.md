@@ -58,5 +58,8 @@ https://cork03.github.io/rememo/
 
 ### 全体構成
 
+![rememo構成図](https://user-images.githubusercontent.com/64002008/104777928-df338e00-57bf-11eb-9f1b-06078b1c7979.png)
+
+
 
 
