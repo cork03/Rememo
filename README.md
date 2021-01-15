@@ -48,18 +48,12 @@ https://cork03.github.io/rememo/
 - AWS(EC2、RDS for MySQL、Route53、ALB
 - Nginx
 
-構成図
-
-![rememoapi](https://user-images.githubusercontent.com/64002008/104776738-e0fc5200-57bd-11eb-9c32-e73d573be076.png)
-
-
-
 ## 設計
 
 ### 全体構成
 
 ![rememo構成図](https://user-images.githubusercontent.com/64002008/104777928-df338e00-57bf-11eb-9f1b-06078b1c7979.png)
 
+### インフラ構成図
 
-
-
+![rememoapi](https://user-images.githubusercontent.com/64002008/104776738-e0fc5200-57bd-11eb-9c32-e73d573be076.png)
