@@ -50,6 +50,9 @@ https://cork03.github.io/rememo/
 
 構成図
 
+![rememoapi](https://user-images.githubusercontent.com/64002008/104775951-94fcdd80-57bc-11eb-9134-5857dc0904f8.png)
+
+
 ## 設計
 
 ### 全体構成
