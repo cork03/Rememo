@@ -16,3 +16,42 @@ https://cork03.github.io/rememo/
 ですが、量はそこそこあるものの、内容を人に教えれるほど理解度が高いわけでも記憶にしっかり定着しているわけでもないことに気がつきました。
 
 そこで、理解度、記憶定着率の最大化を図るため、内容の文章化と忘却曲線に合わせた再学習を備えたrememoの開発に至りました。
+
+## 使用した技術
+
+### フロントエンド
+
+- react
+- react-router
+- react-modal
+- react-toastify
+- redux,react-redux
+- redux-saga,redux-thunk
+- axios
+- typescript
+- eslint+prettier
+- styled-components
+
+### バックエンド
+
+- express
+- bcrypt
+- passport
+- passport-jwt
+- passport-local
+- sequelize
+- mysql2
+- typescript
+
+### インフラ
+
+- AWS(EC2、RDS for MySQL、Route53、ALB)
+
+構成図
+
+## 設計
+
+### 全体構成
+
+
+
