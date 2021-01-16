@@ -20,15 +20,21 @@ https://cork03.github.io/rememo/
 ## 使用した技術
 
 ### フロントエンド
-
+- typescript
+#### フレームワーク
 - react
+
+#### 状態管理
+- redux,react-redux
+#### 非同期通信
+- redux-saga 
+- redux-thunk
+- axios
+
+#### その他
 - react-router
 - react-modal
 - react-toastify
-- redux,react-redux
-- redux-saga,redux-thunk
-- axios
-- typescript
 - eslint+prettier
 - styled-components
 
