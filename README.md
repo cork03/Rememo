@@ -39,15 +39,19 @@ https://cork03.github.io/rememo/
 - styled-components
 
 ### バックエンド
-
+- typescript
+#### フレームワーク
 - express
+#### ORM
+- sequelize
+#### その他
+- sequelize
 - bcrypt
 - passport
 - passport-jwt
 - passport-local
-- sequelize
 - mysql2
-- typescript
+
 
 ### インフラ
 
