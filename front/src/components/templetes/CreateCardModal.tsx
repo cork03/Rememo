@@ -1,6 +1,5 @@
 import React, { useCallback, useState, useEffect } from "react";
 import styled from "styled-components";
-import { colors } from "../../styles/Variables";
 import Button, { LinkButton } from "../atoms/Buttons";
 import Input from "../atoms/Input";
 import { TextArea } from "../atoms/TextArea";
@@ -114,6 +113,10 @@ export const CreateCardModal = ({
     setForAddLink("");
   }, [forAddLink, setNewLinks, newLinks, id, setId, setForAddLink]);
   const addCategory = useCallback(() => {
+    if (forAddCategory === "") {
+      setErrorMessage("カテゴリーを入力してください");
+      return;
+    }
     createCategory({
       payload: {
         userCategories: {
@@ -122,7 +125,8 @@ export const CreateCardModal = ({
       },
     });
     setForAddCategory("");
-  }, [createCategory, forAddCategory, setForAddCategory]);
+    setErrorMessage("");
+  }, [createCategory, forAddCategory, setForAddCategory, setErrorMessage]);
   const createCard = useCallback(() => {
     const noOmission = messageError();
     if (noOmission) {
@@ -136,7 +140,7 @@ export const CreateCardModal = ({
         body,
         totalCount: count,
         categoryIds: [category],
-        checked: 1,
+        checked: 0,
       };
       if (newLinksValue.length === 0) {
         postCard({

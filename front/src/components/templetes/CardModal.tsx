@@ -1,6 +1,5 @@
 import React, { useCallback, useState, useEffect } from "react";
 import styled from "styled-components";
-import { colors } from "../../styles/Variables";
 import Button, { LinkButton } from "../atoms/Buttons";
 import Input from "../atoms/Input";
 import { TextArea } from "../atoms/TextArea";
@@ -162,6 +161,10 @@ export const CardModal = ({
     setForAddLink("");
   }, [forAddLink, setNewLinks, newLinks, id, setId, setForAddLink]);
   const addCategory = useCallback(() => {
+    if (forAddCategory === "") {
+      setErrorMessage("カテゴリ名を入力してください");
+      return;
+    }
     createCategory({
       payload: {
         userCategories: {
@@ -170,7 +173,8 @@ export const CardModal = ({
       },
     });
     setForAddCategory("");
-  }, [createCategory, forAddCategory, setForAddCategory]);
+    setErrorMessage("");
+  }, [createCategory, forAddCategory, setForAddCategory, setErrorMessage]);
   const _deleteCard = useCallback(() => {
     if (checkDelete) {
       checkingToast(
@@ -324,13 +328,13 @@ export const CardModal = ({
         <ErrorMessage errorMessage={errorMessage} />
         <SubmitArea>
           <SubmitLeft>
-            <Button type="skyBlue" onClick={patch}>
-              変更を保存
+            <Button type="danger" onClick={_deleteCard}>
+              カードを削除
             </Button>
           </SubmitLeft>
           <SubmitRight>
-            <Button type="danger" onClick={_deleteCard}>
-              カードを削除
+            <Button type="skyBlue" onClick={patch}>
+              変更を保存
             </Button>
             {card.checked ? (
               <></>
