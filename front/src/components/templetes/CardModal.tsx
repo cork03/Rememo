@@ -161,6 +161,10 @@ export const CardModal = ({
     setForAddLink("");
   }, [forAddLink, setNewLinks, newLinks, id, setId, setForAddLink]);
   const addCategory = useCallback(() => {
+    if (forAddCategory === "") {
+      setErrorMessage("カテゴリ名を入力してください");
+      return;
+    }
     createCategory({
       payload: {
         userCategories: {
@@ -169,7 +173,8 @@ export const CardModal = ({
       },
     });
     setForAddCategory("");
-  }, [createCategory, forAddCategory, setForAddCategory]);
+    setErrorMessage("");
+  }, [createCategory, forAddCategory, setForAddCategory, setErrorMessage]);
   const _deleteCard = useCallback(() => {
     if (checkDelete) {
       checkingToast(
