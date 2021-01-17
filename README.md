@@ -14,8 +14,7 @@ https://cork03.github.io/rememo/
 
 ### 忘却曲線
 
-![ curve5](https://user-images.githubusercontent.com/64002008/104855924-df17c780-5952-11eb-993e-bf54ebf839f5.jpg)
-
+![curveImage2](https://user-images.githubusercontent.com/64002008/104856425-eee4db00-5955-11eb-9202-614668458c69.jpg)
 
 一回学んだだけでは定着率が２０％
 
