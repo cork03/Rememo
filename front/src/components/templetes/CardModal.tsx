@@ -1,6 +1,5 @@
 import React, { useCallback, useState, useEffect } from "react";
 import styled from "styled-components";
-import { colors } from "../../styles/Variables";
 import Button, { LinkButton } from "../atoms/Buttons";
 import Input from "../atoms/Input";
 import { TextArea } from "../atoms/TextArea";
