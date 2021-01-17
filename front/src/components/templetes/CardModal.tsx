@@ -323,13 +323,13 @@ export const CardModal = ({
         <ErrorMessage errorMessage={errorMessage} />
         <SubmitArea>
           <SubmitLeft>
-            <Button type="skyBlue" onClick={patch}>
-              変更を保存
+            <Button type="danger" onClick={_deleteCard}>
+              カードを削除
             </Button>
           </SubmitLeft>
           <SubmitRight>
-            <Button type="danger" onClick={_deleteCard}>
-              カードを削除
+            <Button type="skyBlue" onClick={patch}>
+              変更を保存
             </Button>
             {card.checked ? (
               <></>
