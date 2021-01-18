@@ -47,8 +47,10 @@ function* check(action: any) {
     yield call(checkCard, action.payload);
     yield put({ type: actions.CHECK_CARD_SUCCEEDED });
     yield put({ type: actions.FETCH_CARDS_REQUESTED });
+    successToast("学習を完了しました");
   } catch (e) {
     yield put({ type: actions.CHECK_CARD_FAILED, messagae: e.message });
+    errorToast("エラーが発生しました");
   }
 }
 function* deleteCards(action: any) {

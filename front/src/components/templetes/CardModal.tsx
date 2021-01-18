@@ -1,6 +1,5 @@
 import React, { useCallback, useState, useEffect } from "react";
 import styled from "styled-components";
-import { colors } from "../../styles/Variables";
 import Button, { LinkButton } from "../atoms/Buttons";
 import Input from "../atoms/Input";
 import { TextArea } from "../atoms/TextArea";
@@ -155,6 +154,10 @@ export const CardModal = ({
     }
   }, [patchCard, hideModal, title, body, count, category, links, newLinks]);
   const addLink = useCallback(() => {
+    if (forAddLink === "") {
+      setErrorMessage("リンク名を入力してください");
+      return;
+    }
     let test = newLinks;
     setId(id + 1);
     test = { ...test, [id]: { id, string: forAddLink } };
@@ -162,6 +165,10 @@ export const CardModal = ({
     setForAddLink("");
   }, [forAddLink, setNewLinks, newLinks, id, setId, setForAddLink]);
   const addCategory = useCallback(() => {
+    if (forAddCategory === "") {
+      setErrorMessage("カテゴリ名を入力してください");
+      return;
+    }
     createCategory({
       payload: {
         userCategories: {
@@ -170,7 +177,8 @@ export const CardModal = ({
       },
     });
     setForAddCategory("");
-  }, [createCategory, forAddCategory, setForAddCategory]);
+    setErrorMessage("");
+  }, [createCategory, forAddCategory, setForAddCategory, setErrorMessage]);
   const _deleteCard = useCallback(() => {
     if (checkDelete) {
       checkingToast(
@@ -284,7 +292,7 @@ export const CardModal = ({
               type="dafalut"
               value={forAddLink}
               onChangeText={setForAddLink}
-              placeholder="リンクの追加 例:http://www.example.com"
+              placeholder="例:http://www.example.com  ==>  入力後は+ボタンを押してください"
             />
             <Button type="smallBlue" onClick={addLink}>
               <i className="fas fa-plus-circle" />
@@ -324,13 +332,13 @@ export const CardModal = ({
         <ErrorMessage errorMessage={errorMessage} />
         <SubmitArea>
           <SubmitLeft>
-            <Button type="skyBlue" onClick={patch}>
-              変更を保存
+            <Button type="danger" onClick={_deleteCard}>
+              カードを削除
             </Button>
           </SubmitLeft>
           <SubmitRight>
-            <Button type="danger" onClick={_deleteCard}>
-              カードを削除
+            <Button type="skyBlue" onClick={patch}>
+              変更を保存
             </Button>
             {card.checked ? (
               <></>

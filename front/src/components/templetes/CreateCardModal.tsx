@@ -1,6 +1,5 @@
 import React, { useCallback, useState, useEffect } from "react";
 import styled from "styled-components";
-import { colors } from "../../styles/Variables";
 import Button, { LinkButton } from "../atoms/Buttons";
 import Input from "../atoms/Input";
 import { TextArea } from "../atoms/TextArea";
@@ -107,6 +106,10 @@ export const CreateCardModal = ({
     [setCategory]
   );
   const addLink = useCallback(() => {
+    if (forAddLink === "") {
+      setErrorMessage("リンク名を入力してください");
+      return;
+    }
     let test = newLinks;
     setId(id + 1);
     test = { ...test, [id]: { id, string: forAddLink } };
@@ -114,6 +117,10 @@ export const CreateCardModal = ({
     setForAddLink("");
   }, [forAddLink, setNewLinks, newLinks, id, setId, setForAddLink]);
   const addCategory = useCallback(() => {
+    if (forAddCategory === "") {
+      setErrorMessage("カテゴリーを入力してください");
+      return;
+    }
     createCategory({
       payload: {
         userCategories: {
@@ -122,7 +129,8 @@ export const CreateCardModal = ({
       },
     });
     setForAddCategory("");
-  }, [createCategory, forAddCategory, setForAddCategory]);
+    setErrorMessage("");
+  }, [createCategory, forAddCategory, setForAddCategory, setErrorMessage]);
   const createCard = useCallback(() => {
     const noOmission = messageError();
     if (noOmission) {
@@ -136,7 +144,7 @@ export const CreateCardModal = ({
         body,
         totalCount: count,
         categoryIds: [category],
-        checked: 1,
+        checked: 0,
       };
       if (newLinksValue.length === 0) {
         postCard({
@@ -220,7 +228,7 @@ export const CreateCardModal = ({
               type="dafalut"
               value={forAddLink}
               onChangeText={setForAddLink}
-              placeholder="リンクの追加 例:http://www.example.com"
+              placeholder="例:http://www.example.com  ==>  入力後は+ボタンを押してください"
             />
             <Button type="smallBlue" onClick={addLink}>
               <i className="fas fa-plus-circle" />

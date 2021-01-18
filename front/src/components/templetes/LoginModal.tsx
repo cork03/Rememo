@@ -100,7 +100,14 @@ export const LoginModal = ({
   const forSignUP = useCallback(() => {
     hideModal();
     showModal({
-      component: <SignUpModal hideModal={hideModal} createUser={createUser} />,
+      component: (
+        <SignUpModal
+          hideModal={hideModal}
+          createUser={createUser}
+          returnUser={returnUser}
+          userLogin={userLogin}
+        />
+      ),
     });
   }, [showModal, hideModal]);
   return (
