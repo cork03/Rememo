@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import curveImage from "../../images/curve.jpg";
+import curveImage from "../../images/curve5.jpg";
 import { colors } from "../../styles/Variables";
 
 const Container = styled.div`
