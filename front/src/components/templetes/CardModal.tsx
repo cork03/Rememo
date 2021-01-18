@@ -154,6 +154,10 @@ export const CardModal = ({
     }
   }, [patchCard, hideModal, title, body, count, category, links, newLinks]);
   const addLink = useCallback(() => {
+    if (forAddLink === "") {
+      setErrorMessage("リンク名を入力してください");
+      return;
+    }
     let test = newLinks;
     setId(id + 1);
     test = { ...test, [id]: { id, string: forAddLink } };
@@ -288,7 +292,7 @@ export const CardModal = ({
               type="dafalut"
               value={forAddLink}
               onChangeText={setForAddLink}
-              placeholder="リンクの追加 例:http://www.example.com"
+              placeholder="例:http://www.example.com  ==>  入力後は+ボタンを押してください"
             />
             <Button type="smallBlue" onClick={addLink}>
               <i className="fas fa-plus-circle" />
