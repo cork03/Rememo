@@ -21,8 +21,6 @@ class Card extends Model {
     categoryIds: number[]
   ) {
     await sequelize.transaction(async (t) => {
-      cardElements.lastCheckedAt = new Date();
-      cardElements.leanCount = 1;
       const card = await Card.create(cardElements, { transaction: t });
       if (linkElements) {
         await Promise.all(
@@ -112,24 +110,29 @@ class Card extends Model {
       const returnCards: any[] = [];
       const compareTimes = [0, 48, 168, 336, 672];
       const getCards = async (card: any) => {
-        const time = differenceInHours(new Date(), card.lastCheckedAt!);
-        if (time >= compareTimes[card.leanCount]) {
-          await Card.update(
-            { checked: 0 },
-            { where: { id: card.id }, transaction }
-          );
-          const fixedCard = await Card.findByPk(card.id, {
-            transaction,
-            include: [
-              { model: UserCategory, as: "userCategories" },
-              { model: CardLinks },
-            ],
-          });
-          returnCards.push(fixedCard);
+        if (card.lastCheckedAt) {
+          const time = differenceInHours(new Date(), card.lastCheckedAt!);
+          if (time >= compareTimes[card.leanCount]) {
+            await Card.update(
+              { checked: 0 },
+              { where: { id: card.id }, transaction }
+            );
+            const fixedCard = await Card.findByPk(card.id, {
+              transaction,
+              include: [
+                { model: UserCategory, as: "userCategories" },
+                { model: CardLinks },
+              ],
+            });
+            returnCards.push(fixedCard);
+          }
+          if (time <= 24) {
+            returnCards.push(card);
+          }
+        } else {
+          returnCards.push(card)
         }
-        if (time <= 24) {
-          returnCards.push(card);
-        }
+
       };
       await Promise.all(allCards.map(async (card) => await getCards(card)));
       return returnCards;
@@ -186,7 +189,7 @@ Card.init(
     },
     lastCheckedAt: {
       type: Sequelize.DATE,
-      allowNull: false,
+      allowNull: true,
     },
   },
   {

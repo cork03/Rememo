@@ -28,7 +28,7 @@ export const sortCategories: {
   sort: (data: any[]) => void;
 }[] = [
   { id: 1, name: "カテゴリ", sort: sortByCategory },
-  { id: 2, name: "learnCount", sort: sortBy("leanCount") },
+  { id: 2, name: "学習回数", sort: sortBy("leanCount") },
 ];
 
 export const sortCardList = (data: any[], sortId: number) => {
@@ -45,7 +45,7 @@ export const sortCardList = (data: any[], sortId: number) => {
 
 // カウント変数
 
-export const counts = [2, 3, 4, 5];
+export const counts = [2, 3, 4];
 
 // トースト
 export const successToast = (message: any) => {
