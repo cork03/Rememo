@@ -106,19 +106,19 @@ export const MyPageBody = ({
       <Width>
         <TopSpace>
           <UserInfo>
-            <Title>Information</Title>
+            <Title>ユーザー情報</Title>
             <InfoTexts>
-              <InfoText>user name: {name}</InfoText>
-              <InfoText>email: {loginId}</InfoText>
+              <InfoText>ユーザー名: {name}</InfoText>
+              <InfoText>メールアドレス: {loginId}</InfoText>
             </InfoTexts>
           </UserInfo>
           <SettingAera>
-            <Title>Settings</Title>
+            <Title>設定</Title>
             <Settings>
               <SettingsEl>
                 デフォルトのソート:
                 <select value={sort} onChange={changeCategory}>
-                  <option value="0">dafault</option>
+                  <option value="0">なし</option>
                   {sortCategories.map((item) => {
                     return <option value={item.id}>{item.name}</option>;
                   })}
