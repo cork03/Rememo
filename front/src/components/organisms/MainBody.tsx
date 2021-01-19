@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
-import { colors } from "../../styles/Variables";
 import { sortCardList, sortCategories } from "../../utils";
 import { CardsList } from "./CardsList";
 
