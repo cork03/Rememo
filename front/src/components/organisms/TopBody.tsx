@@ -1,6 +1,7 @@
 import React, { useCallback, useContext } from "react";
 import styled from "styled-components";
-import thinkImage from "../../images/think.jpg";
+import { HashLink } from "react-router-hash-link";
+import Think from "../../images/think.jpg";
 import { LoginModal } from "../templetes/LoginModal";
 import { UserContext } from "../AuthenticatedPage";
 import { SignUpModal } from "../templetes/SignUpModal";
@@ -14,34 +15,36 @@ const Width = styled.div`
 `;
 const Summary = styled.div`
   height: 100vh;
-  padding-top: 170px;
-  display: flex;
+  padding-top: 100px;
+  margin: 0 auto;
+  text-align: center;
 `;
-const Parts = styled.div`
-  width: 100%;
-`;
+
+const TextPart = styled.div``;
 const Image = styled.img`
-  height: 400px;
+  height: 200px;
   width: auto;
-  border-radius: 10px;
+  border-radius: 80px;
 `;
 const SummaryTitle = styled.h1`
   padding-top: 40px;
-  font-size: 25px;
+  font-size: 30px;
   font-weight: 500;
 `;
 
 const Explanation = styled.div`
   margin-top: 50px;
   p {
-    font-size: 20px;
+    font-size: 17px;
     margin-bottom: 10px;
   }
 `;
 const Guides = styled.div`
   width: 40%;
+  margin: 0 auto;
   padding-top: 30px;
   display: flex;
+  justify-content: space-between;
 `;
 
 export const TopBody = ({
@@ -80,14 +83,15 @@ export const TopBody = ({
     <Container>
       <Width>
         <Summary>
-          <Parts>
-            <Image src={thinkImage} alt="" />
-          </Parts>
-          <Parts>
+          <Image src={Think} alt="" />
+          <TextPart>
             <SummaryTitle>忘却曲線に沿って復習する学習サービス</SummaryTitle>
             <Explanation>
-              <p>Rememoでは、忘却曲線に合わせた学習を</p>
-              <p>行うことで記憶定着を効率化します。</p>
+              <p>
+                Rememoでは、忘却曲線に合わせた学習を
+                <br />
+                行うことで記憶定着を効率化します。
+              </p>
             </Explanation>
             <Guides>
               <Button type="primary" onClick={showSignUp}>
@@ -96,8 +100,11 @@ export const TopBody = ({
               <Button type="skyBlue" onClick={showLogin}>
                 ログイン
               </Button>
+              <HashLink to="#curve" smooth>
+                <Button type="danger">もっと詳しく </Button>
+              </HashLink>
             </Guides>
-          </Parts>
+          </TextPart>
         </Summary>
       </Width>
       <TopBodyParts />

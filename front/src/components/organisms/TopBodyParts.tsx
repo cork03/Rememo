@@ -37,14 +37,19 @@ const Title = styled.h1`
 
 export const TopBodyParts = () => {
   return (
-    <Container>
+    <Container id="curve">
       <Width>
         <Parts>
           <Title>忘却曲線</Title>
           <Explanation>
-            <p>人は復習をしないと20%の物事を忘れてしまいます。</p>
             <p>
-              ですが、Rememoでは忘れる前に再度復習を行い高い記憶定着率を実現します。
+              図のように、復習をしなかった学習内容は２ヶ月後には覚えている割合が20%にまで下がってしまいます。
+            </p>
+            <p>
+              ですが、脳科学の研究による最適なタイミングでの復習により、記憶への定着率を大幅に上げることが出来ます。
+            </p>
+            <p>
+              rememoではそのタイミングに合わせて、２日後、１週間後、１ヶ月後と復習することにより２ヶ月後の記憶定着率を20%から80%にまで引き上げます。
             </p>
           </Explanation>
         </Parts>
