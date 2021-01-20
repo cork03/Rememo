@@ -5,8 +5,10 @@ import Think from "../../images/think.jpg";
 import { LoginModal } from "../templetes/LoginModal";
 import { UserContext } from "../AuthenticatedPage";
 import { SignUpModal } from "../templetes/SignUpModal";
-import { TopBodyParts } from "./TopBodyParts";
+import { TopBodyExplanation } from "./TopBodyExplanation";
 import Button from "../atoms/Buttons";
+import { HowToUse } from "./HowToUse";
+import { CardFlow } from "./CardFlow";
 
 const Container = styled.div``;
 const Width = styled.div`
@@ -107,7 +109,9 @@ export const TopBody = ({
           </TextPart>
         </Summary>
       </Width>
-      <TopBodyParts />
+      <TopBodyExplanation />
+      <HowToUse />
+      <CardFlow />
     </Container>
   );
 };
