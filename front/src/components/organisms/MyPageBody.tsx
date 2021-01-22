@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
+import { device } from "../../styles/GlobalStyle";
 
 import { counts, sortCategories } from "../../utils";
 import Button from "../atoms/Buttons";
@@ -15,9 +16,15 @@ const Width = styled.div`
 const TopSpace = styled.div`
   margin-top: 100px;
   display: flex;
+  @media ${device.tablet} {
+    flex-direction: column;
+  }
 `;
 const UserInfo = styled.div`
   width: 100%;
+  @media ${device.tablet} {
+    margin-bottom: 50px;
+  }
 `;
 const Title = styled.h1``;
 const InfoTexts = styled.ul`
