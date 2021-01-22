@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import React from "react";
 import { colors } from "../../styles/Variables";
+import { device } from "../../styles/GlobalStyle";
 
 export const Button = styled.a`
   min-width: 100px;
@@ -78,6 +79,9 @@ const AddCardButton = styled.a`
     background-color: ${colors.baseBlue};
     border-color: ${colors.baseBlue};
     color: #fff;
+  }
+  @media ${device.tablet_laptop} {
+    min-width: 80px;
   }
 `;
 

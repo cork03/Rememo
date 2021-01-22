@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-import { colors } from "../../styles/Variables";
-import Button from "../atoms/Buttons";
-import CreateCardModal from "../../containers/CreateCardModal";
+import { colors } from "../../../styles/Variables";
+import Button from "../../atoms/Buttons";
+import CreateCardModal from "../../../containers/CreateCardModal";
 import { Card } from "./Card";
-import { ListFrameComponent } from "../atoms/ListFrame";
+import { ListFrameComponent } from "../../atoms/ListFrame";
+import { device } from "../../../styles/GlobalStyle";
 
 const Container = styled.div`
   width: 100%;
@@ -14,6 +15,12 @@ const Container = styled.div`
   background: ${colors.listBackfround};
   height: 500px;
   overflow: hidden;
+  @media ${device.tablet_laptop} {
+    margin-right: 0;
+  }
+  @media ${device.tablet} {
+    margin-bottom: 50px;
+  }
 `;
 const ListTop = styled.div`
   margin: 10px;
@@ -23,6 +30,9 @@ const ListTop = styled.div`
 `;
 const ListTitle = styled.p`
   font-size: 20px;
+  @media ${device.tablet_laptop} {
+    font-size: 18px;
+  }
 `;
 const Cards = styled.ul`
   height: 408px;

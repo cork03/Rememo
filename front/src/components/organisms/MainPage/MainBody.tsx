@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
-import { sortCardList, sortCategories } from "../../utils";
+import { device } from "../../../styles/GlobalStyle";
+import { sortCardList, sortCategories } from "../../../utils";
 import { CardsList } from "./CardsList";
 
 const Container = styled.div`
@@ -16,6 +17,9 @@ const TopSpace = styled.div`
 `;
 const ListArea = styled.div`
   display: flex;
+  @media ${device.tablet} {
+    flex-direction: column;
+  }
 `;
 
 const Sort = styled.select`

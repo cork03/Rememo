@@ -1,24 +1,30 @@
 import React from "react";
 import styled from "styled-components";
-import curveImage from "../../images/curve11.jpg";
-import { colors } from "../../styles/Variables";
+import curveImage from "../../../images/curve11.jpg";
+import { device, imageMedia } from "../../../styles/GlobalStyle";
+import { colors } from "../../../styles/Variables";
 
 const Container = styled.div`
   background-color: ${colors.baseBlue};
   color: white;
-  height: 100vh;
 `;
 const Width = styled.div`
   width: 65%;
   margin: auto;
   text-align: center;
+  @media ${device.tablet} {
+    width: 80%;
+  }
 `;
-const Parts = styled.div``;
+const Parts = styled.div`
+  padding-bottom: 50px;
+`;
 const Image = styled.img`
   height: 300px;
   width: auto;
   border-radius: 10px;
   margin-top: 50px;
+  ${imageMedia}
 `;
 const Explanation = styled.div`
   margin-top: 20px;

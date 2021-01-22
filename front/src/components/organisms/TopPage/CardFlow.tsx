@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import ImageCardFlow from "../../images/CardFlow.jpg";
-import { colors } from "../../styles/Variables";
+import ImageCardFlow from "../../../images/CardFlow.jpg";
+import { device, imageMedia } from "../../../styles/GlobalStyle";
+import { colors } from "../../../styles/Variables";
 
 const Container = styled.div`
   background-color: ${colors.baseBlue};
@@ -11,6 +12,9 @@ const Width = styled.div`
   width: 65%;
   margin: auto;
   text-align: center;
+  @media ${device.tablet} {
+    width: 80%;
+  }
 `;
 const Parts = styled.div`
   padding-bottom: 70px;
@@ -20,13 +24,7 @@ const Image = styled.img`
   width: auto;
   border-radius: 10px;
   margin-top: 50px;
-`;
-const Explanation = styled.div`
-  margin-top: 20px;
-  p {
-    font-size: 17px;
-    margin-bottom: 10px;
-  }
+  ${imageMedia}
 `;
 const Title = styled.h1`
   padding-top: 60px;

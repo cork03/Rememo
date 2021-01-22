@@ -1,6 +1,29 @@
 import { createGlobalStyle } from "styled-components";
 import { colors } from "./Variables";
 
+const size = {
+  mobile: "576px",
+  tablet: "786px",
+  tablet_laptop: "1000px",
+  laptop: "1200px",
+  desktop: "2560px",
+};
+
+export const device = {
+  mobile: `(max-width: ${size.mobile})`,
+  tablet: `(max-width: ${size.tablet})`,
+  tablet_laptop: `(max-width: ${size.tablet_laptop})`,
+  laptop: `(max-width: ${size.laptop})`,
+  desktop: `(max-width: ${size.desktop})`,
+};
+
+export const imageMedia = `@media ${device.tablet} {
+  height: 250px;
+}
+@media ${device.mobile} {
+  height: 200px;
+}`;
+
 export const GlobalStyle = createGlobalStyle`
   html{
   font-family: Lato, "Lucida Grande", "Lucida Sans Unicode", Tahoma, sans-serif;
@@ -43,7 +66,7 @@ body{
     overflow: hidden;
     bottom: auto !important;
     top: 200px !important;
-    @media (max-width: 576px) {
+    @media ${device.mobile} {
       width: 100%;
       right: 0 !important;
       left: 0 !important;

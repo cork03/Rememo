@@ -1,19 +1,23 @@
 import React, { useCallback, useContext } from "react";
 import styled from "styled-components";
 import { HashLink } from "react-router-hash-link";
-import Think from "../../images/think.jpg";
-import { LoginModal } from "../templetes/LoginModal";
-import { UserContext } from "../AuthenticatedPage";
-import { SignUpModal } from "../templetes/SignUpModal";
+import Think from "../../../images/think.jpg";
+import { LoginModal } from "../../templetes/LoginModal";
+import { UserContext } from "../../AuthenticatedPage";
+import { SignUpModal } from "../../templetes/SignUpModal";
 import { TopBodyExplanation } from "./TopBodyExplanation";
-import Button from "../atoms/Buttons";
+import Button from "../../atoms/Buttons";
 import { HowToUse } from "./HowToUse";
 import { CardFlow } from "./CardFlow";
+import { device } from "../../../styles/GlobalStyle";
 
 const Container = styled.div``;
 const Width = styled.div`
   width: 65%;
   margin: auto;
+  @media ${device.tablet_laptop} {
+    width: 100%;
+  }
 `;
 const Summary = styled.div`
   height: 100vh;
@@ -32,6 +36,12 @@ const SummaryTitle = styled.h1`
   padding-top: 40px;
   font-size: 30px;
   font-weight: 500;
+  @media ${device.tablet_laptop} {
+    font-size: 25px;
+  }
+  @media ${device.tablet} {
+    font-size: 20px;
+  }
 `;
 
 const Explanation = styled.div`
@@ -42,11 +52,16 @@ const Explanation = styled.div`
   }
 `;
 const Guides = styled.div`
-  width: 40%;
+  width: 50%;
   margin: 0 auto;
   padding-top: 30px;
   display: flex;
   justify-content: space-between;
+  @media ${device.tablet_laptop} {
+  }
+  @media ${device.tablet} {
+    width: 60%;
+  }
 `;
 
 export const TopBody = ({
