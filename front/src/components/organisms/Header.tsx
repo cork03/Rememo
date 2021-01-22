@@ -6,6 +6,7 @@ import { SignUpModal } from "../templetes/SignUpModal";
 import { colors } from "../../styles/Variables";
 import { DropDown } from "./DropDown";
 import { UserContext } from "../AuthenticatedPage";
+import { device } from "../../styles/GlobalStyle";
 
 const Container = styled.div`
   width: 100%;
@@ -19,6 +20,9 @@ const Width = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @media ${device.tablet} {
+    width: 100%;
+  }
 `;
 
 const Logo = styled.div`

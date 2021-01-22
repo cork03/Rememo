@@ -1,13 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import Image1 from "../../images/HowToUse.jpg";
-import Image2 from "../../images/HowToUse2.jpg";
+import Image1 from "../../../images/HowToUse.jpg";
+import Image2 from "../../../images/HowToUse2.jpg";
+import { device, imageMedia } from "../../../styles/GlobalStyle";
 
 const Container = styled.div``;
 const Width = styled.div`
   width: 65%;
   margin: auto;
   text-align: center;
+  @media ${device.tablet} {
+    width: 80%;
+  }
 `;
 const Parts = styled.div`
   padding-bottom: 30px;
@@ -17,6 +21,7 @@ const Image = styled.img`
   width: auto;
   border-radius: 10px;
   margin-top: 50px;
+  ${imageMedia}
 `;
 const Explanation = styled.div`
   margin-top: 20px;
