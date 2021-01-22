@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { MainBody } from "../components/organisms/MainBody";
+import { MainBody } from "../components/organisms/MainPage/MainBody";
 import { actionCreators } from "../actions";
 
 const mapStateToProps = ({ cards, userSettings }: any) => {
