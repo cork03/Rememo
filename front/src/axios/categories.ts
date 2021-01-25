@@ -1,5 +1,4 @@
 import axios from "axios";
-import "./setting";
 
 export const fetchCategory = async () => {
   const userCategoreis = await axios.get(`/userCategories`, {});

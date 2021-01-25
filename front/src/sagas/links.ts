@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import * as actions from "../actions";
-import { deleteLink } from "../axios/link";
+import { deleteLink } from "../axios/links";
 
 function* deleteLinks(action: any) {
   try {

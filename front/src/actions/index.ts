@@ -1,4 +1,4 @@
-import { usersLogin, fetchUsers, createUsers } from "../axios/user";
+import { usersLogin, fetchUsers, createUsers } from "../axios/users";
 import { fetchUserSettings } from "../axios/userSettings";
 
 // modal

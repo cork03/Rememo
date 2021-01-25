@@ -1,7 +1,4 @@
 import axios from "axios";
-import "./setting";
-
-const token = () => localStorage.getItem("token");
 
 // 取得
 

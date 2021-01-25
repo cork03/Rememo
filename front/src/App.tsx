@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { GlobalStyle } from "./styles/GlobalStyle";
 import Modal from "./containers/Modal";
 import Auth from "./containers/Auth";
+import "./axios/setting";
 
 const Container = styled.div``;
 function App() {

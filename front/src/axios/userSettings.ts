@@ -1,5 +1,4 @@
 import axios from "axios";
-import "./setting";
 
 export const fetchUserSettings = async () => {
   const result = await axios.get("/userSettings", {});
