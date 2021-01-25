@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { HomePage } from "../components/templetes";
+import { HomePage } from "../components/templates";
 
 const Container = styled.div``;
 

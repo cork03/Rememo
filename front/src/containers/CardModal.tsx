@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { CardModal } from "../components/templetes/CardModal";
+import { CardModal } from "../components/templates/CardModal";
 import { actionCreators } from "../actions";
 
 const mapStateToProps = ({ userCategories }: any) => {

@@ -1,11 +1,11 @@
-import React, { useCallback, useContext, useMemo } from "react";
+import React, { useCallback, useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { LoginModal } from "../templetes/LoginModal";
-import { SignUpModal } from "../templetes/SignUpModal";
+import { LoginModal } from "../templates/LoginModal";
+import { SignUpModal } from "../templates/SignUpModal";
 import { colors } from "../../styles/Variables";
 import { DropDown } from "./DropDown";
-import { UserContext } from "../AuthenticatedPage";
+import { UserContext } from "../templates/AuthenticatedPage";
 import { device } from "../../styles/GlobalStyle";
 
 const Container = styled.div`

@@ -1,5 +1,5 @@
 import { Redirect, Route, Switch } from "react-router-dom";
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext } from "react";
 import { useIsUser } from "../../hooks/useAuth";
 import Main from "../../pages/MainPage";
 import TopPage from "../../pages";

@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../actions";
-import { AuthenticatedPage } from "../components/AuthenticatedPage";
+import { AuthenticatedPage } from "../components/templates/AuthenticatedPage";
 
 const mapStateToProps = () => {
   return {};

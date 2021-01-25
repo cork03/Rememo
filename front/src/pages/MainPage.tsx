@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import styled from "styled-components";
-import { MainPage } from "../components/templetes/MainPage";
+import { MainPage } from "../components/templates/MainPage";
 import { MyPage } from "./MyPage";
 
 const Container = styled.div``;
