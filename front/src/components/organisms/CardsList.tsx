@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback } from "react";
 import styled from "styled-components";
-import { colors } from "../../../styles/Variables";
-import Button from "../../atoms/Buttons";
-import CreateCardModal from "../../../containers/CreateCardModal";
+import { colors } from "../../styles/Variables";
+import Button from "../atoms/Buttons";
+import CreateCardModal from "../../containers/CreateCardModal";
 import { Card } from "./Card";
-import { ListFrameComponent } from "../../atoms/ListFrame";
-import { device } from "../../../styles/GlobalStyle";
+import { ListFrameComponent } from "../atoms/ListFrame";
+import { device } from "../../styles/GlobalStyle";
 
 const Container = styled.div`
   width: 100%;

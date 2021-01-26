@@ -1,15 +1,15 @@
 import React, { useCallback, useContext } from "react";
 import styled from "styled-components";
 import { HashLink } from "react-router-hash-link";
-import Think from "../../../images/think.jpg";
-import { LoginModal } from "../../templates/LoginModal";
-import { UserContext } from "../../templates/AuthenticatedPage";
-import { SignUpModal } from "../../templates/SignUpModal";
+import Think from "../../images/think.jpg";
+import { LoginModal } from "./LoginModal";
+import { UserContext } from "./AuthenticatedPage";
+import { SignUpModal } from "./SignUpModal";
 import { TopBodyExplanation } from "./TopBodyExplanation";
-import Button from "../../atoms/Buttons";
+import Button from "../atoms/Buttons";
 import { HowToUse } from "./HowToUse";
 import { CardFlow } from "./CardFlow";
-import { device } from "../../../styles/GlobalStyle";
+import { device } from "../../styles/GlobalStyle";
 
 const Container = styled.div``;
 const Width = styled.div`

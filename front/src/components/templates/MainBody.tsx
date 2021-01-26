@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
-import { device } from "../../../styles/GlobalStyle";
-import { sortCardList, sortCategories } from "../../../utils";
-import { CardsList } from "./CardsList";
+import { device } from "../../styles/GlobalStyle";
+import { sortCardList, sortCategories } from "../../utils";
+import { CardsList } from "../organisms/CardsList";
 
 const Container = styled.div`
   height: 100vh;

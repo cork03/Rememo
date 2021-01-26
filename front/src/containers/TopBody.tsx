@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { TopBody } from "../components/organisms/TopPage/TopBody";
+import { TopBody } from "../components/templates/TopBody";
 import { actionCreators } from "../actions";
 
 const mapStateToProps = ({ auth }: any) => {

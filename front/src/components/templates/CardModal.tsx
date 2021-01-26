@@ -183,9 +183,13 @@ export const CardModal = ({
     if (checkDelete) {
       checkingToast(
         <CheckToast
-          deleteCard={deleteCard}
+          onOK={deleteCard}
+          onCancel={hideModal}
           hideModal={hideModal}
           id={card.id}
+          verification="削除しますか"
+          okWord="削除する"
+          cancelWord="削除しない"
         />
       );
     } else {

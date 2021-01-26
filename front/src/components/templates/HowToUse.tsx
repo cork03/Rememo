@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import Image1 from "../../../images/HowToUse.jpg";
-import Image2 from "../../../images/HowToUse2.jpg";
-import { device, imageMedia } from "../../../styles/GlobalStyle";
+import Image1 from "../../images/HowToUse.jpg";
+import Image2 from "../../images/HowToUse2.jpg";
+import { device, imageMedia } from "../../styles/GlobalStyle";
 
 const Container = styled.div``;
 const Width = styled.div`

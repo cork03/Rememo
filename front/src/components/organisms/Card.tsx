@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import styled from "styled-components";
-import CardModal from "../../../containers/CardModal";
-import { colors } from "../../../styles/Variables";
+import CardModal from "../../containers/CardModal";
+import { colors } from "../../styles/Variables";
 
 const Container = styled.li`
   background-color: ${colors.card};

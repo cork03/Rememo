@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { MyPageBody } from "../components/organisms/MyPageBody";
+import { MyPageBody } from "../components/templates/MyPageBody";
 import { actionCreators } from "../actions";
 
 const mapStateToProps = ({ auth, userSettings }: any) => {

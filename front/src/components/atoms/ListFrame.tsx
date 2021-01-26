@@ -8,17 +8,17 @@ const ListFrame = styled.div`
   align-items: center;
   display: flex;
 `;
-const ListFrameBlue = styled(ListFrame)`
+const ListFrameUnLearn = styled(ListFrame)`
   background-color: ${colors.baseBlue};
 `;
-const ListFrameOrage = styled(ListFrame)`
+const ListFrameLeraned = styled(ListFrame)`
   background-color: ${colors.baseOrange};
 `;
 
 const map: any = {
   default: ListFrame,
-  blue: ListFrameBlue,
-  orange: ListFrameOrage,
+  blue: ListFrameUnLearn,
+  orange: ListFrameLeraned,
 };
 export const ListFrameComponent = ({ type, children }: any) => {
   const component = map[type] || map.defalut;

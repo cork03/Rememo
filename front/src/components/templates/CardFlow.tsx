@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import ImageCardFlow from "../../../images/CardFlow.jpg";
-import { device, imageMedia } from "../../../styles/GlobalStyle";
-import { colors } from "../../../styles/Variables";
+import ImageCardFlow from "../../images/CardFlow.jpg";
+import { device, imageMedia } from "../../styles/GlobalStyle";
+import { colors } from "../../styles/Variables";
 
 const Container = styled.div`
   background-color: ${colors.baseBlue};

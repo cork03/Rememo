@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import styled from "styled-components";
 import { colors } from "../../styles/Variables";
 
@@ -17,7 +17,7 @@ export const TextArea = ({ value, onChangeText, placeholder }: any) => {
     },
     [onChangeText]
   );
-  const returnRows = useCallback(() => {
+  const returnRows = useMemo(() => {
     if (value) {
       const rows = value.split("\n").length;
       return rows;
@@ -31,7 +31,7 @@ export const TextArea = ({ value, onChangeText, placeholder }: any) => {
       <Input
         placeholder={placeholder}
         value={value}
-        rows={returnRows()}
+        rows={returnRows}
         onChange={onChange}
       />
     </>

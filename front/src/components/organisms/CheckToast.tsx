@@ -13,24 +13,32 @@ const Actions = styled.div`
   display: flex;
 `;
 
-export const CheckToast = ({ closeToast, deleteCard, hideModal, id }: any) => {
+export const CheckToast = ({
+  onCancel,
+  onOK,
+  hideModal,
+  verification,
+  okWord,
+  cancelWord,
+  id,
+}: any) => {
   const deleting = useCallback(() => {
-    deleteCard(id);
+    onOK(id);
     hideModal();
-  }, [deleteCard, hideModal]);
+  }, [onOK, hideModal]);
   const cancel = useCallback(() => {
-    closeToast();
-  }, [closeToast]);
+    onCancel();
+  }, [onCancel]);
   return (
     <>
       <Container>
-        <Verification>本当に削除しますか？</Verification>
+        <Verification>{verification}</Verification>
         <Actions>
           <Button type="danger" onClick={deleting}>
-            カードを削除
+            {okWord}
           </Button>
           <Button type="primary" onClick={cancel}>
-            削除しない
+            {cancelWord}
           </Button>
         </Actions>
       </Container>
