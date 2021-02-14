@@ -1,0 +1,18 @@
+version: "3"
+services:
+  db:
+    build: ./api
+    ports:
+      - 3306:3306
+    volumes:
+      - ./api/data:/var/lib/mysql
+
+
+  api:
+    build: .
+    ports:
+      - 8080:8080
+    volumes:
+      - ./api:/root
+      - /root/node_modules
+    command: [sh, -c, yarn install && yarn start]
